@@ -25,23 +25,10 @@
       # Function to generate attributes for each supported system
       forAllSystems = lib.genAttrs supportedSystems;
 
-      # Configure nixpkgs with allowUnfree for all systems
-      nixpkgsWithConfig = forAllSystems (system:
-        import nixpkgs {
-          inherit system;
-          config = { allowUnfree = true; };
-        });
+      # Import the library functions
+      myLib = import ./lib/default.nix { inherit lib inputs; };
 
-      # Import the system builder function
-      systemLib = import ./lib/system.nix {
-        inherit lib inputs;
-      }; # inputs here will include zen-browser-flake
-      inherit (systemLib) mkSystem;
-
-    in {
-      # Make nixpkgsWithConfig available to other modules
-      inherit nixpkgsWithConfig;
-
+    in with myLib; {
       # NixOS configurations for different hosts
       nixosConfigurations = {
         # Whirl host configuration using mkSystem
