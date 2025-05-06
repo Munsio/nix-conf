@@ -28,8 +28,7 @@ in {
     packages = with pkgs; [ jq dnsutils vlc ];
   };
 
-  # Enable homeModules
-  homeModules = { };
+  homeModules = { ghostty.enable = true; };
 
   # Custom configuration
 
