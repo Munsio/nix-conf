@@ -6,10 +6,12 @@ in {
   mkSystem = { hostname, system ? "x86_64-linux", users ? [ ]
     , extraModules ? [ ]
     , extraHomeManagerModules ? [ ] # Added argument with default
+    , overlays ? [ ] # Overlays for nixModules
     , homeManagerConfig ? null }:
     let
       # Import the module system with allowUnfree config
       pkgs = inputs.self.nixpkgsWithConfig.${system};
+
       moduleLib = import ./modules.nix { inherit inputs lib pkgs; };
       inherit (moduleLib) mkModuleSystem moduleTypes;
 
@@ -41,16 +43,7 @@ in {
           users = lib.genAttrs users (user: {
             imports =
               [ ../hosts/${hostname}/home.nix ../users/${user}/home.nix ]
-              ++ extraHomeManagerModules # Appended here
-              ++ [
-                # Make homeModules available for each user
-                # (mkModuleSystem {
-                #   featuresDir = ../home/features;
-                #   bundlesDir = ../home/bundles;
-                #   servicesDir = ../home/services;
-                #   type = moduleTypes.home;
-                # })
-              ];
+              ++ extraHomeManagerModules; # Appended here
           });
         };
       };
@@ -77,6 +70,10 @@ in {
           servicesDir = ../modules/services;
           type = moduleTypes.nix;
         })
+
+        {
+          nixpkgs.overlays = overlays;
+        }
 
         # Home Manager module
         homeManagerModule

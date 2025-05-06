@@ -12,6 +12,7 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs"; # Assuming it might need nixpkgs
     };
+    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
@@ -47,8 +48,11 @@
         whirl = mkSystem {
           hostname = "whirl";
           users = [ "martin" ];
-          extraHomeManagerModules =
-            [ inputs.zen-browser-flake.homeModules.twilight ];
+          extraHomeManagerModules = [
+            inputs.zen-browser-flake.homeModules.twilight
+            inputs.hyprpanel.homeManagerModules.hyprpanel
+          ];
+          overlays = [ inputs.hyprpanel.overlay ];
         };
       };
 
