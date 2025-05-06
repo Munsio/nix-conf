@@ -1,12 +1,7 @@
-{ lib, inputs, ... }:
-
-let
-in {
+{ lib, inputs, ... }: {
   # Function to create a NixOS system configuration for a specific host
   mkSystem = { hostname, system ? "x86_64-linux", users ? [ ]
-    , extraModules ? [ ]
-    , extraHomeManagerModules ? [ ] # Added argument with default
-    , overlays ? [ ] # Overlays for nixModules
+    , extraModules ? [ ], extraHomeManagerModules ? [ ], overlays ? [ ]
     , homeManagerConfig ? null }:
     let
       # Import the module system with allowUnfree config
@@ -25,7 +20,7 @@ in {
       # Home Manager configuration
       homeManagerModule = inputs.home-manager.nixosModules.home-manager;
 
-      # Default Home Manager configuration
+      # Home Manager configuration with sensible defaults
       defaultHomeManagerConfig = {
         home-manager = {
           useGlobalPkgs = true;
@@ -43,16 +38,10 @@ in {
           users = lib.genAttrs users (user: {
             imports =
               [ ../hosts/${hostname}/home.nix ../users/${user}/home.nix ]
-              ++ extraHomeManagerModules; # Appended here
+              ++ extraHomeManagerModules;
           });
         };
       };
-
-      # Use provided home-manager config or default
-      finalHomeManagerConfig = if homeManagerConfig != null then
-        homeManagerConfig
-      else
-        defaultHomeManagerConfig;
     in lib.nixosSystem {
       inherit system;
       specialArgs = { inherit inputs hostname hostVars; };
@@ -71,13 +60,19 @@ in {
           type = moduleTypes.nix;
         })
 
+        # Apply overlays
         {
           nixpkgs.overlays = overlays;
         }
 
-        # Home Manager module
+        # Home Manager configuration
         homeManagerModule
-        finalHomeManagerConfig
-      ] ++ userModules ++ extraModules;
+        (if homeManagerConfig != null then
+          homeManagerConfig
+        else
+          defaultHomeManagerConfig)
+      ]
+      # Add user modules and extra modules
+        ++ userModules ++ extraModules;
     };
 }
