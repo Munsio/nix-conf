@@ -28,7 +28,10 @@ in {
     packages = with pkgs; [ jq dnsutils vlc ];
   };
 
-  homeModules = { ghostty.enable = true; };
+  homeModules = {
+    ghostty.enable = true;
+    discord.enable = true;
+  };
 
   # Custom configuration
 
