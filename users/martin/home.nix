@@ -1,6 +1,6 @@
-{ pkgs, hostVars, ... }:
-
-{
+{ lib, pkgs, hostVars, ... }:
+let terminal = "ghostty";
+in {
   # Home Manager configuration for martin
 
   # Let Home Manager manage itself
@@ -19,10 +19,20 @@
     # incompatible changes.
     stateVersion = hostVars.stateVersion;
 
+    sessionVariables = {
+      TERMINAL = terminal;
+      EDITOR = "vim";
+    };
+
     # Packages installed to user profile
     packages = with pkgs; [ ];
   };
 
   # Enable homeModules
   homeModules = { };
+
+  # Custom configuration
+
+  ## Hyprland
+  wayland.windowManager.hyprland.settings = { "$terminal" = terminal; };
 }

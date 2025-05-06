@@ -25,6 +25,7 @@
     # Enable bundles
     bundles.automount.enable = true;
     bundles.yubikey.enable = true;
+    bundles.hypr-desktop.enable = true;
   };
 
   # System-specific packages

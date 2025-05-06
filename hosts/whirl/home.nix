@@ -1,5 +1,5 @@
 { ... }: {
 
   # Enable Home Manager modules using homeModules
-  homeModules = { };
+  homeModules = { bundles.hypr-desktop.enable = true; };
 }
