@@ -1,15 +1,17 @@
 { pkgs, hostVars, ... }:
 
 {
-  # Home Manager configuration for example-user
+  # Home Manager configuration for martin
 
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
 
   # Home directory configuration
   home = {
-    username = "example-user";
-    homeDirectory = "/home/example-user";
+    # Use the username from the current user context
+    username = "martin";
+    # Use the homeDirectory from the current user context
+    homeDirectory = "/home/martin";
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -18,26 +20,9 @@
     stateVersion = hostVars.stateVersion;
 
     # Packages installed to user profile
-    packages = with pkgs;
-      [
-        # User-specific packages
-        #firefox
-        #thunderbird
-        #vlc
-      ];
-
+    packages = with pkgs; [ ];
   };
 
   # Enable homeModules
-  homeModules = {
-    # Enable features
-    # git = true;
-    zen-browser = true;
-
-    # Enable bundles
-    # bundles.development = true;
-
-    # Enable services
-    # services.ssh = true;
-  };
+  homeModules = { };
 }

@@ -6,8 +6,8 @@
   # Enable NixOS modules
   nixModules = {
     # Enable features
-    nixos = true;
-    nh = true;
+    nixos.enable = true;
+    nh.enable = true;
   };
 
   # Set your time zone

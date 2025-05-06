@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,10 +33,10 @@
     in {
       # NixOS configurations for different hosts
       nixosConfigurations = {
-        # Example host configuration using mkSystem
-        example = mkSystem {
-          hostname = "example";
-          users = [ "example-user" ];
+        # Whirl host configuration using mkSystem
+        whirl = mkSystem {
+          hostname = "whirl";
+          users = [ "martin" ];
           extraHomeManagerModules =
             [ inputs.zen-browser-flake.homeModules.twilight ];
         };

@@ -9,8 +9,11 @@ let
   # Function to import all Nix files from a directory
   importDir = dir:
     let
-      # Get all entries in the directory
-      entries = builtins.readDir dir;
+      # Check if directory exists
+      dirExists = builtins.pathExists dir;
+
+      # Get all entries in the directory if it exists, otherwise empty set
+      entries = if dirExists then builtins.readDir dir else { };
 
       # Filter out non-Nix files and directories
       nixFiles = lib.filterAttrs
@@ -19,29 +22,39 @@ let
       # Filter directories
       dirs = lib.filterAttrs (_: type: type == "directory") entries;
 
-      # Import each Nix file
-      modules = lib.mapAttrs' (name: _:
-        let
-          # Remove .nix extension
-          moduleName = lib.removeSuffix ".nix" name;
-          # Import the module
-          imported = import (dir + "/${name}");
-          # Check if the function expects arguments
-          module = if builtins.isFunction imported then
-          # Check the number of arguments the function expects
-            if builtins.functionArgs imported == { } then
-            # If it expects no arguments, call it with an empty set
-              imported { }
+      # Import each Nix file if there are any
+      modules = if nixFiles == { } then
+        { }
+      else
+        lib.mapAttrs' (name: _:
+          let
+            # Remove .nix extension
+            moduleName = lib.removeSuffix ".nix" name;
+            # Import the module
+            imported = import (dir + "/${name}");
+            # Check if the function expects arguments
+            module = if builtins.isFunction imported then
+            # Check the number of arguments the function expects
+              if builtins.functionArgs imported == { } then
+              # If it expects no arguments, call it with an empty set
+                imported { }
+              else
+              # Otherwise, call it with lib and pkgs
+                imported { inherit inputs lib pkgs; }
             else
-            # Otherwise, call it with lib and pkgs
-              imported { inherit inputs lib pkgs; }
-          else
-            imported;
-        in lib.nameValuePair moduleName module) nixFiles;
+              imported;
+          in lib.nameValuePair moduleName module) nixFiles;
 
-      # Recursively import directories
-      nestedModules = lib.mapAttrs'
-        (name: _: lib.nameValuePair name (importDir (dir + "/${name}"))) dirs;
+      # Recursively import directories if there are any
+      nestedModules = if dirs == { } then
+        { }
+      else
+        lib.mapAttrs' (name: _:
+          let
+            subdir = dir + "/${name}";
+            subdirExists = builtins.pathExists subdir;
+          in lib.nameValuePair name
+          (if subdirExists then importDir subdir else { })) dirs;
       # Merge modules and nested modules
     in modules // nestedModules;
 
@@ -50,40 +63,51 @@ let
     { name, description, module, type ? moduleTypes.nix, category ? null }:
     { config, lib, ... }: {
       options = if category != null then {
-        ${type}.${category}.${name} = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          inherit description;
+        ${type}.${category}.${name} = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            inherit description;
+          };
         };
       } else {
-        ${type}.${name} = lib.mkOption {
-          type = lib.types.bool;
-          default = false;
-          inherit description;
+        ${type}.${name} = {
+          enable = lib.mkOption {
+            type = lib.types.bool;
+            default = false;
+            inherit description;
+          };
         };
       };
 
       config = if category != null then
-        lib.mkIf config.${type}.${category}.${name} module
+        lib.mkIf config.${type}.${category}.${name}.enable module
       else
-        lib.mkIf config.${type}.${name} module;
+        lib.mkIf config.${type}.${name}.enable module;
     };
 
   # Function to create modules from a directory
   mkModulesFromDir =
     { dir, description, type ? moduleTypes.nix, category ? null }:
     let
-      modules = importDir dir;
+      # Check if directory exists
+      dirExists = builtins.pathExists dir;
+
+      # Import modules only if directory exists
+      modules = if dirExists then importDir dir else { };
 
       # Convert each module to a proper module with enable option
-      modulesList = lib.mapAttrsToList (name: module:
-        mkModule {
-          inherit name;
-          inherit description;
-          inherit module;
-          inherit type;
-          inherit category;
-        }) modules;
+      modulesList = if modules == { } then
+        [ ]
+      else
+        lib.mapAttrsToList (name: module:
+          mkModule {
+            inherit name;
+            inherit description;
+            inherit module;
+            inherit type;
+            inherit category;
+          }) modules;
     in modulesList;
 in {
   inherit moduleTypes;
