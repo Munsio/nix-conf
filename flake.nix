@@ -14,7 +14,7 @@
     };
   };
 
-  outputs = { nixpkgs, ... }@inputs:
+  outputs = inputs@{ self, nixpkgs, ... }:
     let
       inherit (nixpkgs) lib;
 
@@ -24,6 +24,13 @@
       # Function to generate attributes for each supported system
       forAllSystems = lib.genAttrs supportedSystems;
 
+      # Configure nixpkgs with allowUnfree for all systems
+      nixpkgsWithConfig = forAllSystems (system:
+        import nixpkgs {
+          inherit system;
+          config = { allowUnfree = true; };
+        });
+
       # Import the system builder function
       systemLib = import ./lib/system.nix {
         inherit lib inputs;
@@ -31,6 +38,9 @@
       inherit (systemLib) mkSystem;
 
     in {
+      # Make nixpkgsWithConfig available to other modules
+      inherit nixpkgsWithConfig;
+
       # NixOS configurations for different hosts
       nixosConfigurations = {
         # Whirl host configuration using mkSystem

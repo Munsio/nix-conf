@@ -8,8 +8,8 @@ in {
     , extraHomeManagerModules ? [ ] # Added argument with default
     , homeManagerConfig ? null }:
     let
-      # Import the module system
-      pkgs = inputs.nixpkgs.legacyPackages.${system};
+      # Import the module system with allowUnfree config
+      pkgs = inputs.self.nixpkgsWithConfig.${system};
       moduleLib = import ./modules.nix { inherit inputs lib pkgs; };
       inherit (moduleLib) mkModuleSystem moduleTypes;
 
