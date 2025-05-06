@@ -41,7 +41,16 @@ in {
           users = lib.genAttrs users (user: {
             imports =
               [ ../hosts/${hostname}/home.nix ../users/${user}/home.nix ]
-              ++ extraHomeManagerModules; # Appended here
+              ++ extraHomeManagerModules # Appended here
+              ++ [
+                # Make homeModules available for each user
+                # (mkModuleSystem {
+                #   featuresDir = ../home/features;
+                #   bundlesDir = ../home/bundles;
+                #   servicesDir = ../home/services;
+                #   type = moduleTypes.home;
+                # })
+              ];
           });
         };
       };
