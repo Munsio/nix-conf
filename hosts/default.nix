@@ -1,4 +1,4 @@
-{ lib, hostVars, ... }:
+{ lib, hostVars, pkgs, ... }:
 
 {
   # Common configuration for all hosts
@@ -31,6 +31,24 @@
 
   # Configure console keymap
   console.keyMap = lib.mkDefault hostVars.keyboardLayout;
+
+  # Environment and standard packages
+  environment.systemPackages = with pkgs; [
+    pciutils
+    wget
+    dmidecode
+    killall
+    usbutils
+  ];
+
+  # Security
+  security = {
+    rtkit.enable = true;
+    polkit.enable = true;
+  };
+
+  # Firmware update
+  services.fwupd.enable = true;
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software.
