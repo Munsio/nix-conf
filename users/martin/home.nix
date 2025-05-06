@@ -1,4 +1,4 @@
-{ lib, pkgs, hostVars, ... }:
+{ lib, pkgs, hostVars, config, ... }:
 let terminal = "ghostty";
 in {
   # Home Manager configuration for martin
@@ -31,6 +31,14 @@ in {
   homeModules = { ghostty.enable = true; };
 
   # Custom configuration
+
+  ## Git
+  programs = {
+    git = lib.mkIf config.modules.git.enable {
+      userEmail = "git@treml.dev";
+      userName = "Martin Treml";
+    };
+  };
 
   ## Hyprland
   wayland.windowManager.hyprland.settings = { "$terminal" = terminal; };
