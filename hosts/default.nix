@@ -8,6 +8,7 @@
     # Enable features
     nixos.enable = true;
     nh.enable = true;
+    home-manager.enable = true;
   };
 
   # Set your time zone
