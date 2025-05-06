@@ -31,6 +31,10 @@ in {
   homeModules = {
     ghostty.enable = true;
     discord.enable = true;
+    fish.enable = true;
+    starship.enable = true;
+    zoxide.enable = true;
+    moonlight.enable = true;
   };
 
   # Custom configuration
