@@ -1,5 +1,11 @@
-{ lib, pkgs, hostVars, config, ... }:
-let terminal = "ghostty";
+{
+  lib,
+  pkgs,
+  hostVars,
+  config,
+  ...
+}: let
+  terminal = "ghostty";
 in {
   # Home Manager configuration for martin
 
@@ -17,7 +23,7 @@ in {
     # configuration is compatible with. This helps avoid breakage
     # when a new Home Manager release introduces backwards
     # incompatible changes.
-    stateVersion = hostVars.stateVersion;
+    inherit (hostVars) stateVersion;
 
     sessionVariables = {
       TERMINAL = terminal;
@@ -25,7 +31,7 @@ in {
     };
 
     # Packages installed to user profile
-    packages = with pkgs; [ jq dnsutils vlc ];
+    packages = with pkgs; [jq dnsutils vlc];
   };
 
   homeModules = {
@@ -49,5 +55,5 @@ in {
   };
 
   ## Hyprland
-  wayland.windowManager.hyprland.settings = { "$terminal" = terminal; };
+  wayland.windowManager.hyprland.settings = {"$terminal" = terminal;};
 }

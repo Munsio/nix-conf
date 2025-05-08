@@ -1,13 +1,16 @@
-{ pkgs, inputs, lib, ... }:
-
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
 
-    # Use extensions from nix-vscode-extensions flake
-    extensions =
-      with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+    # User settings
+    profiles.default = {
+      # Use extensions from nix-vscode-extensions flake
+      extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
         # Nix support
         jnoortheen.nix-ide # Nix language support
         arrterian.nix-env-selector # Nix environment selector
@@ -22,58 +25,57 @@
         # Add more extensions as needed
       ];
 
-    # User settings
-    userSettings = {
-      "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
-      "editor.fontSize" = 14;
-      "editor.lineHeight" = 22;
-      "editor.renderWhitespace" = "boundary";
-      "editor.rulers" = [ 80 120 ];
-      "editor.minimap.enabled" = false;
-      "editor.formatOnSave" = true;
-      "editor.tabSize" = 2;
-      "editor.insertSpaces" = true;
-      "editor.detectIndentation" = true;
+      userSettings = {
+        "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
+        "editor.fontSize" = 14;
+        "editor.lineHeight" = 22;
+        "editor.renderWhitespace" = "boundary";
+        "editor.rulers" = [80 120];
+        "editor.minimap.enabled" = false;
+        "editor.formatOnSave" = true;
+        "editor.tabSize" = 2;
+        "editor.insertSpaces" = true;
+        "editor.detectIndentation" = true;
 
-      "workbench.editor.enablePreview" = false;
-      "workbench.colorTheme" = "Default Dark+";
-      "workbench.iconTheme" = "material-icon-theme";
-      "workbench.startupEditor" = "none";
+        "workbench.editor.enablePreview" = false;
+        "workbench.colorTheme" = "Default Dark+";
+        "workbench.iconTheme" = "material-icon-theme";
+        "workbench.startupEditor" = "none";
 
-      "window.titleBarStyle" = "custom";
+        "window.titleBarStyle" = "custom";
 
-      "terminal.integrated.fontFamily" =
-        "'JetBrainsMono Nerd Font', 'monospace'";
-      "terminal.integrated.fontSize" = 14;
-      "terminal.integrated.defaultProfile.linux" = "bash";
+        "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
+        "terminal.integrated.fontSize" = 14;
+        "terminal.integrated.defaultProfile.linux" = "bash";
 
-      "files.autoSave" = "afterDelay";
-      "files.autoSaveDelay" = 1000;
-      "files.trimTrailingWhitespace" = true;
-      "files.insertFinalNewline" = true;
+        "files.autoSave" = "afterDelay";
+        "files.autoSaveDelay" = 1000;
+        "files.trimTrailingWhitespace" = true;
+        "files.insertFinalNewline" = true;
 
-      "git.enableSmartCommit" = true;
-      "git.confirmSync" = false;
+        "git.enableSmartCommit" = true;
+        "git.confirmSync" = false;
 
-      "telemetry.telemetryLevel" = "off";
+        "telemetry.telemetryLevel" = "off";
 
-      # Nix specific settings
-      "nix.enableLanguageServer" = true;
-      "nix.serverPath" = "nil";
-      "nix.formatterPath" = "alejandra";
+        # Nix specific settings
+        "nix.enableLanguageServer" = true;
+        "nix.serverPath" = "nil";
+        "nix.formatterPath" = "alejandra";
+      };
+
+      # Keybindings
+      keybindings = [
+        {
+          key = "ctrl+shift+b";
+          command = "workbench.action.tasks.build";
+        }
+        {
+          key = "ctrl+shift+t";
+          command = "workbench.action.terminal.toggleTerminal";
+        }
+      ];
     };
-
-    # Keybindings
-    keybindings = [
-      {
-        key = "ctrl+shift+b";
-        command = "workbench.action.tasks.build";
-      }
-      {
-        key = "ctrl+shift+t";
-        command = "workbench.action.terminal.toggleTerminal";
-      }
-    ];
   };
 
   # Additional packages that enhance the VSCode experience
@@ -85,7 +87,7 @@
 
     # Formatters
     alejandra
-    prettier
+    prettierd
 
     # Linters
     statix # Nix linter

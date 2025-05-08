@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   # Enable HyprPanel in home-manager
   programs.hyprpanel = {
     enable = true;

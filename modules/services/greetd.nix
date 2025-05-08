@@ -1,7 +1,6 @@
-{ pkgs, ... }:
-let tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+{pkgs, ...}: let
+  tuigreet = "${pkgs.greetd.tuigreet}/bin/tuigreet";
 in {
-
   services.greetd = {
     enable = true;
     settings = {

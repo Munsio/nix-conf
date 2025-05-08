@@ -1,6 +1,4 @@
-{ ... }:
-
-let
+{...}: let
   username = "martin";
   directory = "/home/martin";
 in {

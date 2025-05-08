@@ -1,10 +1,10 @@
-{ ... }: {
+{...}: {
   # Enable Hyprland in home-manager
   wayland.windowManager.hyprland = {
     enable = true;
     systemd = {
       enable = true;
-      variables = [ "--all" ];
+      variables = ["--all"];
     };
     # You can add default configuration here if needed
     settings = {
@@ -17,51 +17,54 @@
         gaps_out = 10;
       };
       # Decoration
-      decoration = { rounding = 10; };
+      decoration = {rounding = 10;};
       # Dwindle
       dwindle = {
         pseudotile = true;
         preserve_split = true;
       };
-      misc = { disable_hyprland_logo = true; };
+      misc = {disable_hyprland_logo = true;};
       # Bindings
-      bind = [
-        # Program bindings
-        "$mod, RETURN, exec, $terminal"
+      bind =
+        [
+          # Program bindings
+          "$mod, RETURN, exec, $terminal"
 
-        # General window/behaviour binding
-        "$mod, Q, killactive,"
-        "$mod, F, togglefloating, "
-        "$mod, P, pseudo, # dwindle"
-        "$mod, J, togglesplit, # dwindle"
+          # General window/behaviour binding
+          "$mod, Q, killactive,"
+          "$mod, F, togglefloating, "
+          "$mod, P, pseudo, # dwindle"
+          "$mod, J, togglesplit, # dwindle"
 
-        # Move focus with $mod + arrow keys
-        "$mod, left, movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up, movefocus, u"
-        "$mod, down, movefocus, d"
+          # Move focus with $mod + arrow keys
+          "$mod, left, movefocus, l"
+          "$mod, right, movefocus, r"
+          "$mod, up, movefocus, u"
+          "$mod, down, movefocus, d"
 
-        # Workspace special mods
-        "$mod SHIFT, right, movetoworkspace, r+1"
-        "$mod SHIFT, left, movetoworkspace, r-1"
+          # Workspace special mods
+          "$mod SHIFT, right, movetoworkspace, r+1"
+          "$mod SHIFT, left, movetoworkspace, r-1"
 
-        # Scroll through existing workspaces with $mod + scroll
-        "$mod, mouse_down, workspace, r+1"
-        "$mod, mouse_up, workspace, r-1"
-        #"$mod CTRL, right, workspace, e+1 "
-        #"$mod CTRL, left, workspace, e-1 "
-        "$mod CTRL, right, workspace, m+1"
-        "$mod CTRL, left, workspace, m-1"
-      ] ++ (
-        # workspaces
-        # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-        builtins.concatLists (builtins.genList (x:
-          let
-            ws = let c = (x + 1) / 10; in builtins.toString (x + 1 - (c * 10));
-          in [
-            "$mod, ${ws}, workspace, ${toString (x + 1)}"
-            "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
-          ]) 10));
+          # Scroll through existing workspaces with $mod + scroll
+          "$mod, mouse_down, workspace, r+1"
+          "$mod, mouse_up, workspace, r-1"
+          #"$mod CTRL, right, workspace, e+1 "
+          #"$mod CTRL, left, workspace, e-1 "
+          "$mod CTRL, right, workspace, m+1"
+          "$mod CTRL, left, workspace, m-1"
+        ]
+        ++ (
+          # workspaces
+          # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+          builtins.concatLists (builtins.genList (x: let
+              ws = let c = (x + 1) / 10; in builtins.toString (x + 1 - (c * 10));
+            in [
+              "$mod, ${ws}, workspace, ${toString (x + 1)}"
+              "$mod SHIFT, ${ws}, movetoworkspace, ${toString (x + 1)}"
+            ])
+            10)
+        );
 
       # Media Keys
       bindl = [
@@ -78,7 +81,7 @@
       ];
 
       # Mouse bindings
-      bindm = [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
+      bindm = ["$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow"];
     };
   };
 }

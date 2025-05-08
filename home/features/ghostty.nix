@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   # Enable Ghostty terminal in home-manager
   programs.ghostty = {
     enable = true;

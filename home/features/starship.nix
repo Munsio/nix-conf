@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{lib, ...}: {
   # Enable Starship prompt in home-manager
   programs.starship = {
     enable = true;
@@ -13,14 +13,14 @@
         truncation_length = 3;
         truncation_symbol = "…/";
       };
-      format = lib.concatStrings [ "$directory" "$character" ];
+      format = lib.concatStrings ["$directory" "$character"];
       right_format = "$all";
-      git_branch = { format = "[$symbol$branch(:$remote_branch)]($style) "; };
+      git_branch = {format = "[$symbol$branch(:$remote_branch)]($style) ";};
       nix_shell = {
         symbol = "❄️ ";
         format = "via [$symbol$state( ($name))]($style) ";
       };
-      golang = { symbol = " "; };
+      golang = {symbol = " ";};
     };
   };
 }

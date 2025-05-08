@@ -1,10 +1,13 @@
-{ pkgs, ... }: {
-  # SmartCard service, needed for USB detection.
-  services.pcscd.enable = true;
-  # Yubikey-Agent is for passing SSH keys.
-  services.yubikey-agent.enable = true;
-
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+{pkgs, ...}: {
+  # Services for Yubikey
+  services = {
+    # SmartCard service, needed for USB detection.
+    pcscd.enable = true;
+    # Yubikey-Agent is for passing SSH keys.
+    yubikey-agent.enable = true;
+    # Udev rules for Yubikey
+    udev.packages = [pkgs.yubikey-personalization];
+  };
 
   programs.gnupg.agent = {
     enable = true;
@@ -16,5 +19,4 @@
     yubikey-manager # cli for managing Yubikey. "ykman"
     pam_u2f # yubikey with sudo
   ];
-
 }

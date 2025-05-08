@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Enable Hyprland and related packages in the system
   programs.hyprland = {
     enable = true;

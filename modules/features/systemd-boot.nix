@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   boot = {
     bootspec.enable = true;
     loader = {

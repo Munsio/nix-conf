@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Enable Fish shell in home-manager
   programs.fish = {
     enable = true;

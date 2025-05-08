@@ -1,6 +1,9 @@
-{ lib, hostVars, pkgs, ... }:
-
 {
+  lib,
+  hostVars,
+  pkgs,
+  ...
+}: {
   # Common configuration for all hosts
 
   # Enable NixOS modules

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.zen-browser = {
     enable = true;
     policies = {
@@ -9,6 +7,6 @@
     };
     # Assuming firefoxpwa is the desired package for native messaging.
     # This will require pkgs to be available in the module's scope.
-    nativeMessagingHosts = [ pkgs.firefoxpwa ];
+    nativeMessagingHosts = [pkgs.firefoxpwa];
   };
 }

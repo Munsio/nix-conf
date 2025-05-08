@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   # NixOS Helper (nh) configuration
   programs = {
     nh = {

@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   services.pulseaudio.enable = false;
 
   services.pipewire = {
@@ -11,7 +11,7 @@
       enable = true;
       extraConfig = {
         "10-disable-camera" = {
-          "wireplumber.profiles" = { main."monitor.libcamera" = "disabled"; };
+          "wireplumber.profiles" = {main."monitor.libcamera" = "disabled";};
         };
       };
     };

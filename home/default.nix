@@ -1,6 +1,10 @@
-{ pkgs, config, lib, inputs, ... }:
-let
-  myLib = import ../lib/default.nix { inherit inputs lib; };
+{
+  config,
+  lib,
+  inputs,
+  ...
+}: let
+  myLib = import ../lib/default.nix {inherit inputs lib;};
   cfg = config.homeModules;
 
   # Taking all modules in ./features and adding enables to them
@@ -37,14 +41,14 @@ in {
 
   options.homeModules = {
     bundles = lib.mkOption {
-      type = lib.types.submodule { options = { }; };
-      default = { };
+      type = lib.types.submodule {options = {};};
+      default = {};
       description = "Bundles to enable";
     };
 
     services = lib.mkOption {
-      type = lib.types.submodule { options = { }; };
-      default = { };
+      type = lib.types.submodule {options = {};};
+      default = {};
       description = "Services to enable";
     };
   };
