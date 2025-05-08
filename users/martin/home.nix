@@ -35,6 +35,7 @@ in {
     starship.enable = true;
     zoxide.enable = true;
     moonlight.enable = true;
+    vscode.enable = true;
   };
 
   # Custom configuration

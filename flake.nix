@@ -13,6 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs"; # Assuming it might need nixpkgs
     };
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+    nix-vscode-extensions = {
+      url = "github:nix-community/nix-vscode-extensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
@@ -38,6 +42,7 @@
           extraHomeManagerModules = [
             inputs.zen-browser-flake.homeModules.twilight
             inputs.hyprpanel.homeManagerModules.hyprpanel
+            inputs.nix-vscode-extensions.homeManagerModules.default
           ];
           overlays = [ inputs.hyprpanel.overlay ];
         };
@@ -53,7 +58,7 @@
               nil
 
               # Nix formatting and linting tools
-              nixpkgs-fmt # Formatter
+              alejandra # Formatter
               statix # Linter for suggestions
               deadnix # Find unused code
               # nix-linter is currently marked as broken in nixpkgs
