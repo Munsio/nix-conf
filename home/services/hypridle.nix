@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   # Enable and configure hypridle (idle daemon)
   services.hypridle = {
     enable = true;
@@ -34,7 +38,7 @@
   };
 
   # Add hypridle to Hyprland's exec-once when hypridle is enabled
-  wayland.windowManager.hyprland.settings = {
+  wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
     exec-once = lib.mkMerge [["hypridle"]];
   };
 }

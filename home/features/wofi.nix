@@ -1,4 +1,8 @@
-{ lib, config, ... }: {
+{
+  lib,
+  config,
+  ...
+}: {
   # Configure wofi - a Wayland native application launcher
   programs.wofi = {
     enable = true;
@@ -214,16 +218,15 @@
   };
 
   # Add a keybinding for the power menu to Hyprland if it's enabled
-  wayland.windowManager.hyprland.settings =
-    lib.mkIf config.wayland.windowManager.hyprland.enable {
-      windowrule = [ "animation none, Wofi" ];
+  wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
+    windowrule = ["animation none, Wofi"];
 
-      bind = [
-        "ALT, Space, exec, killall wofi || wofi"
-        "$mod, escape, exec, ~/.local/bin/wofi-power-menu"
-      ];
-    };
+    bind = [
+      "ALT, Space, exec, killall wofi || wofi"
+      "$mod, escape, exec, ~/.local/bin/wofi-power-menu"
+    ];
+  };
 
   # Ensure the .local/bin directory is in the PATH
-  home.sessionVariables = { PATH = "$HOME/.local/bin:$PATH"; };
+  home.sessionVariables = {PATH = "$HOME/.local/bin:$PATH";};
 }

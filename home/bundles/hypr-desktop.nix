@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   homeModules = {
     # Enable Hyprland features
     hyprland.enable = true;
