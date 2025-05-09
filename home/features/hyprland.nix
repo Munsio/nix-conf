@@ -32,7 +32,8 @@
 
           # General window/behaviour binding
           "$mod, Q, killactive,"
-          "$mod, F, togglefloating, "
+          "$mod SHIFT, F, togglefloating, "
+          "$mod, F, fullscreen,"
           "$mod, P, pseudo, # dwindle"
           "$mod, J, togglesplit, # dwindle"
 

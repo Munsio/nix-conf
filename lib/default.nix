@@ -81,6 +81,7 @@
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
+          backupFileExtension = "hm-backup";
           extraSpecialArgs = {inherit inputs hostname hostVars;};
           sharedModules = [../home];
           # Load user-specific home-manager configurations
