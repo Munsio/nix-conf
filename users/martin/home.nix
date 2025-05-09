@@ -1,11 +1,5 @@
-{
-  lib,
-  pkgs,
-  hostVars,
-  config,
-  ...
-}: let
-  terminal = "ghostty";
+{ lib, pkgs, hostVars, config, ... }:
+let terminal = "ghostty";
 in {
   # Home Manager configuration for martin
 
@@ -31,7 +25,7 @@ in {
     };
 
     # Packages installed to user profile
-    packages = with pkgs; [jq dnsutils vlc];
+    packages = with pkgs; [ jq dnsutils vlc ];
   };
 
   homeModules = {
@@ -55,5 +49,5 @@ in {
   };
 
   ## Hyprland
-  wayland.windowManager.hyprland.settings = {"$terminal" = terminal;};
+  wayland.windowManager.hyprland.settings = { "$terminal" = terminal; };
 }
