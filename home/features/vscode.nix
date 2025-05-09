@@ -62,6 +62,11 @@
         "nix.enableLanguageServer" = true;
         "nix.serverPath" = "nil";
         "nix.formatterPath" = "alejandra";
+        "nix.serverSettings" = {
+          "nil" = {
+            "formatting" = {"command" = ["alejandra"];};
+          };
+        };
       };
 
       # Keybindings

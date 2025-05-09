@@ -1,11 +1,17 @@
-{...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   # Enable Ghostty terminal in home-manager
   programs.ghostty = {
     enable = true;
+    enableFishIntegration = lib.mkIf config.programs.fish.enable true;
+
     # Basic configuration
     settings = {
       # Font configuration
-      font-family = "JetBrains Mono";
+      font-family = "JetBrainsMono Nerd Font Mono";
       font-size = 12;
 
       # Window configuration
@@ -18,10 +24,9 @@
 
       # Cursor configuration
       cursor-style = "block";
-      cursor-blink-interval-ms = 750;
 
       # Scrollback
-      scrollback-lines = 10000;
+      scrollback-limit = 10000;
     };
   };
 }

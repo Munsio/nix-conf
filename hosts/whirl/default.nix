@@ -18,6 +18,9 @@
     networkmanager.enable = true;
   };
 
+  # Batter power support
+  services.upower.enable = true;
+
   # Enable NixOS modules using nixModules
   nixModules = {
     audio.enable = true;

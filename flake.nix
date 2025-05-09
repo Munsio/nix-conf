@@ -17,6 +17,7 @@
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = inputs @ {nixpkgs, ...}: let
@@ -38,6 +39,9 @@
         whirl = mkSystem {
           hostname = "whirl";
           users = ["martin"];
+          extraModules = [
+            inputs.stylix.nixosModules.stylix
+          ];
           extraHomeManagerModules = [
             inputs.zen-browser-flake.homeModules.twilight
             inputs.hyprpanel.homeManagerModules.hyprpanel

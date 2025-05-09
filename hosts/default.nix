@@ -37,11 +37,12 @@
 
   # Environment and standard packages
   environment.systemPackages = with pkgs; [
-    pciutils
-    wget
     dmidecode
+    fzf
     killall
+    pciutils
     usbutils
+    wget
   ];
 
   # Security

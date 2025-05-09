@@ -6,7 +6,12 @@
     hyprpaper.enable = true;
     hyprpanel.enable = true;
 
+    #
     wofi.enable = true;
+
+    # Enable icons and cursors
+    icons-cursors.enable = true;
+    stylix.enable = true;
 
     # Enable Hyprland services
     services.hypridle.enable = true;

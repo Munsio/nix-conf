@@ -35,13 +35,15 @@ in {
   };
 
   homeModules = {
-    ghostty.enable = true;
     discord.enable = true;
     fish.enable = true;
-    starship.enable = true;
-    zoxide.enable = true;
+    ghostty.enable = true;
+    git.enable = true;
     moonlight.enable = true;
+    starship.enable = true;
     vscode.enable = true;
+    zen-browser.enable = true;
+    zoxide.enable = true;
   };
 
   # Custom configuration
@@ -55,5 +57,12 @@ in {
   };
 
   ## Hyprland
-  wayland.windowManager.hyprland.settings = {"$terminal" = terminal;};
+  wayland.windowManager.hyprland.settings = {
+    "$terminal" = terminal;
+
+    # Keyboard
+    input = {
+      kb_layout = "at";
+    };
+  };
 }
