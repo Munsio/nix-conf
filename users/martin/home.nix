@@ -35,6 +35,7 @@ in {
   };
 
   homeModules = {
+    direnv.enable = true;
     discord.enable = true;
     fish.enable = true;
     ghostty.enable = true;

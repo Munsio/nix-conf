@@ -103,7 +103,7 @@ in {
                 hyprctl dispatch exit
                 ;;
             "󰒲 Suspend")
-                loginctl lock-session; systemctl suspend
+                loginctl lock-session; sleep 1; systemctl suspend
                 ;;
             "󰑓 Reboot")
                 systemctl reboot
