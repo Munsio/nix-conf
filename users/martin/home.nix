@@ -40,6 +40,7 @@ in {
     fish.enable = true;
     ghostty.enable = true;
     git.enable = true;
+    helix.enable = true;
     moonlight.enable = true;
     starship.enable = true;
     vscode.enable = true;
