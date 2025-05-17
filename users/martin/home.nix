@@ -51,6 +51,16 @@ in {
 
   # Custom configuration
 
+  ## Custom Mime Apps
+  xdg = {
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = ["zen-twilight.desktop"];
+      };
+    };
+  };
+
   ## Git
   programs = {
     git = lib.mkIf config.homeModules.git.enable {

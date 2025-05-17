@@ -11,6 +11,7 @@
       ll = "ls -la";
       ".." = "cd ..";
       os-update = "nh os switch -u -a";
+      nvim = "hx";
     };
   };
 
