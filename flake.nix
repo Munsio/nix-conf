@@ -18,6 +18,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.url = "github:danth/stylix";
+    nvf = {
+      url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {nixpkgs, ...}: let
@@ -45,6 +49,7 @@
           extraHomeManagerModules = [
             inputs.zen-browser-flake.homeModules.twilight
             inputs.hyprpanel.homeManagerModules.hyprpanel
+            inputs.nvf.homeManagerModules.nvf
           ];
           overlays = [
             inputs.hyprpanel.overlay

@@ -47,6 +47,7 @@ in {
     vscode.enable = true;
     zen-browser.enable = true;
     zoxide.enable = true;
+    nvf.enable = true; # Added nvf module
   };
 
   # Custom configuration
