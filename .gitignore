@@ -4,6 +4,7 @@ result-*
 
 # Direnv
 .direnv/
+.env
 
 # Nix flake lockfile (optional, some prefer to commit this)
 # flake.lock
