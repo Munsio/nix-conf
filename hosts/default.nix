@@ -45,6 +45,8 @@
     wget
   ];
 
+  services.dbus.enable = true;
+
   # Security
   security = {
     rtkit.enable = true;
