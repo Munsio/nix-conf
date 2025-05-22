@@ -56,7 +56,7 @@ in {
   xdg = {
     mimeApps = {
       enable = true;
-      defaultApplications = {
+      associations.added = {
         "application/pdf" = ["zen-twilight.desktop"];
       };
     };
