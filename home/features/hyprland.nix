@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # Enable Hyprland in home-manager
   wayland.windowManager.hyprland = {
     enable = true;
@@ -6,6 +6,7 @@
       enable = true;
       variables = ["--all"];
     };
+    xwayland.enable = false;
     # You can add default configuration here if needed
     settings = {
       # Variables
@@ -24,6 +25,7 @@
         preserve_split = true;
       };
       misc = {disable_hyprland_logo = true;};
+
       # Bindings
       bind =
         [
@@ -83,6 +85,12 @@
 
       # Mouse bindings
       bindm = ["$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow"];
+
+      env = [
+        "NIXOS_OZONE_WL,1" # Needed for electron apps like VSCode/Discord
+        "QT_QPA_PLATFORM,wayland;xcb"
+        "GDK_BACKEND,wayland,x11,*"
+      ];
     };
   };
 }
