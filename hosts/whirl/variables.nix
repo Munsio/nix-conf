@@ -6,5 +6,5 @@
   extraLocale = "de_AT.UTF-8";
 
   # Nix and HomeManager stateVersion
-  stateVersion = "24.11";
+  stateVersion = "25.05";
 }
