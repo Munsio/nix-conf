@@ -2,22 +2,29 @@
   description = "NixOS configuration with flakes and home-manager";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     zen-browser-flake = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs"; # Assuming it might need nixpkgs
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
+
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     stylix.url = "github:danth/stylix";
+
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,6 +42,8 @@
 
     # Import the library functions
     myLib = import ./lib/default.nix {inherit lib inputs;};
+
+    myOverlays = import ./overlays {inherit inputs;};
   in
     with myLib; {
       # NixOS configurations for different hosts
@@ -52,6 +61,7 @@
             inputs.nvf.homeManagerModules.nvf
           ];
           overlays = [
+            myOverlays.unstable-packages
             inputs.hyprpanel.overlay
             inputs.nix-vscode-extensions.overlays.default
           ];
