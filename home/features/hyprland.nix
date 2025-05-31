@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   # Enable Hyprland in home-manager
   wayland.windowManager.hyprland = {
     enable = true;
@@ -6,7 +6,6 @@
       enable = true;
       variables = ["--all"];
     };
-    xwayland.enable = false;
     # You can add default configuration here if needed
     settings = {
       # Variables
@@ -90,6 +89,10 @@
         "NIXOS_OZONE_WL,1" # Needed for electron apps like VSCode/Discord
         "QT_QPA_PLATFORM,wayland;xcb"
         "GDK_BACKEND,wayland,x11,*"
+      ];
+
+      windowrule = [
+        "monitor 1, class:com.moonlight_stream.Moonlight"
       ];
     };
   };
