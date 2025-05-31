@@ -3,6 +3,8 @@
   directory = "/home/martin";
 in {
   # User-specific configuration for 'martin'
+  nixModules = {
+  };
 
   # Create the user account
   users.users.${username} = {
