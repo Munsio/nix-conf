@@ -7,7 +7,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,10 +23,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix.url = "github:danth/stylix";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nvf = {
       url = "github:NotAShelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    walker = {
+      url = "github:abenz1267/walker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -56,9 +64,10 @@
             inputs.stylix.nixosModules.stylix
           ];
           extraHomeManagerModules = [
-            inputs.zen-browser-flake.homeModules.twilight
             inputs.hyprpanel.homeManagerModules.hyprpanel
             inputs.nvf.homeManagerModules.nvf
+            inputs.walker.homeManagerModules.default
+            inputs.zen-browser-flake.homeModules.twilight
           ];
           overlays = [
             myOverlays.unstable-packages
