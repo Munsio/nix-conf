@@ -27,6 +27,8 @@
 
         binds.whichKey.enable = true;
 
+        autopairs.nvim-autopairs.enable = true;
+
         assistant.codecompanion-nvim = {
           enable = true;
           setupOpts = {
