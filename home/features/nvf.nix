@@ -29,6 +29,8 @@
 
         autopairs.nvim-autopairs.enable = true;
 
+        comments.comment-nvim.enable = true;
+
         assistant.codecompanion-nvim = {
           enable = true;
           setupOpts = {
@@ -104,6 +106,13 @@
         lsp = {
           enable = true;
           formatOnSave = true;
+        };
+
+        terminal = {
+          toggleterm = {
+            enable = true;
+            lazygit.enable = true;
+          };
         };
 
         dashboard.alpha.enable = true;
