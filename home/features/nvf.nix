@@ -31,8 +31,24 @@
 
         comments.comment-nvim.enable = true;
 
-        assistant.codecompanion-nvim = {
+        assistant.avante-nvim = {
           enable = true;
+
+          setupOpts = {
+            provider = "openrouter";
+            vendors = {
+              openrouter = {
+                __inherited_from = "openai";
+                api_key_name = "OPENROUTER_API_KEY";
+                endpoint = "https://openrouter.ai/api/v1";
+                model = "google/gemini-2.5-pro-preview";
+              };
+            };
+          };
+        };
+
+        assistant.codecompanion-nvim = {
+          enable = false;
           setupOpts = {
             adapters = lib.generators.mkLuaInline ''
               {
@@ -127,7 +143,10 @@
             lsp.package = pkgs.nil;
           };
 
-          markdown.enable = true;
+          markdown = {
+            enable = true;
+            format.type = "prettierd";
+          };
           go.enable = true;
           yaml.enable = true;
           bash.enable = true;
