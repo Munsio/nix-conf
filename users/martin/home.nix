@@ -48,6 +48,7 @@ in {
     zen-browser.enable = true;
     zoxide.enable = true;
     nvf.enable = true; # Added nvf module
+    walker.enable = true;
   };
 
   # Custom configuration
