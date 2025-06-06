@@ -31,48 +31,18 @@
 
         comments.comment-nvim.enable = true;
 
-        assistant.codecompanion-nvim = {
+        assistant.avante-nvim = {
           enable = true;
-          setupOpts = {
-            adapters = lib.generators.mkLuaInline ''
-              {
-                openrouter = function()
-                  return require("codecompanion.adapters").extend("openai_compatible", {
-                    env = {
-                      api_key = vim.env.OPENROUTER_API_KEY,
-                      url = "https://openrouter.ai/api",
-                      chat_url = "/v1/chat/completions",
-                    },
-                    schema = {
-                      model = {
-                        default = "google/gemini-2.5-pro-preview",
-                        gemini = "google/gemini-2.5-pro-preview",
-                        claude_35 = "anthropic/claude-3.5-sonnet",
-                        claude_37 = "anthropic/claude-3.7-sonnet",
-                      },
-                    },
-                  })
-                end,
-               }
-            '';
 
-            strategies = {
-              chat = {
-                adapter = "openrouter";
+          setupOpts = {
+            provider = "openrouter";
+            providers = {
+              openrouter = {
+                __inherited_from = "openai";
+                api_key_name = "OPENROUTER_API_KEY";
+                endpoint = "https://openrouter.ai/api/v1";
+                model = "google/gemini-2.5-pro-preview";
               };
-              inline = {
-                adapter = "openrouter";
-              };
-              cmd = {
-                adapter = "openrouter";
-              };
-            };
-            display = {
-              chat = {
-                auto_scroll = true;
-                show_settings = true;
-              };
-              action_palette.provider = "telescope";
             };
           };
         };
@@ -127,7 +97,10 @@
             lsp.package = pkgs.nil;
           };
 
-          markdown.enable = true;
+          markdown = {
+            enable = true;
+            format.type = "prettierd";
+          };
           go.enable = true;
           yaml.enable = true;
           bash.enable = true;
