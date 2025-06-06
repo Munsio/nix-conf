@@ -4,6 +4,7 @@
 in {
   # User-specific configuration for 'martin'
   nixModules = {
+    devenv.enable = true;
   };
 
   # Create the user account
