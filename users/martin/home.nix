@@ -49,6 +49,7 @@ in {
     zoxide.enable = true;
     nvf.enable = true; # Added nvf module
     walker.enable = true;
+    yazi.enable = true;
   };
 
   # Custom configuration
