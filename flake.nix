@@ -13,29 +13,24 @@
 
     zen-browser-flake = {
       url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
 
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
-      url = "github:danth/stylix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:danth/stylix?ref=75411fe2b90f67bfb4a2ad9cc3b1379758b64dbb";
     };
 
     nvf = {
       url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     walker = {
       url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
