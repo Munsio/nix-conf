@@ -35,7 +35,6 @@ in {
   };
 
   homeModules = {
-    aider.enable = true; # Added Aider module
     direnv.enable = true;
     discord.enable = true;
     fish.enable = true;
