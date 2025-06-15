@@ -39,6 +39,7 @@
   environment.systemPackages = with pkgs; [
     dmidecode
     fzf
+    htop
     killall
     pciutils
     usbutils
