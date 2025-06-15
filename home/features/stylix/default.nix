@@ -3,6 +3,7 @@
     enable = true;
     autoEnable = false;
     image = ./wallpapers/nord-trees.jpg;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest-dark-hard.yaml";
     polarity = "dark";
 
     targets = {
