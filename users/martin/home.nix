@@ -31,7 +31,7 @@ in {
     };
 
     # Packages installed to user profile
-    packages = with pkgs; [jq dnsutils vlc wlinhibit];
+    packages = with pkgs; [jq dnsutils vlc];
   };
 
   homeModules = {

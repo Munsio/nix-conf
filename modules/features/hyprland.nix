@@ -12,5 +12,6 @@
     hypridle # Idle daemon for Hyprland
     hyprpaper # Wallpaper daemon for Hyprland
     wl-clipboard
+    wlinhibit
   ];
 }

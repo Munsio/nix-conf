@@ -119,7 +119,7 @@ in {
   # Add a keybinding for the power menu to Hyprland if it's enabled
   wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
     bind = [
-      # "ALT, Space, exec, killall wofi || wofi"
+      "ALT, Space, exec, killall wofi || wofi"
       "$mod, escape, exec, ~/.local/bin/wofi-power-menu"
     ];
   };
