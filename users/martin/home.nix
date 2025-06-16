@@ -35,6 +35,7 @@ in {
   };
 
   homeModules = {
+    services.flameshot.enable = true;
     direnv.enable = true;
     discord.enable = true;
     fish.enable = true;
