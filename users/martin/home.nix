@@ -35,7 +35,6 @@ in {
   };
 
   homeModules = {
-    services.flameshot.enable = true;
     direnv.enable = true;
     discord.enable = true;
     fish.enable = true;
@@ -43,13 +42,15 @@ in {
     git.enable = true;
     helix.enable = true;
     moonlight.enable = true;
+    nvf.enable = true;
+    rustdesk.enable = true;
+    services.flameshot.enable = true;
     starship.enable = true;
     vscode.enable = true;
-    zen-browser.enable = true;
-    zoxide.enable = true;
-    nvf.enable = true; # Added nvf module
     walker.enable = true;
     yazi.enable = true;
+    zen-browser.enable = true;
+    zoxide.enable = true;
   };
 
   # Custom configuration
