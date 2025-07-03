@@ -15,8 +15,6 @@
       url = "github:0xc000022070/zen-browser-flake";
     };
 
-    hyprpanel.url = "github:Jas-SinghFSU/HyprPanel";
-
     nix-vscode-extensions = {
       url = "github:nix-community/nix-vscode-extensions";
     };
@@ -59,14 +57,12 @@
             inputs.stylix.nixosModules.stylix
           ];
           extraHomeManagerModules = [
-            inputs.hyprpanel.homeManagerModules.hyprpanel
             inputs.nvf.homeManagerModules.nvf
             inputs.walker.homeManagerModules.default
             inputs.zen-browser-flake.homeModules.twilight
           ];
           overlays = [
             myOverlays.unstable-packages
-            inputs.hyprpanel.overlay
             inputs.nix-vscode-extensions.overlays.default
           ];
         };
