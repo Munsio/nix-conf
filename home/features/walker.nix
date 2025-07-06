@@ -2,11 +2,14 @@
   lib,
   config,
   inputs,
+  pkgs,
   ...
 }: let
   walkerConfig =
     (lib.importTOML "${inputs.walker}/internal/config/config.default.toml")
     // {
+      app_launch_prefix = "systemd-run --user ";
+
       plugins = [
         {
           keep_sort = true;
@@ -48,9 +51,19 @@
 in {
   programs.walker = {
     enable = true;
-    runAsService = true;
+    #runAsService = true;
 
     config = walkerConfig;
+  };
+
+  systemd.user.services.walker = {
+    Unit.Description = "Walker - Application Runner";
+    Install.WantedBy = ["graphical-session.target"];
+    Service = {
+      ExecStart = "${inputs.walker.packages.${pkgs.system}.default}/bin/walker --gapplication-service";
+      Restart = "on-failure";
+      Environment = "GSK_RENDERER=cairo";
+    };
   };
 
   # Add a keybinding for walker to Hyprland if it's enabled
