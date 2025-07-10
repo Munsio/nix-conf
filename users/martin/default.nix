@@ -5,6 +5,7 @@ in {
   # User-specific configuration for 'martin'
   nixModules = {
     devenv.enable = true;
+    services.print.enable = true;
   };
 
   # Create the user account
