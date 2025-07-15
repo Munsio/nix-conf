@@ -45,6 +45,7 @@ in {
     nvf.enable = true;
     rustdesk.enable = true;
     services.flameshot.enable = true;
+    signal-desktop.enable = true;
     starship.enable = true;
     vscode.enable = true;
     walker.enable = true;
