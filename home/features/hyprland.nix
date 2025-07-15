@@ -93,6 +93,7 @@
 
       windowrule = [
         "monitor 1, class:com.moonlight_stream.Moonlight"
+        "idleinhibit fullscreen, class:.*" # Prevent locking screen when an app is in fullscreen.
       ];
     };
   };
