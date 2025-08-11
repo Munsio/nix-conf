@@ -1,5 +1,5 @@
 {...}: {
   services.twingate = {
-    enable = true;
+    enable = false;
   };
 }
