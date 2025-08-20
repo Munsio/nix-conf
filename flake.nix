@@ -28,7 +28,7 @@
     };
 
     walker = {
-      url = "github:abenz1267/walker";
+      url = "github:Munsio/walker?ref=363e4a5c8c5fabd9ab35e1ef342d141a84de0fc7";
     };
   };
 
