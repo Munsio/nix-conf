@@ -43,6 +43,7 @@ in {
     helix.enable = true;
     moonlight.enable = true;
     nvf.enable = true;
+    obsidian.enable = true;
     rustdesk.enable = true;
     services.flameshot.enable = true;
     signal-desktop.enable = true;
