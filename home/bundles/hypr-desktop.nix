@@ -15,5 +15,6 @@
 
     # Enable Hyprland services
     services.hypridle.enable = true;
+    services.wayland-idle-inhibitor.enable = true;
   };
 }

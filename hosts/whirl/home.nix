@@ -4,7 +4,9 @@
   ...
 }: {
   # Enable Home Manager modules using homeModules
-  homeModules = {bundles.hypr-desktop.enable = true;};
+  homeModules = {
+    bundles.hypr-desktop.enable = true;
+  };
 
   # Add a keybinding for the power menu to Hyprland if it's enabled
   wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {

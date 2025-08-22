@@ -30,6 +30,8 @@
     walker = {
       url = "github:Munsio/walker?ref=363e4a5c8c5fabd9ab35e1ef342d141a84de0fc7";
     };
+
+    wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
   };
 
   outputs = inputs @ {nixpkgs, ...}: let
@@ -59,6 +61,7 @@
           extraHomeManagerModules = [
             inputs.nvf.homeManagerModules.nvf
             inputs.walker.homeManagerModules.default
+            inputs.wayland-pipewire-idle-inhibit.homeModules.default
             inputs.zen-browser-flake.homeModules.twilight
           ];
           overlays = [
