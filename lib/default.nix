@@ -56,6 +56,28 @@
         extendModule ((extension name) // {path = f;}))
       modules;
 
+    # Function to create a HomeManager configuration
+    mkHome = {
+      hostname,
+      system ? "x86_64-linux",
+      users ? [],
+      extraHomeManagerModules ? [],
+    }: let
+    in inputs.home-manager.lib.homeManagerConfiguration {
+          useGlobalPkgs = true;
+          useUserPackages = true;
+          backupFileExtension = "hm-backup";
+          extraSpecialArgs = {inherit inputs hostname hostVars;};
+          sharedModules = [../home];
+          # Load user-specific home-manager configurations
+          users = lib.genAttrs users (user: {
+            imports =
+              [../hosts/${hostname}/home.nix ../users/${user}/home.nix]
+              ++ extraHomeManagerModules;
+          });
+        };
+    };
+
     # Function to create a NixOS system configuration
     mkSystem = {
       hostname,

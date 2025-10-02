@@ -71,6 +71,19 @@
         };
       };
 
+      homeConfigurations = {
+        gust = mkHome {
+          hostname = "gust";
+          users = ["martin"];
+          extraHomeManagerModules = [
+            inputs.zen-browser-flake.homeModules.twilight
+          ];
+          overlays = [
+            myOverlays.unstable-packages
+          ];
+        };
+      };
+
       # Development shell for working with this flake
       devShells = forAllSystems (system: let
         pkgs = nixpkgs.legacyPackages.${system};
