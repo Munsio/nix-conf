@@ -2,12 +2,17 @@
   lib,
   pkgs,
   hostVars,
+  hostname,
   config,
   ...
 }: let
   terminal = "ghostty";
+  hostModule = ./home-${hostname}.nix;
 in {
   # Home Manager configuration for martin
+  imports = [
+    hostModule
+  ];
 
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
@@ -31,24 +36,16 @@ in {
     };
 
     # Packages installed to user profile
-    packages = with pkgs; [jq dnsutils vlc];
+    packages = with pkgs; [jq dnsutils vlc fzf];
   };
 
   homeModules = {
     direnv.enable = true;
-    discord.enable = true;
     fish.enable = true;
-    ghostty.enable = true;
     git.enable = true;
     helix.enable = true;
-    moonlight.enable = true;
-    nvf.enable = true;
     obsidian.enable = true;
-    rustdesk.enable = true;
-    services.flameshot.enable = true;
-    signal-desktop.enable = true;
     starship.enable = true;
-    vscode.enable = true;
     walker.enable = true;
     yazi.enable = true;
     zen-browser.enable = true;

@@ -1,11 +1,13 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: {
   # Enable Ghostty terminal in home-manager
   programs.ghostty = {
     enable = true;
+    package = pkgs.unstable.ghostty;
     enableFishIntegration = lib.mkIf config.programs.fish.enable true;
 
     # Basic configuration

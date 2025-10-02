@@ -56,6 +56,44 @@
         extendModule ((extension name) // {path = f;}))
       modules;
 
+    # Function to create a HomeManager configuration
+    mkHome = {
+      hostname,
+      user,
+      system ? "x86_64-linux",
+      extraHomeManagerModules ? [],
+      overlays ? [],
+    }: let
+      # Import host variables (mandatory)
+      hostVars = import ../hosts/${hostname}/variables.nix;
+
+      pkgs = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
+      # Home Manager configuration
+      homeManagerModule = inputs.home-manager.nixosModules.home-manager;
+    in
+      inputs.home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {inherit inputs hostname hostVars;};
+        modules =
+          [
+            # Apply overlays
+            {
+              nixpkgs.overlays = overlays;
+            }
+            ../home
+            # Host-specific configuration
+            ../hosts/${hostname}/home.nix
+
+            # The Specific user
+            ../users/${user}/home.nix
+          ]
+          ++ extraHomeManagerModules;
+      };
+
     # Function to create a NixOS system configuration
     mkSystem = {
       hostname,

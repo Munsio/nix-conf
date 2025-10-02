@@ -71,6 +71,24 @@
         };
       };
 
+      homeConfigurations = {
+        gust = mkHome {
+          hostname = "gust";
+          user = "martin";
+          extraHomeManagerModules = [
+            inputs.stylix.homeModules.stylix
+            inputs.nvf.homeManagerModules.nvf
+            inputs.walker.homeManagerModules.default
+            inputs.wayland-pipewire-idle-inhibit.homeModules.default
+            inputs.zen-browser-flake.homeModules.twilight
+          ];
+
+          overlays = [
+            myOverlays.unstable-packages
+          ];
+        };
+      };
+
       # Development shell for working with this flake
       devShells = forAllSystems (system: let
         pkgs = nixpkgs.legacyPackages.${system};
