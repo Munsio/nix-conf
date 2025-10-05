@@ -25,6 +25,12 @@
       };
       misc = {disable_hyprland_logo = true;};
 
+      input = {
+        touchpad = {
+          natural_scroll = true;
+        };
+      };
+
       # Bindings
       bind =
         [

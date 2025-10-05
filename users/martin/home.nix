@@ -64,14 +64,6 @@ in {
     };
   };
 
-  ## Git
-  programs = {
-    git = lib.mkIf config.homeModules.git.enable {
-      userEmail = "git@treml.dev";
-      userName = "Martin Treml";
-    };
-  };
-
   ## Hyprland
   wayland.windowManager.hyprland.settings = {
     "$terminal" = terminal;
