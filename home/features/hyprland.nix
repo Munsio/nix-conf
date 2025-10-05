@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # Enable Hyprland in home-manager
   wayland.windowManager.hyprland = {
     enable = true;
@@ -6,6 +6,7 @@
       enable = true;
       variables = ["--all"];
     };
+    package = pkgs.unstable.hyprland;
     # You can add default configuration here if needed
     settings = {
       # Variables
@@ -30,6 +31,15 @@
           natural_scroll = true;
         };
       };
+
+      gestures = {
+        workspace_swipe_touch = true;
+      };
+
+      gesture = [
+        # Workspace switching with 3 fingers
+        "3, horizontal, workspace"
+      ];
 
       # Bindings
       bind =
