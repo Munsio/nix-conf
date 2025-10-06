@@ -1,7 +1,8 @@
-{lib, ...}: {
+{lib, pkgs, ...}: {
   # Enable and configure hyprlock (screen locker)
   programs.hyprlock = {
     enable = true;
+    package = null;
 
     # Default configuration can be added here
     settings = {
@@ -10,7 +11,6 @@
       };
 
       general = {
-        grace = 0;
         hide_cursor = true;
       };
 

@@ -6,7 +6,7 @@
       enable = true;
       variables = ["--all"];
     };
-    package = pkgs.unstable.hyprland;
+    package = null;
     # You can add default configuration here if needed
     settings = {
       # Variables

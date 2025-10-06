@@ -6,6 +6,7 @@
   # Enable and configure hypridle (idle daemon)
   services.hypridle = {
     enable = true;
+    package = null;
     # Default configuration can be added here
     settings = {
       general = {

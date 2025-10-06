@@ -8,9 +8,9 @@
 
   # Add Hyprland-related packages to the system
   environment.systemPackages = with pkgs; [
-    hyprlock # Screen locker for Hyprland
-    hypridle # Idle daemon for Hyprland
-    hyprpaper # Wallpaper daemon for Hyprland
+    unstable.hyprlock # Screen locker for Hyprland
+    unstable.hypridle # Idle daemon for Hyprland
+    unstable.hyprpaper # Wallpaper daemon for Hyprland
     wl-clipboard
     wlinhibit
   ];
