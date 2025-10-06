@@ -77,7 +77,7 @@
     in
       inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = {inherit inputs hostname hostVars;};
+        extraSpecialArgs = {inherit inputs hostname hostVars system;};
         modules =
           [
             # Apply overlays

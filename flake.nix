@@ -1,6 +1,15 @@
 {
   description = "NixOS configuration with flakes and home-manager";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://vicinae.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -27,9 +36,7 @@
       url = "github:NotAShelf/nvf";
     };
 
-    walker = {
-      url = "github:Munsio/walker?ref=363e4a5c8c5fabd9ab35e1ef342d141a84de0fc7";
-    };
+    vicinae.url = "github:vicinaehq/vicinae";
 
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
   };
@@ -60,7 +67,7 @@
           ];
           extraHomeManagerModules = [
             inputs.nvf.homeManagerModules.nvf
-            inputs.walker.homeManagerModules.default
+            inputs.vicinae.homeManagerModules.default
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
             inputs.zen-browser-flake.homeModules.twilight
           ];
@@ -78,7 +85,7 @@
           extraHomeManagerModules = [
             inputs.stylix.homeModules.stylix
             inputs.nvf.homeManagerModules.nvf
-            inputs.walker.homeManagerModules.default
+            inputs.vicinae.homeManagerModules.default
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
             inputs.zen-browser-flake.homeModules.twilight
           ];

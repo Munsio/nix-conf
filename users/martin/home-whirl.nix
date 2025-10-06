@@ -10,7 +10,6 @@
     rustdesk.enable = true;
     services.flameshot.enable = true;
     signal-desktop.enable = true;
-    vscode.enable = true;
     ghostty.enable = true;
   };
 

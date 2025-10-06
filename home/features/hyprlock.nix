@@ -1,4 +1,4 @@
-{lib, pkgs, ...}: {
+{lib, ...}: {
   # Enable and configure hyprlock (screen locker)
   programs.hyprlock = {
     enable = true;

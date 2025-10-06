@@ -46,7 +46,8 @@ in {
     helix.enable = true;
     obsidian.enable = true;
     starship.enable = true;
-    walker.enable = true;
+    vicinae.enable = true;
+    vscode.enable = true;
     yazi.enable = true;
     zen-browser.enable = true;
     zoxide.enable = true;
@@ -59,7 +60,22 @@ in {
     mimeApps = {
       enable = true;
       associations.added = {
+        "application/json" = ["zen-twilight.desktop"];
         "application/pdf" = ["zen-twilight.desktop"];
+        "application/x-extension-htm" = ["zen-twilight.desktop"];
+        "application/x-extension-html" = ["zen-twilight.desktop"];
+        "application/x-extension-shtml" = ["zen-twilight.desktop"];
+        "application/x-extension-xht" = ["zen-twilight.desktop"];
+        "application/x-extension-xhtml" = ["zen-twilight.desktop"];
+        "application/xhtml+xml" = ["zen-twilight.desktop"];
+        "text/html" = ["zen-twilight.desktop"];
+        "text/plain" = ["zen-twilight.desktop"];
+        "x-scheme-handler/about" = ["zen-twilight.desktop"];
+        "x-scheme-handler/chrome" = ["zen-twilight.desktop"];
+        "x-scheme-handler/http" = ["zen-twilight.desktop"];
+        "x-scheme-handler/https" = ["zen-twilight.desktop"];
+        "x-scheme-handler/mailto" = ["zen-twilight.desktop"];
+        "x-scheme-handler/unknown" = ["zen-twilight.desktop"];
       };
     };
   };

@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{...}: {
   # Enable Hyprland in home-manager
   wayland.windowManager.hyprland = {
     enable = true;
@@ -7,8 +7,13 @@
       variables = ["--all"];
     };
     package = null;
+    portalPackage = null;
     # You can add default configuration here if needed
     settings = {
+      debug = {
+        disable_logs = false;
+      };
+
       # Variables
       "$mod" = "SUPER";
 
