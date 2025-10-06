@@ -6,9 +6,6 @@
     hyprpaper.enable = true;
     hyprpanel.enable = true;
 
-    # Application launcher + Power menu
-    walker.enable = true;
-
     # Enable icons and cursors
     icons-cursors.enable = true;
     stylix.enable = true;

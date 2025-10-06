@@ -46,7 +46,7 @@ in {
     helix.enable = true;
     obsidian.enable = true;
     starship.enable = true;
-    walker.enable = true;
+    vicinae.enable = true;
     yazi.enable = true;
     zen-browser.enable = true;
     zoxide.enable = true;
