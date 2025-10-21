@@ -4,7 +4,6 @@
 in {
   # User-specific configuration for 'martin'
   nixModules = {
-    devenv.enable = true;
     services = {
       print.enable = true;
       twingate.enable = true;

@@ -40,6 +40,7 @@ in {
   };
 
   homeModules = {
+    devenv.enable = true;
     direnv.enable = true;
     fish.enable = true;
     git.enable = true;
