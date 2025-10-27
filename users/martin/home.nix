@@ -40,12 +40,14 @@ in {
   };
 
   homeModules = {
+    ansible.enable = true;
     devenv.enable = true;
     direnv.enable = true;
     fish.enable = true;
     git.enable = true;
     helix.enable = true;
     obsidian.enable = true;
+    opentofu.enable = true;
     starship.enable = true;
     vicinae.enable = true;
     vscode.enable = true;
