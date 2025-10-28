@@ -29,7 +29,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix?ref=75411fe2b90f67bfb4a2ad9cc3b1379758b64dbb";
+      url = "github:nix-community/stylix/release-25.05";
     };
 
     nvf = {
