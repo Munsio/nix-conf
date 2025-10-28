@@ -41,6 +41,7 @@ in {
 
   homeModules = {
     ansible.enable = true;
+    cline.enable = true;
     devenv.enable = true;
     direnv.enable = true;
     fish.enable = true;
