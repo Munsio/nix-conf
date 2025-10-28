@@ -14,5 +14,11 @@
       userEmail = "martin.treml@agilox.net";
       userName = "Martin Treml";
     };
+
+    fish = lib.mkIf config.homeModules.fish.enable {
+      shellAliases = {
+        dev = "just -f /home/martin/Documents/projects/developer-toolbox/justfile";
+      };
+    };
   };
 }
