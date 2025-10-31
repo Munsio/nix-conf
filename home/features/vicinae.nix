@@ -13,7 +13,7 @@
         size = 10;
       };
       keybinding = "default";
-      popToRootOnClose = false;
+      popToRootOnClose = true;
       rootSearch = {
         searchFiles = false;
       };

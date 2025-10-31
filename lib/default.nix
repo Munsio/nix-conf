@@ -71,9 +71,6 @@
         inherit system;
         config.allowUnfree = true;
       };
-
-      # Home Manager configuration
-      homeManagerModule = inputs.home-manager.nixosModules.home-manager;
     in
       inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -136,12 +133,6 @@
         specialArgs = {inherit inputs hostname hostVars;};
         modules =
           [
-            # Base configuration for all hosts
-            ../hosts/default.nix
-
-            # Host-specific configuration
-            ../hosts/${hostname}/default.nix
-
             # NixOS Module system
             ../modules
 
@@ -149,6 +140,12 @@
             {
               nixpkgs.overlays = overlays;
             }
+
+            # Base configuration for all hosts
+            ../hosts/default.nix
+
+            # Host-specific configuration
+            ../hosts/${hostname}/default.nix
 
             # Home Manager configuration
             homeManagerModule
