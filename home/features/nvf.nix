@@ -22,7 +22,7 @@
 
         spellcheck = {
           enable = true;
-          programmingWordlist.enable = true;
+          programmingWordlist.enable = false;
         };
 
         binds.whichKey.enable = true;
@@ -32,7 +32,7 @@
         comments.comment-nvim.enable = true;
 
         assistant.avante-nvim = {
-          enable = true;
+          enable = false;
 
           setupOpts = {
             provider = "openrouter";
@@ -47,7 +47,12 @@
           };
         };
 
-        filetree.neo-tree.enable = true;
+        filetree.neo-tree = {
+            enable = true;
+            setupOpts = {
+
+            };
+        };
         telescope.enable = true;
         statusline.lualine.enable = true;
         autocomplete.nvim-cmp.enable = true;

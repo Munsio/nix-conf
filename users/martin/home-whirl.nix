@@ -6,7 +6,6 @@
   homeModules = {
     discord.enable = true;
     moonlight.enable = true;
-    nvf.enable = true;
     signal-desktop.enable = true;
     ghostty.enable = true;
   };

@@ -41,11 +41,12 @@ in {
 
   homeModules = {
     ansible.enable = true;
-    cline.enable = true;
+    cline.enable = false;
     devenv.enable = true;
     direnv.enable = true;
     fish.enable = true;
     git.enable = true;
+    nvf.enable = true;
     helix.enable = true;
     obsidian.enable = true;
     opentofu.enable = true;
