@@ -66,6 +66,7 @@
             inputs.stylix.nixosModules.stylix
           ];
           extraHomeManagerModules = [
+            inputs.stylix.homeModules.stylix
             inputs.nvf.homeManagerModules.nvf
             inputs.vicinae.homeManagerModules.default
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
@@ -92,6 +93,7 @@
 
           overlays = [
             myOverlays.unstable-packages
+            inputs.nix-vscode-extensions.overlays.default
           ];
         };
       };

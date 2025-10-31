@@ -1,28 +1,39 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
 
     # User settings
     profiles.default = {
-      # Use extensions from nix-vscode-extensions flake
-      extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
-        # Nix support
-        jnoortheen.nix-ide # Nix language support
-        arrterian.nix-env-selector # Nix environment selector
+      enableUpdateCheck = false;
+      enableExtensionUpdateCheck = false;
 
+      # Use extensions from nix-vscode-extensions flake
+      extensions = with pkgs.vscode-marketplace; [
         # Theme and UI
         pkief.material-icon-theme # Material icon theme
 
         # Utilities
         esbenp.prettier-vscode # Code formatter
         streetsidesoftware.code-spell-checker # Spell checker
+        streetsidesoftware.code-spell-checker-british-english
+        eamodio.gitlens # Git
+        nefrob.vscode-just-syntax # Just file support
+        editorconfig.editorconfig
 
-        # Add more extensions as needed
+        # DevOPS
+        gitlab.gitlab-workflow
+        redhat.ansible
+        ms-azuretools.vscode-docker
+        ms-kubernetes-tools.vscode-kubernetes-tools
+
+        # Languages
+        bmewburn.vscode-intelephense-client # PHP
+        neilbrayfield.php-docblocker # PHP Doc blocks
+        jnoortheen.nix-ide # Nix language support
+
+        # AI
+        saoudrizwan.claude-dev
       ];
 
       userSettings = {
@@ -37,12 +48,20 @@
         "editor.insertSpaces" = true;
         "editor.detectIndentation" = true;
 
+        "chat.agent.enabled" = false;
+        "chat.commandCenter.enabled" = false;
+
         "workbench.editor.enablePreview" = false;
         "workbench.colorTheme" = "Default Dark+";
         "workbench.iconTheme" = "material-icon-theme";
         "workbench.startupEditor" = "none";
+        "workbench.secondarySideBar.defaultVisibility" = "hidden";
 
         "window.titleBarStyle" = "custom";
+
+        "gitlab.duoCodeSuggestions.enabled" = false;
+        "gitlab.duoChat.enabled" = false;
+        "gitlab.duoAgentPlatform.enabled" = false;
 
         "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
         "terminal.integrated.fontSize" = 14;
@@ -55,8 +74,12 @@
 
         "git.enableSmartCommit" = true;
         "git.confirmSync" = false;
+        "git.openRepositoryInParentFolders" = "never";
+        "gitlens.launchpad.indicator.enabled" = false;
 
         "telemetry.telemetryLevel" = "off";
+
+        "ansible.lightspeed.enabled" = false;
 
         # Nix specific settings
         "nix.enableLanguageServer" = true;
