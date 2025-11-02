@@ -1,9 +1,7 @@
 {
-  lib,
   pkgs,
   hostVars,
   hostname,
-  config,
   ...
 }: let
   terminal = "ghostty";
@@ -45,13 +43,13 @@ in {
     devenv.enable = true;
     direnv.enable = true;
     fish.enable = true;
+    fuzzel.enable = true;
     git.enable = true;
     nvf.enable = true;
     helix.enable = true;
     obsidian.enable = true;
     opentofu.enable = true;
     starship.enable = true;
-    vicinae.enable = true;
     vscode.enable = true;
     yazi.enable = true;
     zen-browser.enable = true;
