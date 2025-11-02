@@ -3,6 +3,8 @@
     enable = true;
     package = pkgs.vscode;
 
+    mutableExtensionsDir = false;
+
     # User settings
     profiles.default = {
       enableUpdateCheck = false;
@@ -12,6 +14,7 @@
       extensions = with pkgs.vscode-marketplace; [
         # Theme and UI
         pkief.material-icon-theme # Material icon theme
+        sainnhe.everforest
 
         # Utilities
         esbenp.prettier-vscode # Code formatter
@@ -31,6 +34,11 @@
         bmewburn.vscode-intelephense-client # PHP
         neilbrayfield.php-docblocker # PHP Doc blocks
         jnoortheen.nix-ide # Nix language support
+
+        # Dependencies
+        ms-python.python # from Ansible
+        ms-azuretools.vscode-containers # from Docker
+        redhat.vscode-yaml # From Kubernetes
 
         # AI
         saoudrizwan.claude-dev
@@ -57,6 +65,10 @@
         "workbench.startupEditor" = "none";
         "workbench.secondarySideBar.defaultVisibility" = "hidden";
 
+        "everforest.darkContrast" = "hard";
+        "everforest.darkWorkbench" = "material";
+        "everforest.highContrast" = false;
+
         "window.titleBarStyle" = "custom";
 
         "gitlab.duoCodeSuggestions.enabled" = false;
@@ -80,6 +92,8 @@
         "telemetry.telemetryLevel" = "off";
 
         "ansible.lightspeed.enabled" = false;
+
+        "intelephense.environment.phpVersion" = "7.4.0";
 
         # Nix specific settings
         "nix.enableLanguageServer" = true;

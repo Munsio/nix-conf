@@ -21,6 +21,7 @@
       push = {autoSetupRemote = true;};
       rebase = {autosquash = true;};
       rerere = {enabled = true;};
+      fetch.prune = true;
     };
   };
 
