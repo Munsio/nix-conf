@@ -68,6 +68,7 @@ in {
       "alt, space, exec, fuzzel"
       "$mod, l, exec, loginctl lock-session" # Lock session
       "$mod, escape, exec, ~/.local/bin/fuzzel-power-menu"
+      "ctrl_alt, v, exec, clipman pick --tool=CUSTOM --tool-args='fuzzel -w 100 -d'" # Plasma style clipboard menu
     ];
 
     layerrule = [

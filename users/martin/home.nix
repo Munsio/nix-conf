@@ -54,6 +54,10 @@ in {
     yazi.enable = true;
     zen-browser.enable = true;
     zoxide.enable = true;
+
+    services = {
+      clipman.enable = true;
+    };
   };
 
   # Custom configuration
