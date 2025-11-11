@@ -1,6 +1,6 @@
 {
   # Locale and Charset configuration
-  keyboardLayout = "de";
+  keyboardLayout = "us";
   timezone = "Europe/Vienna";
   locale = "en_US.UTF-8";
   extraLocale = "de_AT.UTF-8";

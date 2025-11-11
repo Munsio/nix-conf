@@ -67,7 +67,7 @@ in {
 
     # Keyboard
     input = {
-      kb_layout = "at";
+      kb_layout = hostVars.keyboardLayout;
     };
   };
 }
