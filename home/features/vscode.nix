@@ -41,7 +41,7 @@
         redhat.vscode-yaml # From Kubernetes
 
         # AI
-        saoudrizwan.claude-dev
+        continue.continue
       ];
 
       userSettings = {
@@ -94,6 +94,13 @@
         "ansible.lightspeed.enabled" = false;
 
         "intelephense.environment.phpVersion" = "7.4.0";
+
+        "continue.telemetryEnabled" = false;
+        "yaml.schemas" = {
+          "file:///home/martin/.vscode/extensions/continue.continue/config-yaml-schema.json" = [
+            ".continue/**/*.yaml"
+          ];
+        };
 
         # Nix specific settings
         "nix.enableLanguageServer" = true;
