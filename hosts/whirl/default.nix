@@ -33,6 +33,10 @@
       yubikey.enable = true;
       hypr-desktop.enable = true;
     };
+
+    services = {
+      qmk.enable = true;
+    };
   };
 
   # System-specific packages
