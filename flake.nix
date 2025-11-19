@@ -3,10 +3,8 @@
 
   nixConfig = {
     extra-substituters = [
-      "https://vicinae.cachix.org"
     ];
     extra-trusted-public-keys = [
-      "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="
     ];
   };
 
@@ -35,8 +33,6 @@
     nvf = {
       url = "github:NotAShelf/nvf";
     };
-
-    vicinae.url = "github:vicinaehq/vicinae";
 
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
   };
@@ -68,7 +64,6 @@
           extraHomeManagerModules = [
             inputs.stylix.homeModules.stylix
             inputs.nvf.homeManagerModules.nvf
-            inputs.vicinae.homeManagerModules.default
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
             inputs.zen-browser-flake.homeModules.twilight
           ];
@@ -86,7 +81,6 @@
           extraHomeManagerModules = [
             inputs.stylix.homeModules.stylix
             inputs.nvf.homeManagerModules.nvf
-            inputs.vicinae.homeManagerModules.default
             inputs.wayland-pipewire-idle-inhibit.homeModules.default
             inputs.zen-browser-flake.homeModules.twilight
           ];
