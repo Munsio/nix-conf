@@ -12,7 +12,6 @@
         hyprpaper.enable = true;
       };
       hyprlock.enable = true;
-      ghostty.enable = false;
 
       # TODO: Check because of side effects to other stuff (zen-browser/hyprpanel)
       gtk.enable = false;
@@ -35,7 +34,7 @@
 
       sizes = {
         applications = 10;
-        terminal = 14;
+        terminal = 12;
         desktop = 10;
         popups = 10;
       };

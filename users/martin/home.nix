@@ -4,7 +4,7 @@
   hostname,
   ...
 }: let
-  terminal = "ghostty";
+  terminal = "kitty";
   hostModule = ./home-${hostname}.nix;
 in {
   # Home Manager configuration for martin
@@ -53,6 +53,7 @@ in {
     vscode.enable = true;
     yazi.enable = true;
     zoxide.enable = true;
+    kitty.enable = true;
 
     services = {
       clipman.enable = true;
