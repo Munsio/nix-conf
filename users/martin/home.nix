@@ -69,6 +69,7 @@ in {
     # Keyboard
     input = {
       kb_layout = hostVars.keyboardLayout;
+      kb_variant = hostVars.keyboardVariant;
     };
   };
 }
