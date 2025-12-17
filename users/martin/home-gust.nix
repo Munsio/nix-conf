@@ -11,8 +11,8 @@
   ## Git
   programs = {
     git = lib.mkIf config.homeModules.git.enable {
-      userEmail = "martin.treml@agilox.net";
-      userName = "Martin Treml";
+      settings.user.email = "martin.treml@agilox.net";
+      settings.user.name = "Martin Treml";
     };
 
     fish = lib.mkIf config.homeModules.fish.enable {

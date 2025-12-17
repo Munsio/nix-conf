@@ -48,10 +48,9 @@
         };
 
         filetree.neo-tree = {
-            enable = true;
-            setupOpts = {
-
-            };
+          enable = true;
+          setupOpts = {
+          };
         };
         telescope.enable = true;
         statusline.lualine.enable = true;
@@ -99,12 +98,11 @@
 
           nix = {
             enable = true;
-            lsp.package = pkgs.nil;
           };
 
           markdown = {
             enable = true;
-            format.type = "prettierd";
+            format.type = ["prettierd"];
           };
           go.enable = true;
           yaml.enable = true;

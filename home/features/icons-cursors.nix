@@ -4,7 +4,7 @@
     # Zafiro icons
     pkgs.zafiro-icons
     # Breeze dark theme
-    pkgs.libsForQt5.breeze-gtk
+    pkgs.kdePackages.breeze-gtk
   ];
 
   # Set GTK theme and icons
@@ -12,7 +12,7 @@
     enable = true;
     theme = {
       name = "Breeze-Dark";
-      package = pkgs.libsForQt5.breeze-gtk;
+      package = pkgs.kdePackages.breeze-gtk;
     };
     iconTheme = {
       name = "Zafiro-icons-Dark";

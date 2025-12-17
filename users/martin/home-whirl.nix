@@ -14,8 +14,8 @@
   ## Git
   programs = {
     git = lib.mkIf config.homeModules.git.enable {
-      userEmail = "git@treml.dev";
-      userName = "Martin Treml";
+      settings.user.email = "git@treml.dev";
+      settings.user.name = "Martin Treml";
     };
   };
 

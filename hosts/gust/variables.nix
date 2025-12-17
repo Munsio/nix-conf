@@ -8,5 +8,5 @@
   isNixOS = false;
 
   # Nix and HomeManager stateVersion
-  stateVersion = "25.05";
+  stateVersion = "25.11";
 }
