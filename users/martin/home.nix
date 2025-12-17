@@ -34,7 +34,7 @@ in {
     };
 
     # Packages installed to user profile
-    packages = with pkgs; [jq dnsutils vlc fzf];
+    packages = with pkgs; [jq dnsutils vlc fzf ack];
   };
 
   homeModules = {
