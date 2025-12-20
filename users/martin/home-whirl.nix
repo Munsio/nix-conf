@@ -19,6 +19,16 @@
     };
   };
 
+  ## Private SSH Key
+  sops.secrets = {
+    "ssh_keys/martin/private" = {
+      path = "/home/martin/.ssh/id_ed25519";
+    };
+    "ssh_keys/martin/public" = {
+      path = "/home/martin/.ssh/id_ed25519.pub";
+    };
+  };
+
   ## Custom Mime Apps
   xdg = {
     mimeApps = {

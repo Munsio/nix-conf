@@ -34,8 +34,16 @@ in {
     };
 
     # Packages installed to user profile
-    packages = with pkgs; [jq dnsutils vlc fzf ack];
+    packages = with pkgs; [
+      jq
+      dnsutils
+      vlc
+      fzf
+      ack
+    ];
   };
+
+  sops.age.keyFile = "/home/martin/.config/sops/age/keys.txt";
 
   homeModules = {
     ansible.enable = true;
@@ -54,6 +62,7 @@ in {
     yazi.enable = true;
     zoxide.enable = true;
     kitty.enable = true;
+    sops.enable = true;
 
     services = {
       clipman.enable = true;
