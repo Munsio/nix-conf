@@ -11,6 +11,10 @@
     # Enable features
     nixos.enable = true;
     nh.enable = true;
+
+    services = {
+      openssh.enable = true;
+    };
   };
 
   # Set your time zone
