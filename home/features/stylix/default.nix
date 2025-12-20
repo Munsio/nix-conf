@@ -13,9 +13,8 @@
       };
       hyprlock.enable = true;
 
-      # TODO: Check because of side effects to other stuff (zen-browser/hyprpanel)
-      gtk.enable = false;
-      qt.enable = false;
+      gtk.enable = true;
+      qt.enable = true;
     };
 
     fonts = {

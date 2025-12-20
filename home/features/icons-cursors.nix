@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # Configure icons and themes
   home.packages = [
     # Zafiro icons
@@ -11,8 +15,8 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Breeze-Dark";
-      package = pkgs.kdePackages.breeze-gtk;
+      name = lib.mkForce "Breeze-Dark";
+      package = lib.mkForce pkgs.kdePackages.breeze-gtk;
     };
     iconTheme = {
       name = "Zafiro-icons-Dark";
