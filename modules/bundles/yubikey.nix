@@ -9,14 +9,21 @@
     udev.packages = [pkgs.yubikey-personalization];
   };
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
+
+    yubikey-touch-detector = {
+      enable = true;
+    };
   };
 
   environment.systemPackages = with pkgs; [
     yubioath-flutter # gui for managing Yubikey
     yubikey-manager # cli for managing Yubikey. "ykman"
     pam_u2f # yubikey with sudo
+    yubikey-touch-detector
   ];
 }

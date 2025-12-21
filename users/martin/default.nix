@@ -25,6 +25,15 @@ in {
     ];
   };
 
+  security.pam = {
+    u2f = {
+      enable = true;
+      settings = {
+        authfile = "${directory}/.config/yubico/u2f_keys";
+      };
+    };
+  };
+
   # Userspecific overrides
   programs.nh.flake = "${directory}/nix-conf";
 }

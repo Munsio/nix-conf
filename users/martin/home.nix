@@ -2,10 +2,13 @@
   pkgs,
   hostVars,
   hostname,
+  config,
   ...
 }: let
   terminal = "kitty";
   hostModule = ./home-${hostname}.nix;
+  username = "martin";
+  homeDirectory = "/home/${username}";
 in {
   # Home Manager configuration for martin
   imports = [
@@ -18,9 +21,9 @@ in {
   # Home directory configuration
   home = {
     # Use the username from the current user context
-    username = "martin";
+    username = username;
     # Use the homeDirectory from the current user context
-    homeDirectory = "/home/martin";
+    homeDirectory = homeDirectory;
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage
@@ -43,7 +46,12 @@ in {
     ];
   };
 
-  sops.age.keyFile = "/home/martin/.config/sops/age/keys.txt";
+  sops.age.keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
+  sops.secrets = {
+    "yubico/yubi5-nfc" = {
+      path = "${homeDirectory}/.config/yubico/u2f_keys";
+    };
+  };
 
   homeModules = {
     ansible.enable = true;
