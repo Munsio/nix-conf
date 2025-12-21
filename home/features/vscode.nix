@@ -34,6 +34,7 @@
         bmewburn.vscode-intelephense-client # PHP
         neilbrayfield.php-docblocker # PHP Doc blocks
         jnoortheen.nix-ide # Nix language support
+        theqtcompany.qt-qml
 
         # Dependencies
         ms-python.python # from Ansible

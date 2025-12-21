@@ -4,7 +4,9 @@
     hyprland.enable = true;
     hyprlock.enable = true;
     hyprpaper.enable = true;
-    hyprpanel.enable = true;
+    #hyprpanel.enable = true;
+    #quickshell.enable = true;
+    noctalia.enable = true;
 
     # Enable icons and cursors
     icons-cursors.enable = true;
