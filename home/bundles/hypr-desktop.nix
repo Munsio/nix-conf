@@ -7,6 +7,7 @@
     #hyprpanel.enable = true;
     #quickshell.enable = true;
     noctalia.enable = true;
+    screenshot.enable = true;
 
     # Enable icons and cursors
     icons-cursors.enable = true;
