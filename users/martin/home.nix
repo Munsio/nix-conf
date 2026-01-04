@@ -67,6 +67,7 @@ in {
     opentofu.enable = true;
     starship.enable = true;
     vscode.enable = true;
+    zed.enable = true;
     yazi.enable = true;
     zoxide.enable = true;
     kitty.enable = true;
