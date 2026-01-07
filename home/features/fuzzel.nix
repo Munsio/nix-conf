@@ -72,7 +72,7 @@ in {
     ];
 
     layerrule = [
-      "noanim, launcher"
+      "no_anim on, match:namespace launcher"
     ];
   };
 

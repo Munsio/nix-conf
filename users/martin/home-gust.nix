@@ -26,7 +26,7 @@
   wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
     windowrule = [
       # workaround for jetbrains IDEs dropdowns/popups cause flickering
-      "noinitialfocus, class:^(.*jetbrains.*)$, title:^(win.*)$"
+      "no_initial_focus on, match:class ^(.*jetbrains.*)$, match:title ^(win.*)$"
     ];
   };
 }
