@@ -16,6 +16,7 @@
           rc = "rebase --continue";
           ri = "!git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o -I % sh -c 'git rebase -i %^'";
           s = "status";
+          prune-local = "!git fetch -p && git for-each-ref --format=\"%(refname:short) %(upstream:track)\" refs/heads | awk '$2 ~ /\\[gone\\]/ {print $1}' | xargs -r git branch -d";
         };
         init.defaultBranch = "main";
         pull.rebase = true;

@@ -4,8 +4,6 @@
   config,
   ...
 }: let
-  zedPackage = lib.attrByPath ["unstable" "zed-editor"] pkgs."zed-editor" pkgs;
-
   monospaceFont =
     lib.attrByPath [
       "stylix"
@@ -19,7 +17,7 @@
 in {
   programs.zed-editor = {
     enable = true;
-    package = zedPackage;
+    package = pkgs.unstable.zed-editor;
 
     extraPackages = [
       pkgs.nil

@@ -3,6 +3,8 @@
   config,
   ...
 }: {
+  targets.genericLinux.enable = true;
+
   ## GDM environment variable fix.
   home.file.".config/environment.d/envvars.conf".text = ''
     PATH=$PATH:${config.home.homeDirectory}/.nix-profile/bin
