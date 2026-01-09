@@ -47,7 +47,7 @@
               id = "Volume";
             }
             {
-              formatHorizontal = "HH:mm";
+              formatHorizontal = "dd MMM - HH:mm";
               formatVertical = "HH mm";
               id = "Clock";
               useMonospacedFont = true;
