@@ -7,7 +7,7 @@
   # configure options
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
+    systemd.enable = false;
     settings = {
       # configure noctalia here
       bar = {
@@ -47,7 +47,7 @@
               id = "Volume";
             }
             {
-              formatHorizontal = "HH:mm";
+              formatHorizontal = "dd HH:mm";
               formatVertical = "HH mm";
               id = "Clock";
               useMonospacedFont = true;
