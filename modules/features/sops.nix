@@ -1,4 +1,8 @@
-{inputs, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   imports = [
     inputs.sops-nix.nixosModules.sops
   ];
@@ -12,5 +16,12 @@
       keyFile = "/var/lib/sops-nix/machine-key.txt";
       generateKey = true;
     };
+    secrets = {
+      "api-keys/nix-github.com" = {};
+    };
   };
+
+  nix.extraOptions = ''
+    !include ${config.sops.secrets."api-keys/nix-github.com".path}
+  '';
 }
