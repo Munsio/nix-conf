@@ -20,12 +20,18 @@
   };
 
   ## Private SSH Key
-  sops.secrets = {
-    "ssh_keys/martin/private" = {
-      path = "/home/martin/.ssh/id_ed25519";
-    };
-    "ssh_keys/martin/public" = {
-      path = "/home/martin/.ssh/id_ed25519.pub";
+
+  sops = {
+    secrets = {
+      "yubico/yubi5-nfc" = {
+        path = "${config.home.homeDirectory}/.config/yubico/u2f_keys";
+      };
+      "ssh_keys/martin/private" = {
+        path = "/home/martin/.ssh/id_ed25519";
+      };
+      "ssh_keys/martin/public" = {
+        path = "/home/martin/.ssh/id_ed25519.pub";
+      };
     };
   };
 

@@ -2,7 +2,6 @@
   pkgs,
   hostVars,
   hostname,
-  config,
   ...
 }: let
   terminal = "kitty";
@@ -44,13 +43,6 @@ in {
       fzf
       ack
     ];
-  };
-
-  sops.age.keyFile = "${homeDirectory}/.config/sops/age/keys.txt";
-  sops.secrets = {
-    "yubico/yubi5-nfc" = {
-      path = "${homeDirectory}/.config/yubico/u2f_keys";
-    };
   };
 
   homeModules = {
