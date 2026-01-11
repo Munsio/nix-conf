@@ -15,6 +15,8 @@
 
       gtk.enable = true;
       qt.enable = true;
+
+      font-packages.enable = true;
     };
 
     fonts = {

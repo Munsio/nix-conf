@@ -76,6 +76,12 @@
           #"$mod CTRL, left, workspace, e-1 "
           "$mod CTRL, right, workspace, m+1"
           "$mod CTRL, left, workspace, m-1"
+
+          # Resize
+          "$mod ALT, left, resizeactive, -20 0"
+          "$mod ALT, right, resizeactive, 20 0"
+          "$mod ALT, up, resizeactive, 0 -20"
+          "$mod ALT, down, resizeactive, 0 20"
         ]
         ++ (
           # workspaces
