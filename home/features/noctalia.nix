@@ -77,7 +77,7 @@
         monthBeforeDay = false;
         name = "Linz, Austria";
         showWeekNumberInCalendar = true;
-        firstDayOfWeek = 0;
+        firstDayOfWeek = 1;
       };
     };
     # this may also be a string or a path to a JSON file,
