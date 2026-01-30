@@ -4,6 +4,7 @@
     hyprland.enable = true;
     hyprlock.enable = true;
     hyprpaper.enable = true;
+    hyprshot.enable = true;
     #hyprpanel.enable = true;
     #quickshell.enable = true;
     noctalia.enable = true;
