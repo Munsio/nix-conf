@@ -55,6 +55,7 @@ in {
     git.enable = true;
     nvf.enable = true;
     helix.enable = true;
+    opencode.enable = true;
     obsidian.enable = true;
     opentofu.enable = true;
     starship.enable = true;
