@@ -20,9 +20,7 @@ in {
   # Home directory configuration
   home = {
     # Use the username from the current user context
-    username = username;
-    # Use the homeDirectory from the current user context
-    homeDirectory = homeDirectory;
+    inherit username homeDirectory;
 
     # This value determines the Home Manager release that your
     # configuration is compatible with. This helps avoid breakage

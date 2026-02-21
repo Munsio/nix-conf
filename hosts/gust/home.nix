@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  hostVars,
   ...
 }: {
   # Enable Home Manager modules using homeModules

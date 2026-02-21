@@ -64,17 +64,6 @@ in {
 
       autosave_on_focus_change = true;
       format_on_save = true;
-
-      languages = {
-        Nix = {
-          formatter = {
-            external = {
-              command = "alejandra";
-              arguments = [ "--quiet" ];
-            };
-          };
-        };
-      };
     };
   };
 }

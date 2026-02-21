@@ -1,10 +1,6 @@
 # This file is intended to be imported conditionally
 # based on config.homeModules.nvf.enable.
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{...}: {
   programs.nvf = {
     enable = true; # Enable the nvf program configuration
     enableManpages = true; # Recommended by nvf documentation
@@ -50,6 +46,13 @@
         filetree.neo-tree = {
           enable = true;
           setupOpts = {
+            filesystem = {
+              filtered_items = {
+                visible = true;
+                hide_dotfiles = false;
+                hide_gitignored = false;
+              };
+            };
           };
         };
         telescope.enable = true;
