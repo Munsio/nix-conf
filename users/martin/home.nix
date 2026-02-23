@@ -50,6 +50,7 @@ in {
     fish.enable = true;
     fuzzel.enable = true;
     git.enable = true;
+    gnome-disks.enable = true;
     nvf.enable = true;
     helix.enable = true;
     opencode.enable = true;
