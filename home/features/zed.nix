@@ -62,8 +62,7 @@ in {
         };
       };
 
-      autosave_on_focus_change = true;
-      format_on_save = true;
+      format_on_save = "on";
     };
   };
 }
