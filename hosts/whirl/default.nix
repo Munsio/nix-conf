@@ -26,6 +26,7 @@
     audio.enable = true;
     bluetooth.enable = true;
     systemd-boot.enable = true;
+    heroic.enable = true;
 
     # Enable bundles
     bundles = {
