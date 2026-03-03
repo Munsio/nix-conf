@@ -4,6 +4,9 @@
 in {
   # User-specific configuration for 'martin'
   nixModules = {
+    bundles = {
+      tailscale.enable = true;
+    };
     services = {
       print.enable = true;
       twingate.enable = true;
