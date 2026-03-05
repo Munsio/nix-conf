@@ -27,6 +27,7 @@
     bluetooth.enable = true;
     systemd-boot.enable = true;
     heroic.enable = true;
+    proton-vpn.enable = true;
 
     # Enable bundles
     bundles = {
