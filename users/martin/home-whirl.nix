@@ -32,6 +32,12 @@
       "ssh_keys/martin/public" = {
         path = "/home/martin/.ssh/id_ed25519.pub";
       };
+      "ssh_keys/codeberg/private" = {
+        path = "/home/martin/.ssh/id_codeberg";
+      };
+      "ssh_keys/codeberg/public" = {
+        path = "/home/martin/.ssh/id_codeberg.pub";
+      };
     };
   };
 
