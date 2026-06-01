@@ -51,18 +51,17 @@ in {
     fuzzel.enable = true;
     git.enable = true;
     gnome-disks.enable = true;
-    nvf.enable = true;
     helix.enable = true;
-    opencode.enable = true;
-    obsidian.enable = true;
-    opentofu.enable = true;
-    starship.enable = true;
-    vscode.enable = true;
-    zed.enable = true;
-    yazi.enable = true;
-    zoxide.enable = true;
     kitty.enable = true;
+    nvf.enable = true;
+    obsidian.enable = true;
+    opencode.enable = true;
+    opentofu.enable = true;
     sops.enable = true;
+    starship.enable = true;
+    yazi.enable = true;
+    zed.enable = true;
+    zoxide.enable = true;
 
     services = {
       clipman.enable = true;

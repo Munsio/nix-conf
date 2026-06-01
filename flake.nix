@@ -22,10 +22,6 @@
       url = "github:0xc000022070/zen-browser-flake";
     };
 
-    nix-vscode-extensions = {
-      url = "github:nix-community/nix-vscode-extensions";
-    };
-
     stylix = {
       url = "github:nix-community/stylix/release-25.11";
     };
@@ -79,7 +75,6 @@
           ];
           overlays = [
             myOverlays.unstable-packages
-            inputs.nix-vscode-extensions.overlays.default
           ];
         };
       };
@@ -97,7 +92,6 @@
 
           overlays = [
             myOverlays.unstable-packages
-            inputs.nix-vscode-extensions.overlays.default
           ];
         };
       };
