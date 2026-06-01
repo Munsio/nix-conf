@@ -1,4 +1,9 @@
-{inputs, ...}: {
+{
+  inputs,
+  lib,
+  config,
+  ...
+}: {
   # import the home manager module
   imports = [
     inputs.noctalia.homeModules.default
@@ -7,7 +12,6 @@
   # configure options
   programs.noctalia-shell = {
     enable = true;
-    systemd.enable = true;
     settings = {
       # configure noctalia here
       bar = {
@@ -21,7 +25,7 @@
               useDistroLogo = true;
             }
             {
-              id = "WiFi";
+              id = "Network";
             }
             {
               id = "Bluetooth";
@@ -53,6 +57,9 @@
               useMonospacedFont = true;
               usePrimaryColor = true;
             }
+            {
+              id = "plugin:tailscale";
+            }
           ];
         };
       };
@@ -80,7 +87,40 @@
         firstDayOfWeek = 1;
       };
     };
+
+    plugins = {
+      sources = [
+        {
+          enabled = true;
+          name = "Official Noctalia Plugins";
+          url = "https://github.com/noctalia-dev/noctalia-plugins";
+        }
+      ];
+      states = {
+        catwalk = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
+        tailscale = {
+          enabled = true;
+          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+        };
+      };
+      version = 2;
+    };
+
+    pluginSettings = {
+      tailscale = {
+        terminalCommand = "kitty";
+      };
+      # this may also be a string or a path to a JSON file.
+    };
     # this may also be a string or a path to a JSON file,
     # but in this case must include *all* settings.
+  };
+
+  # Add noctalia to Hyprland's exec-once when hyprland is enabled.
+  wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
+    exec-once = lib.mkMerge [["noctalia-shell"]];
   };
 }

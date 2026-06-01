@@ -26,7 +26,6 @@
       decoration = {rounding = 10;};
       # Dwindle
       dwindle = {
-        pseudotile = true;
         preserve_split = true;
       };
       misc = {disable_hyprland_logo = true;};
@@ -57,7 +56,7 @@
           "$mod SHIFT, F, togglefloating, "
           "$mod, F, fullscreen,"
           "$mod, P, pseudo, # dwindle"
-          "$mod, J, togglesplit, # dwindle"
+          "$mod, J, layoutmsg, togglesplit, # dwindle"
 
           # Move focus with $mod + arrow keys
           "$mod, left, movefocus, l"
