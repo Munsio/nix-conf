@@ -496,6 +496,22 @@
         "type": "github"
       }
     },
+    "opencode-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1781206381,
+        "narHash": "sha256-HxZWIPXNuK2GxWbgOIhS5tfFnEFxIypn0gwTuHcj/54=",
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "rev": "ca8db315a998f84fbd9d5cfa5e06bb4fe86d3c03",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -504,6 +520,7 @@
         "nixpkgs-unstable": "nixpkgs-unstable",
         "noctalia": "noctalia",
         "nvf": "nvf",
+        "opencode-src": "opencode-src",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "wayland-pipewire-idle-inhibit": "wayland-pipewire-idle-inhibit",

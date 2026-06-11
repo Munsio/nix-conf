@@ -41,6 +41,11 @@
     };
 
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
+
+    opencode-src = {
+      url = "github:anomalyco/opencode";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {nixpkgs, ...}: let
@@ -110,6 +115,8 @@
             statix # Linter for suggestions
             deadnix # Find unused code
             # nix-linter is currently marked as broken in nixpkgs
+
+            nodejs # for opencode MCP stuff
           ];
         };
       });
