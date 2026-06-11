@@ -8,12 +8,9 @@
     saveLocation = "$HOME/Pictures/Screenshots";
   };
 
-  # Add a keybinding for the power menu to Hyprland if it's enabled
-  wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
-    bind = [
-      "$mod ALT, P, exec, hyprshot -m region" # Screenshot Region
-      "$mod ALT CTRL, P, exec, hyprshot -m output"
-      "$mod ALT CTRL SHIFT, P, exec, hyprshot -m window"
-    ];
-  };
+  wayland.windowManager.hyprland.extraConfig = lib.mkIf config.wayland.windowManager.hyprland.enable ''
+    hl.bind("SUPER + ALT + P", hl.dsp.exec_cmd("hyprshot -m region"))
+    hl.bind("SUPER + ALT + CTRL + P", hl.dsp.exec_cmd("hyprshot -m output"))
+    hl.bind("SUPER + ALT + CTRL + SHIFT + P", hl.dsp.exec_cmd("hyprshot -m window"))
+  '';
 }

@@ -39,7 +39,9 @@
   };
 
   # Add hypridle to Hyprland's exec-once when hypridle is enabled
-  wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
-    exec-once = lib.mkMerge [["hypridle"]];
-  };
+  wayland.windowManager.hyprland.extraConfig = lib.mkIf config.wayland.windowManager.hyprland.enable ''
+    hl.on("hyprland.start", function()
+      hl.exec_cmd("hypridle")
+    end)
+  '';
 }

@@ -52,6 +52,7 @@ in {
     git.enable = true;
     gnome-disks.enable = true;
     helix.enable = true;
+    hyprland.terminal = terminal;
     kitty.enable = true;
     nvf.enable = true;
     obsidian.enable = true;
@@ -71,13 +72,12 @@ in {
   # Custom configuration
 
   ## Hyprland
-  wayland.windowManager.hyprland.settings = {
-    "$terminal" = terminal;
-
-    # Keyboard
-    input = {
-      kb_layout = hostVars.keyboardLayout;
-      kb_variant = hostVars.keyboardVariant;
-    };
-  };
+  wayland.windowManager.hyprland.extraConfig = ''
+    hl.config({
+      input = {
+        kb_layout = "${hostVars.keyboardLayout}",
+        kb_variant = "${hostVars.keyboardVariant}",
+      },
+    })
+  '';
 }

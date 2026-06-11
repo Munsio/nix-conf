@@ -63,18 +63,13 @@ in {
   };
 
   # Add a keybinding for the power menu to Hyprland if it's enabled
-  wayland.windowManager.hyprland.settings = lib.mkIf config.wayland.windowManager.hyprland.enable {
-    bind = [
-      "alt, space, exec, fuzzel"
-      "$mod, l, exec, loginctl lock-session" # Lock session
-      "$mod, escape, exec, ~/.local/bin/fuzzel-power-menu"
-      "ctrl_alt, v, exec, clipman pick --tool=CUSTOM --tool-args='fuzzel -w 100 -d'" # Plasma style clipboard menu
-    ];
-
-    layerrule = [
-      "no_anim on, match:namespace launcher"
-    ];
-  };
+  wayland.windowManager.hyprland.extraConfig = lib.mkIf config.wayland.windowManager.hyprland.enable ''
+    hl.bind("ALT + space", hl.dsp.exec_cmd("fuzzel"))
+    hl.bind("SUPER + L", hl.dsp.exec_cmd("loginctl lock-session"), { locked = true })
+    hl.bind("SUPER + escape", hl.dsp.exec_cmd("~/.local/bin/fuzzel-power-menu"))
+    hl.bind("CTRL + ALT + V", hl.dsp.exec_cmd("clipman pick --tool=CUSTOM --tool-args='fuzzel -w 100 -d'"))
+    hl.layer_rule({ match = { namespace = "launcher" }, no_anim = true })
+  '';
 
   # Ensure the .local/bin directory is in the PATH
   home.sessionVariables = {PATH = "$HOME/.local/bin:$PATH";};
