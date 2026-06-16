@@ -8,7 +8,7 @@
       self.homeModules.fuzzel
       self.homeModules.git
       self.homeModules.gnome-disks
-      self.homeModules.helix
+      self.homeModules.carapace
       self.homeModules.kitty
       self.homeModules.nvf
       self.homeModules.obsidian

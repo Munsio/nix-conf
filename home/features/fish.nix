@@ -11,6 +11,7 @@
         ".." = "cd ..";
         os-update = "nh os switch -u -a";
         hm-switch = "home-manager switch --flake ~/Documents/nix-conf/#(hostname)";
+        check-opencode-update = "curl -s https://api.github.com/repos/anomalyco/opencode/releases/latest | jq -r '\"Latest: \" + .tag_name' && echo 'Check modules/overlays.nix for current version'";
       };
     };
 

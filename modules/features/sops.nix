@@ -1,5 +1,7 @@
 {inputs, ...}: {
   flake.nixosModules.sops = {config, ...}: {
+    # TODO: investigate sops.secrets.<name>.neededForUsers = true
+    # to ensure secrets are decrypted before the user session starts.
     imports = [
       inputs.sops-nix.nixosModules.sops
     ];

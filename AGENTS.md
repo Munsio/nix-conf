@@ -4,15 +4,24 @@ This document provides instructions and guidelines for AI agents interacting wit
 
 ## 1. Project Overview
 
-This is a NixOS configuration project with Home-Manager integration, using a flake setup. The configuration is designed to be highly modular, separating concerns into distinct, reusable units.
+This is a NixOS configuration project with Home-Manager integration, using a flake setup with `flake-parts` for modularization. The configuration follows a **dendritic pattern** — directory trees auto-imported by `flake.nix` via `importTree`, where each `.nix` file (not starting with `_`, not `flake.nix` or `hardware-configuration.nix`) automatically becomes a module named after its filename.
 
-- `flake.nix`: The entry point of the configuration.
-- `hosts/`: Contains machine-specific configurations.
-- `home/`: Contains user-specific and application configurations, managed by home-manager.
-- `modules/`: Contains NixOS modules.
-- `overlays/`: Contains overlays to add or modify packages.
-- `users/`: Contains user-specific configurations.
-- `lib/`: Contains helper functions.
+- `flake.nix`: Entry point — auto-imports all `.nix` modules from `modules/`, `home/`, `hosts/`, and `users/`.
+- `modules/`: NixOS-level configuration, organized into:
+  - `features/`: Small, atomic NixOS configs (audio, bluetooth, steam, sops, etc.)
+  - `services/`: NixOS services (greetd, openssh, print, twingate, qmk)
+  - `bundles/`: Groups of NixOS features/services (hypr-desktop, yubikey, tailscale, automount)
+  - `overlays.nix`: Custom nixpkgs overlays (unstable channel, opencode)
+  - `devshell.nix`: `nix develop` shell definition
+- `home/`: Home-manager configuration, same dendritic pattern:
+  - `features/`: User-facing tools (fish, git, nvf, zed, carapace, etc.)
+  - `services/`: User background services (clipman, hypridle, wayland-idle-inhibitor)
+  - `bundles/`: Groups of home features/services (hypr-desktop)
+  - `hyprland.lua`: Lua config for Hyprland compositor
+- `hosts/`: Per-machine configurations:
+  - `whirl/`: NixOS host (Framework 13 AMD laptop) + `hardware-configuration.nix`
+  - `gust/`: Standalone home-manager profile (non-NixOS Linux)
+- `users/`: Per-user base profile + host-specific overrides (martin)
 
 ## 2. Getting Started
 
@@ -99,13 +108,16 @@ When making changes, ensure you can successfully run the "Build and Apply" comma
 
 ### File and Directory Structure
 
-- **Modularity**: Configurations are split into `features`, `services`, and `bundles`.
+The configuration follows a **dendritic pattern**: every `.nix` file in `modules/`, `home/`, `hosts/`, and `users/` (excluding files starting with `_`, `flake.nix`, and `hardware-configuration.nix`) is auto-imported by `importTree` in `flake.nix`. The filename (without `.nix`) becomes the module name under `flake.nixosModules.<name>` or `flake.homeModules.<name>`.
+
+- **Modularity**: Configurations within `modules/` and `home/` are split into `features`, `services`, and `bundles`.
   - `features/`: Small, atomic configurations for a single tool or application.
   - `services/`: Configurations for background processes.
   - `bundles/`: Groups of features and services.
 - **Host-specific vs. User-specific**:
-  - `hosts/`: Machine-level settings.
+  - `hosts/`: Machine-level NixOS and home-manager settings.
   - `users/`: User-specific dotfiles and preferences.
+- **Overlays**: Live in `modules/overlays.nix` (not a separate `overlays/` directory). Contains the `unstable` nixpkgs overlay and the custom `opencode` overlay.
 
 ### Naming Conventions
 
@@ -127,24 +139,28 @@ When making changes, ensure you can successfully run the "Build and Apply" comma
 ### Adding a New Application (Feature)
 
 1.  **Create Feature File**: Create a new file in `home/features/` (e.g., `home/features/my-app.nix`). The file name (without the `.nix` extension) will be used as the module name.
-2.  **Write Configuration**: Write a standard home-manager module in this file. For example, to install a package:
+2.  **Write Configuration**: Write a standard home-manager module in this file, exporting it as `flake.homeModules.<name>`. For example:
     ```nix
-    { pkgs, ... }:
-
-    {
-      home.packages = [
-        pkgs.my-app
-      ];
+    {...}: {
+      flake.homeModules.my-app = {
+        programs.my-app = {
+          enable = true;
+        };
+      };
     }
     ```
-3.  **Enable Feature**: Enable the feature in the `home.nix` file for a specific user (e.g., `users/martin/home.nix`). Add the module to the `homeModules` set and set `enable = true;`.
+3.  **Enable Feature**: Import the module in the user's home config (e.g., `users/martin/home.nix`):
 
     ```nix
-    homeModules = {
-      my-app.enable = true;
-      # ... other modules
+    flake.homeModules.martin = {pkgs, ...}: {
+      imports = [
+        self.homeModules.my-app
+        # ... other modules
+      ];
     };
     ```
+
+The same pattern applies to NixOS-level features under `modules/features/`.
 
 ### Modifying an Existing Configuration
 
@@ -152,3 +168,36 @@ When making changes, ensure you can successfully run the "Build and Apply" comma
 2.  **Make your changes**: Follow the code style and conventions.
 3.  **Lint and format**: Run the linting and formatting commands.
 4.  **Apply the changes**: Use the appropriate `nixos-rebuild` or `home-manager` command.
+
+## 8. Updating the OpenCode Overlay
+
+The `opencode` package in nixpkgs (both stable and unstable) is frequently out of date, so a custom overlay in `modules/overlays.nix` pins a specific version from the `opencode-src` flake input.
+
+### Checking for Updates
+
+Run the Fish alias:
+```bash
+check-opencode-update
+```
+This queries the GitHub API for the latest opencode release.
+
+### Bumping the Version
+
+1. Update `version` to the new release tag in `modules/overlays.nix`:
+   ```nix
+   version = "1.17.3";       # in opencode-overlay
+   version = "1.17.3";       # in node_modules.overrideAttrs
+   ```
+2. Attempt a build — it will fail with a hash mismatch. Nix will print the new expected hash.
+3. Copy the new hash into `outputHash`:
+   ```nix
+   outputHash = "sha256-...";
+   ```
+4. Verify with a dry-run:
+   ```bash
+   nixos-rebuild build --flake .#whirl
+   ```
+
+## 9. TODO / Known Issues
+
+- **`home/features/sops.nix`** and **`modules/features/sops.nix`**: Investigate `sops.secrets.<name>.neededForUsers = true` to ensure secrets are decrypted before the user session starts, eliminating potential race conditions.
