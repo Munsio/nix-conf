@@ -1,6 +1,8 @@
-{...}: {
-  nixModules = {
-    hyprland.enable = true;
-    services.greetd.enable = true;
+{self, ...}: {
+  flake.nixosModules.hypr-desktop = {
+    imports = [
+      self.nixosModules.hyprland
+      self.nixosModules.greetd
+    ];
   };
 }

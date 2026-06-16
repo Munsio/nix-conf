@@ -1,50 +1,53 @@
 {
-  pkgs,
-  hostname,
+  self,
   inputs,
   ...
 }: {
-  imports = [
-    inputs.nixos-hardware.nixosModules.framework-13-7040-amd
-    ./hardware-configuration.nix
-  ];
+  flake.nixosModules.whirl = {pkgs, ...}: {
+    imports = [
+      inputs.nixos-hardware.nixosModules.framework-13-7040-amd
+      self.nixosModules.common
+      self.nixosModules.nixos
+      self.nixosModules.nh
+      self.nixosModules.sops
+      self.nixosModules.openssh
+      self.nixosModules.audio
+      self.nixosModules.bluetooth
+      self.nixosModules.systemd-boot
+      self.nixosModules.heroic
+      self.nixosModules.steam
+      self.nixosModules.proton-vpn
+      self.nixosModules.unstableOverlay
+      self.nixosModules.automount
+      self.nixosModules.yubikey
+      self.nixosModules.tailscale
+      self.nixosModules.twingate
+      self.nixosModules.print
+      self.nixosModules.qmk
+      self.nixosModules.martin-user
+      self.nixosModules.hypr-desktop
+      self.nixosModules.whirl-home-manager
+    ];
 
-  # All Hardware relevant stuff goes here.
-  boot.initrd.luks.devices."luks-c5ef7dea-9875-4d93-a0a4-b063c31d44e2".device = "/dev/disk/by-uuid/c5ef7dea-9875-4d93-a0a4-b063c31d44e2";
+    networking.hostName = "whirl";
+    networking.networkmanager.enable = true;
 
-  # Host-specific configuration for 'whirl'
-  networking = {
-    hostName = hostname;
-    networkmanager.enable = true;
+    services.upower.enable = true;
+
+    # LUKS-encrypted swap partition (nvme0n1p3, not auto-detected by nixos-generate-config)
+    boot.initrd.luks.devices."luks-c5ef7dea-9875-4d93-a0a4-b063c31d44e2".device = "/dev/disk/by-uuid/c5ef7dea-9875-4d93-a0a4-b063c31d44e2";
+
+    environment.systemPackages = with pkgs; [
+      brightnessctl
+    ];
   };
 
-  # Batter power support
-  services.upower.enable = true;
-
-  # Enable NixOS modules using nixModules
-  nixModules = {
-    audio.enable = true;
-    bluetooth.enable = true;
-    systemd-boot.enable = true;
-    heroic.enable = true;
-    steam.enable = true;
-    proton-vpn.enable = true;
-
-    # Enable bundles
-    bundles = {
-      automount.enable = true;
-      yubikey.enable = true;
-      hypr-desktop.enable = true;
-    };
-
-    services = {
-      qmk.enable = true;
-    };
+  flake.nixosConfigurations.whirl = inputs.nixpkgs.lib.nixosSystem {
+    system = "x86_64-linux";
+    specialArgs = {inherit inputs;};
+    modules = [
+      self.nixosModules.whirl
+      ./hardware-configuration.nix
+    ];
   };
-
-  # System-specific packages
-  environment.systemPackages = with pkgs; [
-    brightnessctl
-    # Add host-specific packages here
-  ];
 }

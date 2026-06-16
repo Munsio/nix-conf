@@ -1,68 +1,43 @@
-{
-  lib,
-  hostVars,
-  pkgs,
-  ...
-}: {
-  # Common configuration for all hosts
+{lib, ...}: {
+  flake.nixosModules.common = {pkgs, ...}: {
+    time.timeZone = lib.mkDefault "Europe/Vienna";
 
-  # Enable NixOS modules
-  nixModules = {
-    # Enable features
-    nixos.enable = true;
-    nh.enable = true;
-    sops.enable = true;
-
-    services = {
-      openssh.enable = true;
+    i18n = {
+      defaultLocale = lib.mkDefault "en_US.UTF-8";
+      extraLocaleSettings = lib.mkDefault {
+        LC_NUMERIC = "de_AT.UTF-8";
+        LC_TIME = "de_AT.UTF-8";
+        LC_MONETARY = "de_AT.UTF-8";
+        LC_ADDRESS = "de_AT.UTF-8";
+        LC_IDENTIFICATION = "de_AT.UTF-8";
+        LC_MEASUREMENT = "de_AT.UTF-8";
+        LC_PAPER = "de_AT.UTF-8";
+        LC_TELEPHONE = "de_AT.UTF-8";
+        LC_NAME = "de_AT.UTF-8";
+      };
     };
-  };
 
-  # Set your time zone
-  time.timeZone = lib.mkDefault hostVars.timezone;
+    console.keyMap = lib.mkDefault "us";
 
-  # Select internationalisation properties
-  i18n = {
-    defaultLocale = lib.mkDefault hostVars.locale;
-    extraLocaleSettings = lib.mkDefault {
-      LC_NUMERIC = hostVars.extraLocale;
-      LC_TIME = hostVars.extraLocale;
-      LC_MONETARY = hostVars.extraLocale;
-      LC_ADDRESS = hostVars.extraLocale;
-      LC_IDENTIFICATION = hostVars.extraLocale;
-      LC_MEASUREMENT = hostVars.extraLocale;
-      LC_PAPER = hostVars.extraLocale;
-      LC_TELEPHONE = hostVars.extraLocale;
-      LC_NAME = hostVars.extraLocale;
+    environment.systemPackages = with pkgs; [
+      dmidecode
+      fzf
+      btop
+      killall
+      pciutils
+      usbutils
+      wget
+    ];
+
+    services.dbus.enable = true;
+
+    security = {
+      rtkit.enable = true;
+      polkit.enable = true;
     };
+
+    services.fwupd.enable = true;
+
+    system.stateVersion = lib.mkDefault "26.05";
   };
-
-  # Configure console keymap
-  console.keyMap = lib.mkDefault hostVars.keyboardLayout;
-
-  # Environment and standard packages
-  environment.systemPackages = with pkgs; [
-    dmidecode
-    fzf
-    btop
-    killall
-    pciutils
-    usbutils
-    wget
-  ];
-
-  services.dbus.enable = true;
-
-  # Security
-  security = {
-    rtkit.enable = true;
-    polkit.enable = true;
-  };
-
-  # Firmware update
-  services.fwupd.enable = true;
-
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software.
-  system.stateVersion = lib.mkDefault hostVars.stateVersion;
 }

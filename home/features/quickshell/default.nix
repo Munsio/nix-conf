@@ -1,13 +1,8 @@
 {...}: {
-  programs.quickshell = {
-    enable = true;
-    #configs = {
-    #  default = ./Quickshell;
-    #};
-    activeConfig = "default";
+  flake.homeModules.quickshell = {
+    programs.quickshell = {
+      enable = true;
+      activeConfig = "default";
+    };
   };
-
-  #home.file.".config/quickshell/default" = {
-  #  source = ./Quickshell;
-  #};
 }

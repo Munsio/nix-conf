@@ -1,31 +1,30 @@
-{
-  lib,
-  config,
-  ...
-}: {
-  targets.genericLinux.enable = true;
+{...}: {
+  flake.homeModules.martin-gust = {
+    config,
+    lib,
+    ...
+  }: {
+    targets.genericLinux.enable = true;
 
-  ## GDM environment variable fix.
-  home.file.".config/environment.d/envvars.conf".text = ''
-    PATH=$PATH:${config.home.homeDirectory}/.nix-profile/bin
-  '';
+    home.file.".config/environment.d/envvars.conf".text = ''
+      PATH=$PATH:${config.home.homeDirectory}/.nix-profile/bin
+    '';
 
-  ## Git
-  programs = {
-    git = lib.mkIf config.homeModules.git.enable {
-      settings.user.email = "martin.treml@agilox.net";
-      settings.user.name = "Martin Treml";
-    };
+    programs = {
+      git = lib.mkIf config.programs.git.enable {
+        settings.user.email = "martin.treml@agilox.net";
+        settings.user.name = "Martin Treml";
+      };
 
-    fish = lib.mkIf config.homeModules.fish.enable {
-      shellAliases = {
-        dev = "just -f /home/martin/Documents/projects/developer-toolbox/justfile";
+      fish = lib.mkIf config.programs.fish.enable {
+        shellAliases = {
+          dev = "just -f /home/martin/Documents/projects/developer-toolbox/justfile";
+        };
       };
     };
-  };
 
-  ## Hyprland Jetbrains specific stuff
-  wayland.windowManager.hyprland.extraConfig = lib.mkIf config.wayland.windowManager.hyprland.enable ''
-    hl.window_rule({ match = { class = "^(.*jetbrains.*)$", title = "^(win.*)$" }, no_initial_focus = true })
-  '';
+    wayland.windowManager.hyprland.extraConfig = lib.mkIf config.wayland.windowManager.hyprland.enable ''
+      hl.window_rule({ match = { class = "^(.*jetbrains.*)$", title = "^(win.*)$" }, no_initial_focus = true })
+    '';
+  };
 }

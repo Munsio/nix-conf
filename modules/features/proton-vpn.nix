@@ -1,5 +1,7 @@
-{pkgs, ...}: {
-  environment.systemPackages = [
-    pkgs.proton-vpn
-  ];
+{...}: {
+  flake.nixosModules.proton-vpn = {pkgs, ...}: {
+    environment.systemPackages = [
+      pkgs.proton-vpn
+    ];
+  };
 }

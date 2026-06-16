@@ -34,6 +34,11 @@ jobs:
         run: |
           nix-shell -p deadnix --run "deadnix --fail ."
         continue-on-error: false
+
+      - name: Run flake check
+        run: |
+          nix flake check
+        continue-on-error: false
         
       # nix-linter is currently marked as broken in nixpkgs
       # - name: Run nix-linter check

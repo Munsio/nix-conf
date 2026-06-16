@@ -1,5 +1,7 @@
 {...}: {
-  programs.steam = {
-    enable = true;
+  flake.nixosModules.steam = {
+    programs.steam = {
+      enable = true;
+    };
   };
 }

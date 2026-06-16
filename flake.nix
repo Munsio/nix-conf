@@ -1,13 +1,6 @@
 {
   description = "NixOS configuration with flakes and home-manager";
 
-  nixConfig = {
-    extra-substituters = [
-    ];
-    extra-trusted-public-keys = [
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -46,79 +39,32 @@
       url = "github:anomalyco/opencode";
       flake = false;
     };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
-  outputs = inputs @ {nixpkgs, ...}: let
+  outputs = inputs @ {
+    flake-parts,
+    nixpkgs,
+    ...
+  }: let
     inherit (nixpkgs) lib;
+    inherit (lib.fileset) toList fileFilter;
 
-    # Available systems
-    supportedSystems = ["x86_64-linux" "aarch64-linux"];
+    isNixModule = file:
+      file.hasExt "nix"
+      && file.name != "flake.nix"
+      && file.name != "hardware-configuration.nix"
+      && !lib.hasPrefix "_" file.name;
 
-    # Function to generate attributes for each supported system
-    forAllSystems = lib.genAttrs supportedSystems;
-
-    # Import the library functions
-    myLib = import ./lib/default.nix {inherit lib inputs;};
-
-    myOverlays = import ./overlays {inherit inputs;};
+    importTree = dir:
+      toList (fileFilter isNixModule dir);
   in
-    with myLib; {
-      # NixOS configurations for different hosts
-      nixosConfigurations = {
-        # Whirl host configuration using mkSystem
-        whirl = mkSystem {
-          hostname = "whirl";
-          users = ["martin"];
-          extraModules = [
-            inputs.stylix.nixosModules.stylix
-          ];
-          extraHomeManagerModules = [
-            inputs.stylix.homeModules.stylix
-            inputs.nvf.homeManagerModules.nvf
-            inputs.wayland-pipewire-idle-inhibit.homeModules.default
-            inputs.zen-browser-flake.homeModules.twilight
-          ];
-          overlays = [
-            myOverlays.unstable-packages
-          ];
-        };
-      };
-
-      homeConfigurations = {
-        gust = mkHome {
-          hostname = "gust";
-          user = "martin";
-          extraHomeManagerModules = [
-            inputs.stylix.homeModules.stylix
-            inputs.nvf.homeManagerModules.nvf
-            inputs.wayland-pipewire-idle-inhibit.homeModules.default
-            inputs.zen-browser-flake.homeModules.twilight
-          ];
-
-          overlays = [
-            myOverlays.unstable-packages
-          ];
-        };
-      };
-
-      # Development shell for working with this flake
-      devShells = forAllSystems (system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        default = pkgs.mkShell {
-          buildInputs = with pkgs; [
-            # Nix language server
-            nil
-
-            # Nix formatting and linting tools
-            alejandra # Formatter
-            statix # Linter for suggestions
-            deadnix # Find unused code
-            # nix-linter is currently marked as broken in nixpkgs
-
-            nodejs # for opencode MCP stuff
-          ];
-        };
-      });
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      imports =
+        (importTree ./modules)
+        ++ (importTree ./home)
+        ++ (importTree ./hosts)
+        ++ (importTree ./users);
     };
 }

@@ -1,6 +1,8 @@
 {...}: {
-  programs.yazi = {
-    enable = true;
-    enableFishIntegration = true;
+  flake.homeModules.yazi = {
+    programs.yazi = {
+      enable = true;
+      enableFishIntegration = true;
+    };
   };
 }
