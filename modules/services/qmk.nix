@@ -1,13 +1,15 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    qmk
-    via
-  ];
+{...}: {
+  flake.nixosModules.qmk = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
+      qmk
+      via
+    ];
 
-  services.udev.packages = with pkgs; [
-    qmk-udev-rules
-    via
-  ];
+    services.udev.packages = with pkgs; [
+      qmk-udev-rules
+      via
+    ];
 
-  hardware.keyboard.qmk.enable = true;
+    hardware.keyboard.qmk.enable = true;
+  };
 }

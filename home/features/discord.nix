@@ -1,8 +1,7 @@
 {...}: {
-  # programs.vesktop = {
-  #   enable = true;
-  # };
-  programs.discord = {
-    enable = true;
+  flake.homeModules.discord = {
+    programs.discord = {
+      enable = true;
+    };
   };
 }

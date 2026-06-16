@@ -1,7 +1,9 @@
 {...}: {
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
+  flake.nixosModules.bluetooth = {
+    hardware.bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+    services.blueman.enable = true;
   };
-  services.blueman.enable = true;
 }

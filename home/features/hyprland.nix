@@ -1,27 +1,24 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  cfg = config.homeModules.hyprland;
-  luaConfig = builtins.replaceStrings ["__TERMINAL__"] [cfg.terminal] (builtins.readFile ../hyprland.lua);
-in {
-  options.homeModules.hyprland.terminal = lib.mkOption {
-    type = lib.types.str;
-    default = "kitty";
-    description = "Terminal emulator to use in hyprland keybindings";
-  };
+{lib, ...}: {
+  flake.homeModules.hyprland = {config, ...}: let
+    terminal = config.hyprland-terminal or "kitty";
+    luaConfig = builtins.replaceStrings ["__TERMINAL__"] [terminal] (builtins.readFile ../hyprland.lua);
+  in {
+    options.hyprland-terminal = lib.mkOption {
+      type = lib.types.str;
+      default = "kitty";
+    };
 
-  config = {
-    wayland.windowManager.hyprland = {
-      enable = true;
-      systemd = {
+    config = {
+      wayland.windowManager.hyprland = {
         enable = true;
-        variables = ["--all"];
+        systemd = {
+          enable = true;
+          variables = ["--all"];
+        };
+        package = null;
+        portalPackage = null;
+        extraConfig = luaConfig;
       };
-      package = null;
-      portalPackage = null;
-      extraConfig = luaConfig;
     };
   };
 }

@@ -1,6 +1,5 @@
 # This file provides backward compatibility for older Nix versions
-# that don't support flakes. It simply imports the development shell
-# from the flake.
+# that don't support flakes.
 (import
   (fetchTarball {
     url = "https://github.com/edolstra/flake-compat/archive/master.tar.gz";

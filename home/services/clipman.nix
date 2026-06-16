@@ -1,5 +1,7 @@
 {...}: {
-  services.clipman = {
-    enable = true;
+  flake.homeModules.clipman = {
+    services.clipman = {
+      enable = true;
+    };
   };
 }

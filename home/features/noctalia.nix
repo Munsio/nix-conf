@@ -1,128 +1,123 @@
-{
-  inputs,
-  lib,
-  config,
-  ...
-}: {
-  # import the home manager module
-  imports = [
-    inputs.noctalia.homeModules.default
-  ];
+{...}: {
+  flake.homeModules.noctalia = {
+    inputs,
+    config,
+    lib,
+    ...
+  }: {
+    imports = [
+      inputs.noctalia.homeModules.default
+    ];
 
-  # configure options
-  programs.noctalia-shell = {
-    enable = true;
-    settings = {
-      # configure noctalia here
-      bar = {
-        density = "default";
-        position = "top";
-        showCapsule = false;
-        widgets = {
-          left = [
-            {
-              id = "ControlCenter";
-              useDistroLogo = true;
-            }
-            {
-              id = "Network";
-            }
-            {
-              id = "Bluetooth";
-            }
-          ];
-          center = [
-            {
-              hideUnoccupied = false;
-              id = "Workspace";
-              labelMode = "none";
-            }
-          ];
-          right = [
-            {
-              alwaysShowPercentage = false;
-              id = "Battery";
-              warningThreshold = 30;
-            }
-            {
-              id = "NotificationHistory";
-            }
-            {
-              id = "Volume";
-            }
-            {
-              formatHorizontal = "dd MMM - HH:mm";
-              formatVertical = "HH mm";
-              id = "Clock";
-              useMonospacedFont = true;
-              usePrimaryColor = true;
-            }
-            {
-              id = "plugin:tailscale";
-            }
-          ];
+    programs.noctalia-shell = {
+      enable = true;
+      settings = {
+        bar = {
+          density = "default";
+          position = "top";
+          showCapsule = false;
+          widgets = {
+            left = [
+              {
+                id = "ControlCenter";
+                useDistroLogo = true;
+              }
+              {
+                id = "Network";
+              }
+              {
+                id = "Bluetooth";
+              }
+            ];
+            center = [
+              {
+                hideUnoccupied = false;
+                id = "Workspace";
+                labelMode = "none";
+              }
+            ];
+            right = [
+              {
+                alwaysShowPercentage = false;
+                id = "Battery";
+                warningThreshold = 30;
+              }
+              {
+                id = "NotificationHistory";
+              }
+              {
+                id = "Volume";
+              }
+              {
+                formatHorizontal = "dd MMM - HH:mm";
+                formatVertical = "HH mm";
+                id = "Clock";
+                useMonospacedFont = true;
+                usePrimaryColor = true;
+              }
+              {
+                id = "plugin:tailscale";
+              }
+            ];
+          };
+        };
+        wallpaper = {
+          enabled = false;
+        };
+        dock = {
+          enabled = false;
+        };
+        notifications = {
+          location = "top_center";
+        };
+        osd = {
+          location = "top_center";
+        };
+        colorSchemes.predefinedScheme = "Everforest";
+        general = {
+          avatarImage = "/home/drfoobar/.face";
+          radiusRatio = 0.2;
+        };
+        location = {
+          monthBeforeDay = false;
+          name = "Linz, Austria";
+          showWeekNumberInCalendar = true;
+          firstDayOfWeek = 1;
         };
       };
-      wallpaper = {
-        enabled = false;
-      };
-      dock = {
-        enabled = false;
-      };
-      notifications = {
-        location = "top_center";
-      };
-      osd = {
-        location = "top_center";
-      };
-      colorSchemes.predefinedScheme = "Everforest";
-      general = {
-        avatarImage = "/home/drfoobar/.face";
-        radiusRatio = 0.2;
-      };
-      location = {
-        monthBeforeDay = false;
-        name = "Linz, Austria";
-        showWeekNumberInCalendar = true;
-        firstDayOfWeek = 1;
-      };
-    };
 
-    plugins = {
-      sources = [
-        {
-          enabled = true;
-          name = "Official Noctalia Plugins";
-          url = "https://github.com/noctalia-dev/noctalia-plugins";
-        }
-      ];
-      states = {
-        catwalk = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+      plugins = {
+        sources = [
+          {
+            enabled = true;
+            name = "Official Noctalia Plugins";
+            url = "https://github.com/noctalia-dev/noctalia-plugins";
+          }
+        ];
+        states = {
+          catwalk = {
+            enabled = true;
+            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          };
+          tailscale = {
+            enabled = true;
+            sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          };
         };
+        version = 2;
+      };
+
+      pluginSettings = {
         tailscale = {
-          enabled = true;
-          sourceUrl = "https://github.com/noctalia-dev/noctalia-plugins";
+          terminalCommand = "kitty";
         };
       };
-      version = 2;
     };
 
-    pluginSettings = {
-      tailscale = {
-        terminalCommand = "kitty";
-      };
-      # this may also be a string or a path to a JSON file.
-    };
-    # this may also be a string or a path to a JSON file,
-    # but in this case must include *all* settings.
+    wayland.windowManager.hyprland.extraConfig = lib.mkIf config.wayland.windowManager.hyprland.enable ''
+      hl.on("hyprland.start", function()
+        hl.exec_cmd("noctalia-shell")
+      end)
+    '';
   };
-
-  # Add noctalia to Hyprland's exec-once when hyprland is enabled.
-  wayland.windowManager.hyprland.extraConfig = lib.mkIf config.wayland.windowManager.hyprland.enable ''
-    hl.on("hyprland.start", function()
-      hl.exec_cmd("noctalia-shell")
-    end)
-  '';
 }

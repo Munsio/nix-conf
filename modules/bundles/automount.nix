@@ -1,16 +1,15 @@
-{pkgs, ...}: {
-  # Enable services for USB automounting
-  services = {
-    devmon.enable = true; # Automounts removable devices
-    gvfs.enable =
-      true; # GNOME Virtual File System, provides backends for udisks2
-    udisks2.enable = true; # Provides block device and storage management
-  };
+{...}: {
+  flake.nixosModules.automount = {pkgs, ...}: {
+    services = {
+      devmon.enable = true;
+      gvfs.enable = true;
+      udisks2.enable = true;
+    };
 
-  # Install common filesystem tools
-  environment.systemPackages = with pkgs; [
-    ntfs3g # For NTFS filesystem support
-    exfatprogs # For exFAT filesystem support
-    dosfstools # For FAT32/VFAT filesystem support
-  ];
+    environment.systemPackages = with pkgs; [
+      ntfs3g
+      exfatprogs
+      dosfstools
+    ];
+  };
 }

@@ -1,50 +1,52 @@
-{pkgs, ...}: {
-  stylix = {
-    enable = true;
-    autoEnable = false;
-    image = ./wallpapers/nord-trees.jpg;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest-dark-hard.yaml";
-    polarity = "dark";
+{...}: {
+  flake.homeModules.stylix = {pkgs, ...}: {
+    stylix = {
+      enable = true;
+      autoEnable = false;
+      image = ./wallpapers/nord-trees.jpg;
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest-dark-hard.yaml";
+      polarity = "dark";
 
-    targets = {
-      hyprland = {
-        enable = true;
-        hyprpaper.enable = true;
-      };
-      hyprlock.enable = true;
+      targets = {
+        hyprland = {
+          enable = true;
+          hyprpaper.enable = true;
+        };
+        hyprlock.enable = true;
 
-      gtk.enable = true;
-      qt.enable = true;
+        gtk.enable = true;
+        qt.enable = true;
 
-      font-packages.enable = true;
-    };
-
-    fonts = {
-      monospace = {
-        package = pkgs.nerd-fonts.jetbrains-mono;
-        name = "JetBrainsMono Nerd Font Mono";
-      };
-      sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
-      };
-      serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
+        font-packages.enable = true;
       };
 
-      sizes = {
-        applications = 10;
-        terminal = 12;
-        desktop = 10;
-        popups = 10;
-      };
-    };
+      fonts = {
+        monospace = {
+          package = pkgs.nerd-fonts.jetbrains-mono;
+          name = "JetBrainsMono Nerd Font Mono";
+        };
+        sansSerif = {
+          package = pkgs.dejavu_fonts;
+          name = "DejaVu Sans";
+        };
+        serif = {
+          package = pkgs.dejavu_fonts;
+          name = "DejaVu Serif";
+        };
 
-    cursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Classic";
-      size = 22;
+        sizes = {
+          applications = 10;
+          terminal = 12;
+          desktop = 10;
+          popups = 10;
+        };
+      };
+
+      cursor = {
+        package = pkgs.bibata-cursors;
+        name = "Bibata-Modern-Classic";
+        size = 22;
+      };
     };
   };
 }

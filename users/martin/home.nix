@@ -1,83 +1,57 @@
-{
-  pkgs,
-  hostVars,
-  hostname,
-  ...
-}: let
-  terminal = "kitty";
-  hostModule = ./home-${hostname}.nix;
-  username = "martin";
-  homeDirectory = "/home/${username}";
-in {
-  # Home Manager configuration for martin
-  imports = [
-    hostModule
-  ];
-
-  # Let Home Manager manage itself
-  programs.home-manager.enable = true;
-
-  # Home directory configuration
-  home = {
-    # Use the username from the current user context
-    inherit username homeDirectory;
-
-    # This value determines the Home Manager release that your
-    # configuration is compatible with. This helps avoid breakage
-    # when a new Home Manager release introduces backwards
-    # incompatible changes.
-    inherit (hostVars) stateVersion;
-
-    sessionVariables = {
-      TERMINAL = terminal;
-      EDITOR = "vim";
-    };
-
-    # Packages installed to user profile
-    packages = with pkgs; [
-      jq
-      dnsutils
-      vlc
-      fzf
-      ack
+{self, ...}: {
+  flake.homeModules.martin = {pkgs, ...}: {
+    imports = [
+      self.homeModules.ansible
+      self.homeModules.devenv
+      self.homeModules.direnv
+      self.homeModules.fish
+      self.homeModules.fuzzel
+      self.homeModules.git
+      self.homeModules.gnome-disks
+      self.homeModules.carapace
+      self.homeModules.kitty
+      self.homeModules.nvf
+      self.homeModules.obsidian
+      self.homeModules.opencode
+      self.homeModules.opentofu
+      self.homeModules.sops
+      self.homeModules.starship
+      self.homeModules.yazi
+      self.homeModules.zed
+      self.homeModules.zoxide
+      self.homeModules.clipman
     ];
-  };
 
-  homeModules = {
-    ansible.enable = true;
-    devenv.enable = true;
-    direnv.enable = true;
-    fish.enable = true;
-    fuzzel.enable = true;
-    git.enable = true;
-    gnome-disks.enable = true;
-    helix.enable = true;
-    hyprland.terminal = terminal;
-    kitty.enable = true;
-    nvf.enable = true;
-    obsidian.enable = true;
-    opencode.enable = true;
-    opentofu.enable = true;
-    sops.enable = true;
-    starship.enable = true;
-    yazi.enable = true;
-    zed.enable = true;
-    zoxide.enable = true;
+    programs.home-manager.enable = true;
 
-    services = {
-      clipman.enable = true;
+    home = {
+      username = "martin";
+      homeDirectory = "/home/martin";
+      stateVersion = "26.05";
+
+      sessionVariables = {
+        TERMINAL = "kitty";
+        EDITOR = "vim";
+      };
+
+      packages = with pkgs; [
+        jq
+        dnsutils
+        vlc
+        fzf
+        ack
+      ];
     };
+
+    hyprland-terminal = "kitty";
+
+    wayland.windowManager.hyprland.extraConfig = ''
+      hl.config({
+        input = {
+          kb_layout = "us",
+          kb_variant = "altgr-intl",
+        },
+      })
+    '';
   };
-
-  # Custom configuration
-
-  ## Hyprland
-  wayland.windowManager.hyprland.extraConfig = ''
-    hl.config({
-      input = {
-        kb_layout = "${hostVars.keyboardLayout}",
-        kb_variant = "${hostVars.keyboardVariant}",
-      },
-    })
-  '';
 }
