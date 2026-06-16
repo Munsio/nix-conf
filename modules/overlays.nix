@@ -1,12 +1,14 @@
 {inputs, ...}: let
+  opencodeVersion = "1.17.3";
+  opencodeHash = "sha256-V9LtFMyZj/rYXZ2R+ALbAL5yCZF58DZdCRg2KqdGVqs=";
   opencode-overlay = _final: prev: {
     opencode = prev.opencode.overrideAttrs (oldAttrs: {
-      version = "1.17.3";
+      version = opencodeVersion;
       src = inputs.opencode-src;
       node_modules = oldAttrs.node_modules.overrideAttrs (_nmOld: {
         src = inputs.opencode-src;
-        version = "1.17.3";
-        outputHash = "sha256-V9LtFMyZj/rYXZ2R+ALbAL5yCZF58DZdCRg2KqdGVqs=";
+        version = opencodeVersion;
+        outputHash = opencodeHash;
         outputHashAlgo = "sha256";
         outputHashMode = "recursive";
       });

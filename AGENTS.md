@@ -173,30 +173,28 @@ The same pattern applies to NixOS-level features under `modules/features/`.
 
 The `opencode` package in nixpkgs (both stable and unstable) is frequently out of date, so a custom overlay in `modules/overlays.nix` pins a specific version from the `opencode-src` flake input.
 
-### Checking for Updates
+### Automated Updates
+
+A GitHub Action (`.github/workflows/opencode-update.yml`) runs daily and on manual trigger to check for new opencode releases. When one is found, it:
+1. Updates `opencodeVersion` and the `opencode-src` flake lock to the new release tag
+2. Computes the correct `node_modules` hash via a `nix build`
+3. Opens a PR on the `auto/opencode-update` branch
+
+### Checking for Pending Updates
 
 Run the Fish alias:
 ```bash
 check-opencode-update
 ```
-This queries the GitHub API for the latest opencode release.
+This queries the GitHub API for an open auto-update PR on `Munsio/nix-conf`. If one exists, it prints the PR URL.
 
-### Bumping the Version
+### Manual Update (if needed)
 
-1. Update `version` to the new release tag in `modules/overlays.nix`:
-   ```nix
-   version = "1.17.3";       # in opencode-overlay
-   version = "1.17.3";       # in node_modules.overrideAttrs
-   ```
-2. Attempt a build — it will fail with a hash mismatch. Nix will print the new expected hash.
-3. Copy the new hash into `outputHash`:
-   ```nix
-   outputHash = "sha256-...";
-   ```
-4. Verify with a dry-run:
-   ```bash
-   nixos-rebuild build --flake .#whirl
-   ```
+1. Update `opencodeVersion` in `modules/overlays.nix`
+2. Update the flake lock: `nix flake lock --update-input opencode-src`
+3. Attempt a build — it will fail with a hash mismatch, showing the new expected hash
+4. Update `opencodeHash` with the new value
+5. Verify with a dry-run: `nixos-rebuild build --flake .#whirl`
 
 ## 9. TODO / Known Issues
 
