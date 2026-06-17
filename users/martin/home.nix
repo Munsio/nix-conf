@@ -14,7 +14,6 @@
       self.homeModules.obsidian
       self.homeModules.opencode
       self.homeModules.opentofu
-      self.homeModules.sops
       self.homeModules.starship
       self.homeModules.yazi
       self.homeModules.zed

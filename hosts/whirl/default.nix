@@ -32,6 +32,8 @@
     networking.hostName = "whirl";
     networking.networkmanager.enable = true;
 
+    sops.defaultSopsFile = "${self}/secrets/whirl.yaml";
+
     services.upower.enable = true;
 
     # LUKS-encrypted swap partition (nvme0n1p3, not auto-detected by nixos-generate-config)

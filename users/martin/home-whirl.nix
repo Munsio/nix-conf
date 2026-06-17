@@ -10,6 +10,7 @@
       self.homeModules.signal-desktop
       self.homeModules.ghostty
       self.homeModules.zen-browser
+      self.homeModules.sops
     ];
 
     programs = {
@@ -20,6 +21,7 @@
     };
 
     sops = {
+      defaultSopsFile = "${self}/secrets/whirl.yaml";
       secrets = {
         "yubico/yubi5-nfc" = {
           path = "${config.home.homeDirectory}/.config/yubico/u2f_keys";
