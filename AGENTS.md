@@ -25,8 +25,7 @@ This is a NixOS/nix-darwin configuration project with Home-Manager integration, 
   - `gust/`: Standalone home-manager profile (non-NixOS Linux) — `home.nix`
   - `tempest/`: nix-darwin host (macOS) — `default.nix` + `home.nix`
 - `users/`: Per-user base profile + host-specific overrides:
-  - `martin/`: NixOS/Linux user — `default.nix` (NixOS user module), `home.nix` (base home config), `home-whirl.nix`, `home-gust.nix`
-  - `martin.treml/`: macOS user — `home.nix` (base home config), `home-tempest.nix`
+  - `martin/`: User config — `default.nix` (NixOS/nix-darwin user module), `home.nix` (Linux base home config), `home-darwin.nix` (macOS base home config), `home-whirl.nix`, `home-gust.nix`, `home-tempest.nix`
 - `secrets/`: SOPS-encrypted secrets (e.g., `whirl.yaml`)
 - `opencode.json`: OpenCode editor configuration (MCP servers)
 - `shell.nix`: flake-compat for older Nix versions without flake support

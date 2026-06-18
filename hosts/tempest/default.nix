@@ -15,7 +15,9 @@
   flake.darwinModules.tempest-host = {pkgs, ...}: {
     imports = [
       self.darwinModules.unstableOverlay
-      self.darwinModules.martin-treml-user
+      self.darwinModules.nh
+      self.darwinModules.martin-user
+      self.darwinModules.martin-tempest
     ];
 
     nix.enable = false;
@@ -42,6 +44,7 @@
       enable = true;
       casks = [
         "kitty"
+        "zen"
       ];
     };
 

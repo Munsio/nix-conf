@@ -1,5 +1,5 @@
-{...}: {
-  flake.nixosModules.tailscale = {pkgs, ...}: {
+{...}: let
+  tailscaleModule = {pkgs, ...}: {
     environment.systemPackages = [pkgs.tailscale];
 
     services.tailscale = {
@@ -7,4 +7,7 @@
       useRoutingFeatures = "client";
     };
   };
+in {
+  flake.nixosModules.tailscale = tailscaleModule;
+  flake.darwinModules.tailscale = tailscaleModule;
 }

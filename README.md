@@ -113,8 +113,7 @@ See `.sops.yaml` for key configuration.
 │   ├── gust/             # Standalone home-manager
 │   └── tempest/          # nix-darwin host
 ├── users/                # Per-user profiles
-│   ├── martin/           # NixOS/Linux user
-│   └── martin.treml/     # macOS user
+│   └── martin/           # NixOS/Linux + macOS user
 └── secrets/              # SOPS-encrypted secrets
 ```
 

@@ -1,28 +1,60 @@
 {...}: {
   flake.nixosModules.martin-user = {
-    users.users.martin = {
-      isNormalUser = true;
-      description = "Martin";
-      extraGroups = [
-        "wheel"
-        "video"
-        "audio"
-        "camera"
-        "networkmanager"
-        "dialout"
-        "adbusers"
-      ];
+    config,
+    lib,
+    ...
+  }: let
+    username = config.my.nixosUser.martin.username;
+  in {
+    options.my.nixosUser.martin.username = lib.mkOption {
+      type = lib.types.str;
+      default = "martin";
     };
 
-    security.pam = {
-      u2f = {
-        enable = true;
-        settings = {
-          authfile = "/home/martin/.config/yubico/u2f_keys";
+    config = {
+      users.users.${username} = {
+        isNormalUser = true;
+        description = "Martin";
+        extraGroups = [
+          "wheel"
+          "video"
+          "audio"
+          "camera"
+          "networkmanager"
+          "dialout"
+          "adbusers"
+        ];
+      };
+
+      security.pam = {
+        u2f = {
+          enable = true;
+          settings = {
+            authfile = "/home/${username}/.config/yubico/u2f_keys";
+          };
         };
       };
+
+      programs.nh.flake = "/home/${username}/nix-conf";
+    };
+  };
+
+  flake.darwinModules.martin-user = {
+    config,
+    lib,
+    ...
+  }: let
+    username = config.my.darwinUser.martin.username;
+  in {
+    options.my.darwinUser.martin.username = lib.mkOption {
+      type = lib.types.str;
+      default = "martin";
     };
 
-    programs.nh.flake = "/home/martin/nix-conf";
+    config = {
+      system.primaryUser = username;
+      users.users.${username}.home = "/Users/${username}";
+      programs.nh.flake = "/Users/${username}/nix-conf";
+    };
   };
 }

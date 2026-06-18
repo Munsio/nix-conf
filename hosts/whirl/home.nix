@@ -28,18 +28,16 @@
       useUserPackages = true;
       backupFileExtension = "hm-backup";
       extraSpecialArgs = {inherit inputs;};
-      users.martin = {
-        imports = [
-          self.homeModules.martin
-          self.homeModules.martin-whirl
-          self.homeModules.whirl-home
-          self.homeModules.hypr-desktop
-          inputs.stylix.homeModules.stylix
-          inputs.nvf.homeManagerModules.nvf
-          inputs.wayland-pipewire-idle-inhibit.homeModules.default
-          inputs.zen-browser-flake.homeModules.twilight
-        ];
-      };
+      users.martin.imports = [
+        self.homeModules.martin
+        self.homeModules.martin-whirl
+        self.homeModules.whirl-home
+        self.homeModules.hypr-desktop
+        inputs.stylix.homeModules.stylix
+        inputs.nvf.homeManagerModules.nvf
+        inputs.wayland-pipewire-idle-inhibit.homeModules.default
+        inputs.zen-browser-flake.homeModules.twilight
+      ];
     };
   };
 }

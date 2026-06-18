@@ -1,9 +1,5 @@
-{
-  self,
-  inputs,
-  ...
-}: {
-  flake.darwinModules.tempest-home-manager = {
+{self, inputs, ...}: {
+  flake.darwinModules.tempest-home-manager = {config, ...}: {
     imports = [
       inputs.home-manager.darwinModules.home-manager
     ];
@@ -13,12 +9,10 @@
       useUserPackages = true;
       backupFileExtension = "hm-backup";
       extraSpecialArgs = {inherit inputs;};
-      users."martin.treml" = {
-        imports = [
-          self.homeModules.martin-treml
-          self.homeModules.martin-treml-tempest
-        ];
-      };
+      users.${config.my.darwinUser.martin.username}.imports = [
+        self.homeModules.martin-darwin
+        self.homeModules.martin-tempest
+      ];
     };
   };
 }

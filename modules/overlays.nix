@@ -22,12 +22,11 @@
       overlays = [opencode-overlay];
     };
   };
-in {
-  flake.nixosModules.unstableOverlay = {
-    nixpkgs.overlays = [unstableOverlay];
-  };
 
-  flake.darwinModules.unstableOverlay = {
+  unstableOverlayModule = {
     nixpkgs.overlays = [unstableOverlay];
   };
+in {
+  flake.nixosModules.unstableOverlay = unstableOverlayModule;
+  flake.darwinModules.unstableOverlay = unstableOverlayModule;
 }
