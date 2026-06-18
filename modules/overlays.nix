@@ -14,16 +14,20 @@
       });
     });
   };
+
+  unstableOverlay = final: _prev: {
+    unstable = import inputs.nixpkgs-unstable {
+      system = final.stdenv.hostPlatform.system;
+      config.allowUnfree = true;
+      overlays = [opencode-overlay];
+    };
+  };
 in {
   flake.nixosModules.unstableOverlay = {
-    nixpkgs.overlays = [
-      (final: _prev: {
-        unstable = import inputs.nixpkgs-unstable {
-          system = final.stdenv.hostPlatform.system;
-          config.allowUnfree = true;
-          overlays = [opencode-overlay];
-        };
-      })
-    ];
+    nixpkgs.overlays = [unstableOverlay];
+  };
+
+  flake.darwinModules.unstableOverlay = {
+    nixpkgs.overlays = [unstableOverlay];
   };
 }
