@@ -1,4 +1,8 @@
-{self, inputs, ...}: {
+{
+  self,
+  inputs,
+  ...
+}: {
   flake.darwinModules.tempest-home-manager = {config, ...}: {
     imports = [
       inputs.home-manager.darwinModules.home-manager

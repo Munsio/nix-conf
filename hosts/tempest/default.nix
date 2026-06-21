@@ -42,6 +42,9 @@
 
     homebrew = {
       enable = true;
+      brews = [
+        "colima"
+      ];
       casks = [
         "kitty"
         "zen"
