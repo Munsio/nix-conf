@@ -8,7 +8,6 @@
       inputs.nixos-hardware.nixosModules.framework-13-7040-amd
       self.nixosModules.common
       self.nixosModules.nixos
-      self.nixosModules.nh
       self.nixosModules.sops
       self.nixosModules.openssh
       self.nixosModules.audio

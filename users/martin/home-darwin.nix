@@ -1,5 +1,10 @@
 {self, ...}: {
-  flake.homeModules.martin-darwin = {pkgs, ...}: {
+  flake.homeModules.martin-darwin = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
     imports = [
       self.homeModules.carapace
       self.homeModules.devenv
@@ -10,9 +15,14 @@
       self.homeModules.starship
       self.homeModules.zed
       self.homeModules.zoxide
+      self.homeModules.nh
     ];
 
-    programs.home-manager.enable = true;
+    programs = {
+      home-manager.enable = true;
+      nh.darwinFlake = "${config.home.homeDirectory}/nix-conf";
+      fish.shellAliases.os-update = lib.mkForce "nh darwin switch -u";
+    };
 
     home = {
       stateVersion = "26.05";

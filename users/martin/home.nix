@@ -1,5 +1,9 @@
 {self, ...}: {
-  flake.homeModules.martin = {pkgs, ...}: {
+  flake.homeModules.martin = {
+    config,
+    pkgs,
+    ...
+  }: {
     imports = [
       self.homeModules.ansible
       self.homeModules.devenv
@@ -19,9 +23,13 @@
       self.homeModules.zed
       self.homeModules.zoxide
       self.homeModules.clipman
+      self.homeModules.nh
     ];
 
-    programs.home-manager.enable = true;
+    programs = {
+      home-manager.enable = true;
+      nh.osFlake = "${config.home.homeDirectory}/nix-conf";
+    };
 
     home = {
       username = "martin";

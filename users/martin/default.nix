@@ -34,8 +34,6 @@
           };
         };
       };
-
-      programs.nh.flake = "/home/${username}/nix-conf";
     };
   };
 
@@ -54,7 +52,6 @@
     config = {
       system.primaryUser = username;
       users.users.${username}.home = "/Users/${username}";
-      programs.nh.flake = "/Users/${username}/nix-conf";
     };
   };
 }

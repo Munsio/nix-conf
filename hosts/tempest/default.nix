@@ -15,7 +15,6 @@
   flake.darwinModules.tempest-host = {pkgs, ...}: {
     imports = [
       self.darwinModules.unstableOverlay
-      self.darwinModules.nh
       self.darwinModules.martin-user
       self.darwinModules.martin-tempest
     ];
