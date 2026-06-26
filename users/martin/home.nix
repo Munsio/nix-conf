@@ -13,6 +13,7 @@
       self.homeModules.git
       self.homeModules.gnome-disks
       self.homeModules.carapace
+      self.homeModules.claude-code
       self.homeModules.kitty
       self.homeModules.nvf
       self.homeModules.obsidian

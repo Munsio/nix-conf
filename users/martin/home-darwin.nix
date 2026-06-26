@@ -7,6 +7,7 @@
   }: {
     imports = [
       self.homeModules.carapace
+      self.homeModules.claude-code
       self.homeModules.devenv
       self.homeModules.direnv
       self.homeModules.fish
