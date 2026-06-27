@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.squall-home-manager = {
+  flake.nixosModules.vortex-home-manager = {
     imports = [
       inputs.home-manager.nixosModules.home-manager
     ];
@@ -15,7 +15,7 @@
       extraSpecialArgs = {inherit inputs;};
       users.martin.imports = [
         self.homeModules.martin
-        self.homeModules.martin-squall
+        self.homeModules.martin-vortex
         self.homeModules.hypr-desktop
         inputs.stylix.homeModules.stylix
         inputs.nvf.homeManagerModules.nvf

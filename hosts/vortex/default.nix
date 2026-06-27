@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.squall = {pkgs, lib, ...}: {
+  flake.nixosModules.vortex = {pkgs, lib, ...}: {
     imports = [
       self.nixosModules.common
       self.nixosModules.nixos
@@ -17,10 +17,10 @@
       self.nixosModules.heroic
       self.nixosModules.hypr-desktop
       self.nixosModules.martin-user
-      self.nixosModules.squall-home-manager
+      self.nixosModules.vortex-home-manager
     ];
 
-    networking.hostName = "squall";
+    networking.hostName = "vortex";
     networking.networkmanager.enable = true;
 
     services.openssh.openFirewall = lib.mkForce true;
@@ -32,11 +32,11 @@
     ];
   };
 
-  flake.nixosConfigurations.squall = inputs.nixpkgs.lib.nixosSystem {
+  flake.nixosConfigurations.vortex = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     specialArgs = {inherit inputs;};
     modules = [
-      self.nixosModules.squall
+      self.nixosModules.vortex
       ./hardware-configuration.nix
     ];
   };

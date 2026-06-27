@@ -1,5 +1,5 @@
 {self, ...}: {
-  flake.homeModules.martin-squall = {
+  flake.homeModules.martin-vortex = {
     config,
     lib,
     ...
