@@ -68,8 +68,6 @@
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports =
         (importTree ./features)
-        ++ (importTree ./modules)
-        ++ (importTree ./home)
         ++ (importTree ./hosts)
         ++ (importTree ./users);
     };

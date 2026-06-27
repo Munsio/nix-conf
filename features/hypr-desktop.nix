@@ -1,4 +1,11 @@
 {self, ...}: {
+  flake.nixosModules.hypr-desktop = {
+    imports = [
+      self.nixosModules.hyprland
+      self.nixosModules.greetd
+    ];
+  };
+
   flake.homeModules.hypr-desktop = {
     imports = [
       self.homeModules.hyprland
