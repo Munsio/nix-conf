@@ -3,12 +3,13 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.squall = {pkgs, ...}: {
+  flake.nixosModules.squall = {pkgs, lib, ...}: {
     imports = [
       self.nixosModules.common
       self.nixosModules.nixos
       self.nixosModules.unstableOverlay
       self.nixosModules.systemd-boot
+      self.nixosModules.openssh
       self.nixosModules.amdgpu
       self.nixosModules.audio
       self.nixosModules.sunshine
@@ -21,6 +22,8 @@
 
     networking.hostName = "squall";
     networking.networkmanager.enable = true;
+
+    services.openssh.openFirewall = lib.mkForce true;
 
     services.qemuGuest.enable = true;
 
