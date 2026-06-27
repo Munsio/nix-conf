@@ -41,4 +41,13 @@
       ./hardware-configuration.nix
     ];
   };
+
+  flake.packages.x86_64-linux.vortex-proxmox-image = inputs.nixos-generators.nixosGenerate {
+    system = "x86_64-linux";
+    format = "proxmox";
+    specialArgs = {inherit inputs;};
+    modules = [
+      self.nixosModules.vortex
+    ];
+  };
 }
