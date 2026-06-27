@@ -12,14 +12,13 @@
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
-  # Replace with real UUIDs from nixos-generate-config after first boot.
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/REPLACE-ROOT-UUID";
+    device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/REPLACE-BOOT-UUID";
+    device = "/dev/disk/by-label/boot";
     fsType = "vfat";
     options = ["fmask=0022" "dmask=0022"];
   };
