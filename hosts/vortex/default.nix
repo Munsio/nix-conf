@@ -32,6 +32,11 @@
       ipv6.method = "auto";
     };
 
+    services.greetd.settings.initial_session = {
+      command = "Hyprland";
+      user = "martin";
+    };
+
     services.openssh.openFirewall = lib.mkForce true;
 
     services.qemuGuest.enable = true;
