@@ -15,10 +15,11 @@
       users.users.${username} = {
         isNormalUser = true;
         description = "Martin";
-        initialPassword = "changeme";
+        hashedPassword = "$6$k/yxRnFEY4gxs.5H$lFuaO1XB2pY1BCCNqzuGzvfSgu86Xcn3WioGxFaAEOmVwDC4PxHdtMxvSo5LlL4QlMRp2/L29TjFBip7j2zf1.";
         extraGroups = [
           "wheel"
           "video"
+          "render"
           "audio"
           "camera"
           "networkmanager"
