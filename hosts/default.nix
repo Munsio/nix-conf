@@ -21,7 +21,6 @@
 
     environment.systemPackages = with pkgs; [
       dmidecode
-      fzf
       btop
       killall
       pciutils
