@@ -1,4 +1,4 @@
-{...}: {
+{lib, ...}: {
   flake.nixosModules.audio = {
     services = {
       pulseaudio.enable = false;
@@ -6,7 +6,7 @@
       pipewire = {
         enable = true;
         alsa.enable = true;
-        alsa.support32Bit = true;
+        alsa.support32Bit = lib.mkForce false;
         pulse.enable = true;
         jack.enable = true;
         wireplumber = {
