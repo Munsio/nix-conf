@@ -22,6 +22,15 @@
 
     networking.hostName = "vortex";
     networking.networkmanager.enable = true;
+    networking.networkmanager.ensureProfiles.profiles.default-ethernet = {
+      connection = {
+        id = "default-ethernet";
+        type = "ethernet";
+        autoconnect = true;
+      };
+      ipv4.method = "auto";
+      ipv6.method = "auto";
+    };
 
     services.openssh.openFirewall = lib.mkForce true;
 
@@ -42,12 +51,21 @@
     ];
   };
 
-  flake.packages.x86_64-linux.vortex-proxmox-image = inputs.nixos-generators.nixosGenerate {
+  flake.packages.x86_64-linux.vortex-proxmox-image = (inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
-    format = "proxmox";
     specialArgs = {inherit inputs;};
     modules = [
       self.nixosModules.vortex
+      ({lib, modulesPath, ...}: {
+        imports = [(modulesPath + "/virtualisation/proxmox-image.nix")];
+        proxmox.qemuConf.name = "vortex";
+        proxmox.qemuConf.bios = "ovmf";
+        proxmox.qemuConf.net0 = "virtio=BC:24:11:00:00:01,bridge=vmbr0,firewall=1,tag=100";
+        virtualisation.diskSize = "auto";
+        proxmox.cloudInit.enable = false;
+        proxmox.qemuExtraConf.machine = "q35";
+        boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
+      })
     ];
-  };
+  }).config.system.build.VMA;
 }

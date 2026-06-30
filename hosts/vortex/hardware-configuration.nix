@@ -1,6 +1,3 @@
-# For nixos-generators image builds this file only carries kernel modules and
-# platform settings — nixos-generators owns the disk/filesystem layout.
-# After first boot, replace with the output of nixos-generate-config.
 {
   lib,
   modulesPath,
@@ -8,25 +5,23 @@
 }: {
   imports = [(modulesPath + "/profiles/qemu-guest.nix")];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "virtio_pci" "virtio_scsi" "ahci" "usbhid" "sr_mod"];
-  boot.kernelModules = ["kvm-amd"];
+  boot.initrd.availableKernelModules = ["uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "virtio_blk"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = [];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
+    device = "/dev/disk/by-uuid/f222513b-ded1-49fa-b591-20ce86a2fe7f";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/boot";
+    device = "/dev/disk/by-uuid/12CE-A600";
     fsType = "vfat";
     options = ["fmask=0022" "dmask=0022"];
   };
 
   swapDevices = [];
 
-  networking.useDHCP = lib.mkDefault true;
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.enableRedistributableFirmware = lib.mkDefault true;
 }

@@ -15,6 +15,7 @@
       users.users.${username} = {
         isNormalUser = true;
         description = "Martin";
+        initialPassword = "changeme";
         extraGroups = [
           "wheel"
           "video"
