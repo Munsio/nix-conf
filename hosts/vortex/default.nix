@@ -60,10 +60,13 @@
         imports = [(modulesPath + "/virtualisation/proxmox-image.nix")];
         proxmox.qemuConf.name = "vortex";
         proxmox.qemuConf.bios = "ovmf";
+        proxmox.qemuConf.cores = 24;
+        proxmox.qemuConf.memory = 57344;
         proxmox.qemuConf.net0 = "virtio=BC:24:11:00:00:01,bridge=vmbr0,firewall=1,tag=100";
         virtualisation.diskSize = "auto";
         proxmox.cloudInit.enable = false;
         proxmox.qemuExtraConf.machine = "q35";
+        proxmox.qemuExtraConf.cpu = "host";
         boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
       })
     ];
