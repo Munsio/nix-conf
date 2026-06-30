@@ -11,7 +11,6 @@
         ll = "ls -lah";
         ".." = "cd ..";
         os-update = "nh os switch -u -a";
-        hm-switch = "home-manager switch --flake ~/Documents/nix-conf/#(hostname)";
       };
     };
 
