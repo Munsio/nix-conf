@@ -1,6 +1,6 @@
 {inputs, ...}: let
-  opencodeVersion = "1.17.3";
-  opencodeHash = "sha256-V9LtFMyZj/rYXZ2R+ALbAL5yCZF58DZdCRg2KqdGVqs=";
+  opencodeVersion = "1.17.12";
+  opencodeHash = "sha256-M1Wa6dqUYq/XWX1a2khKen45HZiVm6fMVkTCx4zlgm8=";
   opencode-overlay = _final: prev: {
     opencode = prev.opencode.overrideAttrs (oldAttrs: {
       version = opencodeVersion;
