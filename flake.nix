@@ -13,6 +13,9 @@
 
     zen-browser-flake = {
       url = "github:0xc000022070/zen-browser-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs-unstable";
+      };
     };
 
     stylix = {
@@ -42,11 +45,10 @@
 
     opencode-src = {
       url = "github:anomalyco/opencode";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
-
   };
 
   outputs = inputs @ {
