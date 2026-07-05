@@ -16,12 +16,12 @@
   };
 
   flake.homeModules.hyprland = {config, ...}: let
-    terminal = config.hyprland-terminal or "kitty";
+    terminal = config.hyprland-terminal;
     luaConfig = builtins.replaceStrings ["__TERMINAL__"] [terminal] (builtins.readFile ./hyprland.lua);
   in {
     options.hyprland-terminal = lib.mkOption {
       type = lib.types.str;
-      default = "kitty";
+      default = config.home.sessionVariables.TERMINAL;
     };
 
     config = {

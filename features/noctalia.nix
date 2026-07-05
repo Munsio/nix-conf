@@ -109,7 +109,7 @@
 
       pluginSettings = {
         tailscale = {
-          terminalCommand = "kitty";
+          terminalCommand = config.home.sessionVariables.TERMINAL;
         };
       };
     };

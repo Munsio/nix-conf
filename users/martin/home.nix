@@ -38,7 +38,7 @@
       stateVersion = "26.05";
 
       sessionVariables = {
-        TERMINAL = "kitty";
+        TERMINAL = if config.programs.ghostty.enable then "ghostty" else "kitty";
         EDITOR = "vim";
       };
 
@@ -51,9 +51,7 @@
       ];
     };
 
-    hyprland-terminal = "kitty";
-
-    wayland.windowManager.hyprland.extraConfig = ''
+wayland.windowManager.hyprland.extraConfig = ''
       hl.config({
         input = {
           kb_layout = "us",
