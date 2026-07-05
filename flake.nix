@@ -46,6 +46,7 @@
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
   };
 
   outputs = inputs @ {
@@ -67,8 +68,7 @@
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
       imports =
-        (importTree ./modules)
-        ++ (importTree ./home)
+        (importTree ./features)
         ++ (importTree ./hosts)
         ++ (importTree ./users);
     };

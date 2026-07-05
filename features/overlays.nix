@@ -1,6 +1,6 @@
 {inputs, ...}: let
-  opencodeVersion = "1.17.3";
-  opencodeHash = "sha256-V9LtFMyZj/rYXZ2R+ALbAL5yCZF58DZdCRg2KqdGVqs=";
+  opencodeVersion = "1.17.13";
+  opencodeHash = "sha256-mPDllZ8CjC3R5x84ijgVqV1fXTTdTDG6nPv9OcUD2f8=";
   opencode-overlay = _final: prev: {
     opencode = prev.opencode.overrideAttrs (oldAttrs: {
       version = opencodeVersion;
@@ -29,4 +29,5 @@
 in {
   flake.nixosModules.unstableOverlay = unstableOverlayModule;
   flake.darwinModules.unstableOverlay = unstableOverlayModule;
+  flake.overlays.unstable = unstableOverlay;
 }
