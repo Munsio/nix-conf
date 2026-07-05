@@ -104,7 +104,7 @@
 
             markdown = {
               enable = true;
-              format.type = ["prettierd"];
+              format.type = ["prettier"];
             };
             go.enable = true;
             yaml.enable = true;
