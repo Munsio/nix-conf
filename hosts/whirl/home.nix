@@ -36,7 +36,7 @@
         inputs.stylix.homeModules.stylix
         inputs.nvf.homeManagerModules.nvf
         inputs.wayland-pipewire-idle-inhibit.homeModules.default
-        inputs.zen-browser-flake.homeModules.twilight
+        inputs.zen-browser-flake.homeModules.beta
       ];
     };
   };
