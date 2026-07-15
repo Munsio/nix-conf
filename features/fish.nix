@@ -11,6 +11,7 @@
         ll = "ls -lah";
         ".." = "cd ..";
         os-update = "nh os switch -u -a";
+        cat = "bat";
       };
     };
 
