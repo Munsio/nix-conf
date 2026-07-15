@@ -7,7 +7,6 @@ Modular NixOS, nix-darwin, and home-manager configuration using flakes and flake
 | Host | Type | System |
 |------|------|--------|
 | **whirl** | NixOS | Framework 13 AMD (x86_64-linux) |
-| **gust** | Home-Manager | Non-NixOS Linux (x86_64-linux) |
 | **tempest** | nix-darwin | macOS (aarch64-darwin) |
 
 ## Development
@@ -36,9 +35,6 @@ darwin-rebuild build --flake .#tempest
 
 # Apply nix-darwin configuration
 darwin-rebuild switch --flake .#tempest
-
-# Apply standalone home-manager (gust)
-home-manager switch --flake .#gust
 
 # Apply home-manager only (on whirl)
 home-manager switch --flake .#martin@whirl
@@ -98,7 +94,7 @@ See `.sops.yaml` for key configuration.
 ├── flake.nix             # Entry point — auto-imports all modules
 ├── modules/              # NixOS/nix-darwin level
 │   ├── features/         # Atomic configs (audio, bluetooth, steam, sops, ...)
-│   ├── services/         # System services (greetd, openssh, twingate, ...)
+│   ├── services/         # System services (greetd, openssh, print, ...)
 │   ├── bundles/          # Feature groups (hypr-desktop, tailscale, yubikey, ...)
 │   ├── overlays.nix      # nixpkgs overlays (unstable, opencode)
 │   ├── options.nix       # flake-parts option types
@@ -110,7 +106,6 @@ See `.sops.yaml` for key configuration.
 ├── hosts/                # Per-machine definitions
 │   ├── default.nix       # Common NixOS module
 │   ├── whirl/            # NixOS host
-│   ├── gust/             # Standalone home-manager
 │   └── tempest/          # nix-darwin host
 ├── users/                # Per-user profiles
 │   └── martin/           # NixOS/Linux + macOS user

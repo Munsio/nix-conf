@@ -20,7 +20,6 @@
       self.nixosModules.automount
       self.nixosModules.yubikey
       self.nixosModules.tailscale
-      self.nixosModules.twingate
       self.nixosModules.print
       self.nixosModules.qmk
       self.nixosModules.martin-user

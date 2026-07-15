@@ -9,7 +9,7 @@ This is a NixOS/nix-darwin configuration project with Home-Manager integration, 
 - `flake.nix`: Entry point — auto-imports all `.nix` modules from `modules/`, `home/`, `hosts/`, and `users/`.
 - `modules/`: NixOS/nix-darwin level configuration, organized into:
   - `features/`: Small, atomic configs (audio, bluetooth, heroic, hyprland, nh, nixos, proton-vpn, sops, steam, systemd-boot)
-  - `services/`: System services (greetd, openssh, print, qmk, twingate)
+  - `services/`: System services (greetd, openssh, print, qmk)
   - `bundles/`: Groups of features/services (automount, hypr-desktop, tailscale, yubikey)
   - `overlays.nix`: Custom nixpkgs overlays (unstable channel, opencode) — exports both `nixosModules` and `darwinModules`
   - `options.nix`: Defines `flake.homeModules` and `flake.darwinModules` option types for flake-parts
@@ -22,10 +22,9 @@ This is a NixOS/nix-darwin configuration project with Home-Manager integration, 
 - `hosts/`: Per-machine configurations:
   - `default.nix`: Common NixOS module (timezone, locale, system packages shared across all NixOS hosts)
   - `whirl/`: NixOS host (Framework 13 AMD laptop) — `default.nix` + `home.nix` + `hardware-configuration.nix`
-  - `gust/`: Standalone home-manager profile (non-NixOS Linux) — `home.nix`
   - `tempest/`: nix-darwin host (macOS) — `default.nix` + `home.nix`
 - `users/`: Per-user base profile + host-specific overrides:
-  - `martin/`: User config — `default.nix` (NixOS/nix-darwin user module), `home.nix` (Linux base home config), `home-darwin.nix` (macOS base home config), `home-whirl.nix`, `home-gust.nix`, `home-tempest.nix`
+  - `martin/`: User config — `default.nix` (NixOS/nix-darwin user module), `home.nix` (Linux base home config), `home-whirl.nix`, `home-tempest.nix` (macOS base + tempest overrides)
 - `secrets/`: SOPS-encrypted secrets (e.g., `whirl.yaml`)
 - `opencode.json`: OpenCode editor configuration (MCP servers)
 - `shell.nix`: flake-compat for older Nix versions without flake support
@@ -85,12 +84,6 @@ This will drop you into a shell with all the necessary tools (alejandra, statix,
   ```bash
   darwin-rebuild build --flake .#tempest
   ```
-
-### Standalone Home-Manager (gust)
-
-```bash
-home-manager switch --flake .#gust
-```
 
 ### Home-Manager Only (NixOS host)
 
