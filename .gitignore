@@ -15,8 +15,14 @@ result-*
 *.swp
 *~
 
+# Agent
+.claude
+
 # System files
 .DS_Store
 Thumbs.db
 .aider*
-docs/
+
+# superpowers
+docs/superpowers
+.superpowers
