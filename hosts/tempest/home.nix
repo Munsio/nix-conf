@@ -14,7 +14,6 @@
       backupFileExtension = "hm-backup";
       extraSpecialArgs = {inherit inputs;};
       users.${config.my.darwinUser.martin.username}.imports = [
-        self.homeModules.martin-darwin
         self.homeModules.martin-tempest
       ];
     };
