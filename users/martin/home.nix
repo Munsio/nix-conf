@@ -1,4 +1,8 @@
-{self, ...}: {
+{
+  self,
+  release,
+  ...
+}: {
   flake.homeModules.martin = {
     config,
     pkgs,
@@ -35,7 +39,7 @@
     home = {
       username = "martin";
       homeDirectory = "/home/martin";
-      stateVersion = "26.05";
+      stateVersion = release;
 
       sessionVariables = {
         TERMINAL = if config.programs.ghostty.enable then "ghostty" else "kitty";

@@ -56,6 +56,7 @@
     nixpkgs,
     ...
   }: let
+    release = "26.05";
     inherit (nixpkgs) lib;
     inherit (lib.fileset) toList fileFilter;
 
@@ -69,6 +70,8 @@
       toList (fileFilter isNixModule dir);
   in
     flake-parts.lib.mkFlake {inherit inputs;} {
+      _module.args.release = release;
+
       imports =
         (importTree ./features)
         ++ (importTree ./hosts)

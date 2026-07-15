@@ -1,4 +1,8 @@
-{lib, ...}: {
+{
+  lib,
+  release,
+  ...
+}: {
   flake.nixosModules.common = {pkgs, ...}: {
     time.timeZone = lib.mkDefault "Europe/Vienna";
 
@@ -20,6 +24,7 @@
     console.keyMap = lib.mkDefault "us";
 
     environment.systemPackages = with pkgs; [
+      bat
       dmidecode
       btop
       killall
@@ -37,6 +42,6 @@
 
     services.fwupd.enable = true;
 
-    system.stateVersion = lib.mkDefault "26.05";
+    system.stateVersion = lib.mkDefault release;
   };
 }
