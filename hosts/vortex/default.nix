@@ -15,7 +15,8 @@
       self.nixosModules.sunshine
       self.nixosModules.steam
       self.nixosModules.heroic
-      self.nixosModules.hypr-desktop
+      self.nixosModules.greetd
+      self.nixosModules.openbox
       self.nixosModules.martin-user
       self.nixosModules.vortex-home-manager
     ];
@@ -33,7 +34,7 @@
     };
 
     services.greetd.settings.initial_session = {
-      command = "Hyprland";
+      command = "startx";
       user = "martin";
     };
 
