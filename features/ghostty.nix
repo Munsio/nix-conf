@@ -23,6 +23,10 @@
         cursor-style = "block";
 
         scrollback-limit = 10000;
+
+        # Auto-downgrade TERM to xterm-256color over SSH instead of xterm-ghostty,
+        # since remote hosts usually lack Ghostty's terminfo entry.
+        shell-integration-features = "ssh-env";
       };
     };
   };
