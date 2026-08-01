@@ -5,8 +5,13 @@
       autoStart = true;
       capSysAdmin = true;
       openFirewall = true;
-      settings.csrf_allowed_origins = "https://vortex.treml.group";
-      settings.do_cmd = "";
+    };
+
+    # Pinned explicitly rather than relying on upstream's current default,
+    # since that could change silently across nixpkgs updates.
+    systemd.user.services.sunshine.serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = "5s";
     };
   };
 }
