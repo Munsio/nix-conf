@@ -6,6 +6,7 @@
   }: {
     imports = [
       self.homeModules.discord
+      self.homeModules.localsend
       self.homeModules.signal-desktop
     ];
 
