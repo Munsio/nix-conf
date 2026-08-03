@@ -7,8 +7,6 @@
     };
 
     environment.systemPackages = with pkgs; [
-      unstable.hyprlock
-      unstable.hypridle
       unstable.hyprpaper
       wl-clipboard
       wlinhibit

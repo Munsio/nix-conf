@@ -77,6 +77,24 @@
         general = {
           avatarImage = "/home/drfoobar/.face";
           radiusRatio = 0.2;
+          allowPasswordWithFprintd = true;
+          autoStartAuth = true;
+        };
+        # Replaces hypridle: mirrors its former listener timeouts/actions.
+        idle = {
+          enabled = true;
+          screenOffTimeout = 1200;
+          lockTimeout = 900;
+          suspendTimeout = 1800;
+          fadeDuration = 5;
+          resumeScreenOffCommand = "brightnessctl -r";
+          customCommands = builtins.toJSON [
+            {
+              timeout = 150;
+              command = "brightnessctl -s set 10";
+              resumeCommand = "brightnessctl -r";
+            }
+          ];
         };
         location = {
           monthBeforeDay = false;

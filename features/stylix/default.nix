@@ -12,7 +12,6 @@
           enable = true;
           hyprpaper.enable = true;
         };
-        hyprlock.enable = true;
 
         gtk.enable = true;
         qt.enable = true;
