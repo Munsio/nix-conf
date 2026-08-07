@@ -68,7 +68,7 @@
           enabled = false;
         };
         notifications = {
-          location = "top_center";
+          location = "top_right";
         };
         osd = {
           location = "top_center";
