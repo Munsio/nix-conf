@@ -79,6 +79,9 @@
           radiusRatio = 0.2;
           allowPasswordWithFprintd = true;
           autoStartAuth = true;
+          # Power buttons on the lock screen let anyone with physical access
+          # suspend/reboot/shutdown before authenticating. Never expose them.
+          showSessionButtonsOnLockScreen = false;
         };
         # Replaces hypridle: mirrors its former listener timeouts/actions.
         idle = {
@@ -137,5 +140,31 @@
         hl.exec_cmd("noctalia-shell")
       end)
     '';
+
+    # `noctalia-shell ipc call <target> <fn>` resolves its own baked-in
+    # config name to an absolute nix store path and only matches a running
+    # instance registered under that exact path. home-manager rebuilds
+    # noctalia-shell into a new store path on almost every settings change,
+    # so this breaks the moment you rebuild without restarting the shell:
+    # the CLI looks for a path nothing is running under anymore, even
+    # though noctalia-shell is alive and well under its old (still valid)
+    # path. Sidestep this by finding the live quickshell process directly
+    # and targeting it by pid, using its own binary as the IPC client
+    # (always protocol-compatible with itself, regardless of store-path
+    # drift). Used by fuzzel's power menu and Hyprland lock/idle keybinds
+    # instead of calling `noctalia-shell ipc call` directly.
+    home.file.".local/bin/noctalia-ipc" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+        pid=$(pgrep -f '/bin/quickshell$' | head -n1)
+        if [ -z "$pid" ]; then
+          echo "noctalia-ipc: quickshell is not running" >&2
+          exit 1
+        fi
+        exe=$(readlink -f "/proc/$pid/exe")
+        exec "$exe" ipc --pid "$pid" call "$@"
+      '';
+    };
   };
 }

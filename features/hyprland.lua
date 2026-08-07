@@ -81,4 +81,4 @@ hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- noctalia's idle service only locks on its own idle-timeout-triggered
 -- suspend, not on lid-close (which goes through logind directly), so this
 -- covers that path explicitly.
-hl.bind("switch:on:Lid Switch", hl.dsp.exec_cmd("noctalia-shell ipc call lockScreen lock"), { locked = true })
+hl.bind("switch:on:Lid Switch", hl.dsp.exec_cmd("noctalia-ipc lockScreen lock"), { locked = true })

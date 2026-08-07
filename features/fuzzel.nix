@@ -40,13 +40,13 @@
 
         case $selected in
             "󰌾 Lock")
-                noctalia-shell ipc call lockScreen lock
+                noctalia-ipc lockScreen lock
                 ;;
             "󰤄 Logout")
                 hyprctl dispatch 'hl.dsp.exit()'
                 ;;
             "󰒲 Suspend")
-                noctalia-shell ipc call lockScreen lock; sleep 1; systemctl suspend
+                noctalia-ipc sessionMenu lockAndSuspend
                 ;;
             "󰑓 Reboot")
                 systemctl reboot
@@ -60,7 +60,7 @@
 
     wayland.windowManager.hyprland.extraConfig = lib.mkIf config.wayland.windowManager.hyprland.enable ''
       hl.bind("ALT + space", hl.dsp.exec_cmd("fuzzel"))
-      hl.bind("SUPER + L", hl.dsp.exec_cmd("noctalia-shell ipc call lockScreen lock"), { locked = true })
+      hl.bind("SUPER + L", hl.dsp.exec_cmd("noctalia-ipc lockScreen lock"), { locked = true })
       hl.bind("SUPER + escape", hl.dsp.exec_cmd("~/.local/bin/fuzzel-power-menu"))
       hl.bind("CTRL + ALT + V", hl.dsp.exec_cmd("clipman pick --tool=CUSTOM --tool-args='fuzzel -w 100 -d'"))
       hl.layer_rule({ match = { namespace = "launcher" }, no_anim = true })
