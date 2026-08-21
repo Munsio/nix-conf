@@ -10,7 +10,9 @@
     nixpkgs.overlays = [unstableOverlay];
   };
 in {
-  flake.nixosModules.unstableOverlay = unstableOverlayModule;
-  flake.darwinModules.unstableOverlay = unstableOverlayModule;
-  flake.overlays.unstable = unstableOverlay;
+  flake = {
+    nixosModules.unstableOverlay = unstableOverlayModule;
+    darwinModules.unstableOverlay = unstableOverlayModule;
+    overlays.unstable = unstableOverlay;
+  };
 }

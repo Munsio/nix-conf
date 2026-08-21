@@ -60,6 +60,11 @@
         ${pkgs.xrandr}/bin/xrandr --addmode DP-1 "3440x1440_100.00_rb2"
         ${pkgs.xrandr}/bin/xrandr --output DP-1 --primary --mode "3440x1440_100.00_rb2" --output HDMI-2 --auto --right-of DP-1
         ${pkgs.pcmanfm}/bin/pcmanfm --desktop &
+
+        # Autostart Steam so it's already up and logged in by the time a
+        # Sunshine/Moonlight session connects, instead of making the remote
+        # client wait through Steam's own startup.
+        ${pkgs.steam}/bin/steam &
       '';
     };
 
