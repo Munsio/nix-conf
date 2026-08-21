@@ -25,7 +25,14 @@
           # Build + remotely deploy vortex's NixOS config from whirl's
           # nix-conf checkout, mirroring the local os-update alias
           # (features/fish.nix) but targeting vortex over SSH.
-          vortex-update = "nh os switch -H vortex --target-host martin@vortex.treml.group -u -a";
+          #
+          # -e passwordless: nh's default ("auto") elevation strategy
+          # prompts for a sudo password on the remote host even though
+          # vortex's sudoers has a NOPASSWD rule for nixos-rebuild/
+          # switch-to-configuration (see sudo.passwordlessSwitch in
+          # features/sudo.nix). "passwordless" is nh's strategy built
+          # specifically for that case (nix-community/nh#583).
+          vortex-update = "nh os switch -H vortex --target-host martin@vortex.treml.group -e passwordless -u -a";
         };
       };
     };
