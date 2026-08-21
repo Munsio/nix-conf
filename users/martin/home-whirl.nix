@@ -19,6 +19,15 @@
         settings.user.email = "git@treml.dev";
         settings.user.name = "Martin Treml";
       };
+
+      fish = lib.mkIf config.programs.fish.enable {
+        shellAliases = {
+          # Build + remotely deploy vortex's NixOS config from whirl's
+          # nix-conf checkout, mirroring the local os-update alias
+          # (features/fish.nix) but targeting vortex over SSH.
+          vortex-update = "nh os switch -H vortex --target-host martin@vortex.treml.group -u -a";
+        };
+      };
     };
 
     sops = {
