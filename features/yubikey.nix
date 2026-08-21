@@ -17,6 +17,9 @@
       };
     };
 
+    # Upstream sets no Restart=, so a crash/stop leaves it dead until next login.
+    systemd.user.services.yubikey-touch-detector.serviceConfig.Restart = "on-failure";
+
     environment.systemPackages = with pkgs; [
       yubioath-flutter
       yubikey-manager
