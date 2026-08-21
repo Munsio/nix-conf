@@ -10,7 +10,10 @@
         generateKey = true;
       };
       secrets = {
-        "api-keys/nix-github.com" = {};
+        "api-keys/nix-github.com" = {
+          mode = "0440";
+          owner = config.users.users.martin.name;
+        };
       };
     };
 
