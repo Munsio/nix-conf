@@ -42,7 +42,10 @@
       stateVersion = release;
 
       sessionVariables = {
-        TERMINAL = if config.programs.ghostty.enable then "ghostty" else "kitty";
+        TERMINAL =
+          if config.programs.ghostty.enable
+          then "ghostty"
+          else "kitty";
         EDITOR = "vim";
       };
 
@@ -55,7 +58,7 @@
       ];
     };
 
-wayland.windowManager.hyprland.extraConfig = ''
+    wayland.windowManager.hyprland.extraConfig = ''
       hl.config({
         input = {
           kb_layout = "us",

@@ -3,7 +3,11 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.vortex = {pkgs, lib, ...}: {
+  flake.nixosModules.vortex = {
+    pkgs,
+    lib,
+    ...
+  }: {
     imports = [
       self.nixosModules.common
       self.nixosModules.nixos
