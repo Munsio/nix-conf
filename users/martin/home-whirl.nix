@@ -26,13 +26,16 @@
           # nix-conf checkout, mirroring the local os-update alias
           # (features/fish.nix) but targeting vortex over SSH.
           #
-          # -e passwordless: nh's default ("auto") elevation strategy
-          # prompts for a sudo password on the remote host even though
-          # vortex's sudoers has a NOPASSWD rule for nixos-rebuild/
-          # switch-to-configuration (see sudo.passwordlessSwitch in
-          # features/sudo.nix). "passwordless" is nh's strategy built
-          # specifically for that case (nix-community/nh#583).
-          vortex-update = "nh os switch -H vortex --target-host martin@vortex.treml.group -e passwordless -u -a";
+          # Plain nixos-rebuild, not `nh os switch`: nh always prompts for
+          # a remote sudo password even with -e passwordless, because it
+          # sets the system profile via a bare `sudo nix build --no-link
+          # --profile ...` that isn't covered by vortex's sudoers NOPASSWD
+          # rule (see sudo.passwordlessSwitch in features/sudo.nix) —
+          # confirmed via `nh ... -v` debug output (nix-community/nh#583).
+          # nixos-rebuild wraps its remote steps in `/bin/sh -c '...'`,
+          # which that same NOPASSWD rule already covers, so it deploys
+          # with no password prompt.
+          vortex-update = "nixos-rebuild switch --flake ~/nix-conf#vortex --target-host martin@vortex.treml.group --sudo";
         };
       };
     };
