@@ -23,6 +23,7 @@
       self.homeModules.obsidian
       self.homeModules.opencode
       self.homeModules.opentofu
+      self.homeModules.ssh
       self.homeModules.starship
       self.homeModules.yazi
       self.homeModules.zed
