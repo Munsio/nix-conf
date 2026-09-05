@@ -58,6 +58,12 @@
         "ssh_keys/codeberg/public" = {
           path = "/home/martin/.ssh/id_codeberg.pub";
         };
+        "ssh_keys/gitea/private" = {
+          path = "/home/martin/.ssh/id_gitea";
+        };
+        "ssh_keys/gitea/public" = {
+          path = "/home/martin/.ssh/id_gitea.pub";
+        };
       };
     };
   };
