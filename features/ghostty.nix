@@ -27,6 +27,14 @@
         # Auto-downgrade TERM to xterm-256color over SSH instead of xterm-ghostty,
         # since remote hosts usually lack Ghostty's terminfo entry.
         shell-integration-features = "ssh-env";
+
+        # macOS-style copy/paste/select-all; Ghostty only defaults these to
+        # ctrl+shift+* on Linux, not super+*. Real ctrl+c stays SIGINT.
+        keybind = [
+          "super+c=copy_to_clipboard:mixed"
+          "super+v=paste_from_clipboard"
+          "super+a=select_all"
+        ];
       };
     };
   };

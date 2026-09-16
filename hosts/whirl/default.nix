@@ -22,6 +22,7 @@
       self.nixosModules.tailscale
       self.nixosModules.print
       self.nixosModules.qmk
+      self.nixosModules.xremap
       self.nixosModules.martin-user
       self.nixosModules.hypr-desktop
       self.nixosModules.whirl-home-manager
