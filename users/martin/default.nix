@@ -42,6 +42,7 @@
   flake.darwinModules.martin-user = {
     config,
     lib,
+    pkgs,
     ...
   }: let
     username = config.my.darwinUser.martin.username;
@@ -53,7 +54,10 @@
 
     config = {
       system.primaryUser = username;
-      users.users.${username}.home = "/Users/${username}";
+      users.users.${username} = {
+        home = "/Users/${username}";
+        shell = pkgs.fish;
+      };
     };
   };
 }

@@ -39,6 +39,12 @@
       jq
     ];
 
+    programs.fish.enable = true;
+
+    environment = {
+      shells = [pkgs.bashInteractive pkgs.zsh pkgs.fish];
+    };
+
     homebrew = {
       enable = true;
       brews = [
