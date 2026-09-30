@@ -8,7 +8,7 @@
       shellAliases = {
         check-opencode-update = "curl -s https://api.github.com/repos/Munsio/nix-conf/pulls?head=Munsio:auto/opencode-update&state=open | jq -r 'if .[0] then \"OpenCode update PR: \" + .[0].html_url else \"No pending opencode update.\" end'";
         ls = "ls --color=auto";
-        ll = "ls -lah";
+        ll = "ls --color=auto -lah";
         ".." = "cd ..";
         os-update = "nh os switch -u -a";
         cat = "bat";
