@@ -53,6 +53,7 @@
       casks = [
         "kitty"
         "zen"
+        "maccy"
       ];
     };
 
