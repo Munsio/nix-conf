@@ -15,6 +15,9 @@
     ];
 
     programs = {
+      # opencode build keeps failing on whirl (see features/opencode.nix)
+      opencode.enable = lib.mkForce false;
+
       git = lib.mkIf config.programs.git.enable {
         settings.user.email = "git@treml.dev";
         settings.user.name = "Martin Treml";
