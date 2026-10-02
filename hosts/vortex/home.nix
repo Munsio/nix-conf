@@ -59,6 +59,16 @@
           --newmode "3440x1440_100.00_rb2" 531.52 3440 3448 3480 3520 1440 1496 1504 1510 +hsync -vsync
         ${pkgs.xrandr}/bin/xrandr --addmode DP-1 "3440x1440_100.00_rb2"
         ${pkgs.xrandr}/bin/xrandr --output DP-1 --primary --mode "3440x1440_100.00_rb2" --output HDMI-2 --auto --right-of DP-1
+
+        # This is a headless streaming box; the display must never DPMS-sleep.
+        # Sunshine's KMS capture can't recover once that happens (breaks with
+        # "Error: Couldn't import RGB Image: 00003009" / EGL_BAD_MATCH on
+        # every subsequent frame until the service crashes) and upstream has
+        # no automatic re-wake/reinit on client connect yet
+        # (LizardByte/Sunshine discussion #439).
+        ${pkgs.xset}/bin/xset -dpms
+        ${pkgs.xset}/bin/xset s off
+
         ${pkgs.pcmanfm}/bin/pcmanfm --desktop &
 
         # Autostart Steam so it's already up and logged in by the time a
