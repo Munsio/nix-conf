@@ -62,7 +62,7 @@
       hl.bind("ALT + space", hl.dsp.exec_cmd("fuzzel"))
       hl.bind("SUPER + L", hl.dsp.exec_cmd("noctalia-ipc lockScreen lock"), { locked = true })
       hl.bind("SUPER + escape", hl.dsp.exec_cmd("~/.local/bin/fuzzel-power-menu"))
-      hl.bind("CTRL + ALT + V", hl.dsp.exec_cmd("clipman pick --tool=CUSTOM --tool-args='fuzzel -w 100 -d'"))
+      hl.bind("CTRL + SUPER + V", hl.dsp.exec_cmd("clipman pick --tool=CUSTOM --tool-args='fuzzel -w 100 -d'"))
       hl.layer_rule({ match = { namespace = "launcher" }, no_anim = true })
     '';
 
