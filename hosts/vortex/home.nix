@@ -29,7 +29,11 @@
     };
   };
 
-  flake.homeModules.vortex-display = {pkgs, ...}: {
+  flake.homeModules.vortex-display = {
+    config,
+    pkgs,
+    ...
+  }: {
     # DP-1 is the virtual Sunshine display (EDID set in hosts/vortex/default.nix);
     # HDMI-2 is the real monitor for emergency local access.
     # pcmanfm --desktop draws desktop icons, which bare Openbox lacks.
@@ -64,6 +68,7 @@
       "Desktop/heroic.desktop".source = "${pkgs.heroic}/share/applications/com.heroicgameslauncher.hgl.desktop";
       "Desktop/lutris.desktop".source = "${pkgs.lutris}/share/applications/net.lutris.Lutris.desktop";
       "Desktop/pcmanfm.desktop".source = "${pkgs.pcmanfm}/share/applications/pcmanfm.desktop";
+      "Desktop/zen-browser.desktop".source = "${config.programs.zen-browser.finalPackage}/share/applications/zen-twilight.desktop";
     };
 
     # Launch desktop icons directly instead of showing the ambiguous
