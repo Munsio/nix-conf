@@ -5,6 +5,8 @@
     ...
   }: {
     imports = [
+      self.homeModules.ansible
+      self.homeModules.opentofu
       self.homeModules.discord
       self.homeModules.localsend
       self.homeModules.moonlight
@@ -12,12 +14,13 @@
       self.homeModules.ghostty
       self.homeModules.zen-browser
       self.homeModules.sops
+      self.homeModules.devenv
+      self.homeModules.claude-code
+      self.homeModules.obsidian
+      self.homeModules.zed
     ];
 
     programs = {
-      # opencode build keeps failing on whirl (see features/opencode.nix)
-      opencode.enable = lib.mkForce false;
-
       git = lib.mkIf config.programs.git.enable {
         settings.user.email = "git@treml.dev";
         settings.user.name = "Martin Treml";

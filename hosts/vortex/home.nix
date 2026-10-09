@@ -21,7 +21,6 @@
         self.homeModules.openbox
         self.homeModules.ghostty
         self.homeModules.vortex-display
-        self.homeModules.zen-browser
         inputs.stylix.homeModules.stylix
         inputs.nvf.homeManagerModules.nvf
         inputs.zen-browser-flake.homeModules.twilight

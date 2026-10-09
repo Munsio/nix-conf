@@ -5,9 +5,7 @@
     ...
   }: {
     imports = [
-      self.homeModules.discord
-      self.homeModules.localsend
-      self.homeModules.signal-desktop
+      self.homeModules.zen-browser
     ];
 
     programs.git = lib.mkIf config.programs.git.enable {

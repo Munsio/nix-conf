@@ -9,24 +9,17 @@
     ...
   }: {
     imports = [
-      self.homeModules.ansible
-      self.homeModules.devenv
       self.homeModules.direnv
       self.homeModules.fish
       self.homeModules.fuzzel
       self.homeModules.git
       self.homeModules.gnome-disks
       self.homeModules.carapace
-      self.homeModules.claude-code
       self.homeModules.kitty
       self.homeModules.nvf
-      self.homeModules.obsidian
-      self.homeModules.opencode
-      self.homeModules.opentofu
       self.homeModules.ssh
       self.homeModules.starship
       self.homeModules.yazi
-      self.homeModules.zed
       self.homeModules.zoxide
       self.homeModules.clipman
       self.homeModules.nh
