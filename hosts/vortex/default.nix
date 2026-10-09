@@ -141,37 +141,38 @@
     # martin). This is the game library disk, so martin needs write access.
     systemd.tmpfiles.rules = ["d /data 0755 martin users -"];
 
-    # Force the otherwise-unused DP-1 connector to report as connected, so
-    # amdgpu/Xorg exposes it as a genuine second RandR output alongside the
-    # real physical HDMI-2 monitor. Nothing is actually plugged into DP-1, so
-    # there's no real link/bandwidth negotiation to fail — this is purely a
-    # virtual target for Sunshine to capture at a resolution/refresh rate the
-    # real monitor's cable can't carry, while HDMI-2 keeps working natively
-    # for local troubleshooting.
-    #
-    # A forced-but-EDID-less connector gets periodically re-probed by the
-    # kernel's connector polling and fails every time ("No EDID found on
-    # connector: DP-1"), which was observed correlating with real display-
-    # pipeline hardware stalls (REG_WAIT timeouts in dcn401/mpc) and, in
-    # turn, Sunshine capture freezes. Feeding it a real EDID (cloned as-is
-    # from the working HDMI-2 monitor — guaranteed valid, no hand-crafting)
-    # makes those periodic probes succeed cleanly instead. The actual
-    # 3440x1440@100 mode is still forced separately via xrandr in the
-    # Openbox autostart script regardless of what this EDID advertises.
-    systemd.services.force-dp1-connector = {
-      description = "Force DP-1 connector active for virtual Sunshine display";
-      wantedBy = ["multi-user.target"];
-      before = ["greetd.service"];
-      after = ["sys-kernel-debug.mount"];
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStart = "${pkgs.writeShellScript "force-dp1" ''
-          cat ${./dp1-edid.bin} > /sys/kernel/debug/dri/0000:0c:00.0/DP-1/edid_override
-          echo on > /sys/kernel/debug/dri/0000:0c:00.0/DP-1/force
-        ''}";
+    # Virtual Sunshine display on the empty DP-1 connector: forced on from boot
+    # with a generated EDID whose only mode is 3440x1440@100 (CVT-RB v2; plain
+    # CVT's 728MHz clock failed to commit on the CRTC).
+    hardware.display = {
+      edid.modelines."vortex-uw100" = "531.52 3440 3448 3480 3520 1440 1496 1504 1510 +hsync -vsync ratio=16:9 vfreq=100";
+      outputs."DP-1" = {
+        edid = "vortex-uw100.bin";
+        mode = "e";
       };
     };
+
+    nixpkgs.overlays = [
+      (_: prev: {
+        # Backport the kernel's 2019 edid.S sync-bit packing fix (vsync offset >15 got mangled)
+        # and drop the standard timing slot, which can't represent widths over 2288px.
+        edid-generator = prev.edid-generator.overrideAttrs (old: {
+          postPatch =
+            old.postPatch
+            + ''
+              substituteInPlace modeline2edid \
+                --replace-fail '"(63+$((vsyncstart - vdisp)))"' '"$((vsyncstart - vdisp))"' \
+                --replace-fail '"(63+$((vsyncend - vsyncstart)))"' '"$((vsyncend - vsyncstart))"'
+              substituteInPlace edid.S \
+                --replace-fail '(((v1&0x03)>>2)+((v2&0x03)>>4)+((v3&0x03)>>6)+((v4&0x03)>>8))' \
+                  '((((v1>>8)&0x03)<<6)+(((v2>>8)&0x03)<<4)+(((v3>>4)&0x03)<<2)+((v4>>4)&0x03))' \
+                --replace-fail '((YOFFSET-63)<<4)+(YPULSE-63)' '((YOFFSET&0x0f)<<4)+(YPULSE&0x0f)' \
+                --replace-fail '.byte	(XPIX/8)-31' '.byte	0x01' \
+                --replace-fail '.byte	(XY_RATIO<<6)+VFREQ-60' '.byte	0x01'
+            '';
+        });
+      })
+    ];
   };
 
   flake.nixosConfigurations.vortex = inputs.nixpkgs.lib.nixosSystem {
