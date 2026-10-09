@@ -82,15 +82,8 @@
       sunshine.settings = {
         csrf_allowed_origins = "https://vortex.treml.group";
         do_cmd = "";
-        # Force vaapi instead of Sunshine's auto-picked vulkan encoder on this
-        # AMD GPU. Moonlight streams were showing washed-out/off colors;
-        # narrowed down to the encode side (client-side software decode
-        # didn't fix it, ruling out the client's AMD VAAPI decode path).
-        # Sunshine's Linux vulkan encoder is comparatively new and has open
-        # upstream issues around color correctness
-        # (LizardByte/Sunshine#4944 "green screen", #5020 "artifacts") —
-        # vaapi is the long-established, better tested path on AMD. Revisit
-        # if/when those are resolved upstream.
+        # vaapi over the newer, less mature vulkan encoder (Sunshine#4944, #5020).
+        # Washed-out colors were the client: moonlight-qt <6.2.0 mishandles 8-bit full range (moonlight-qt#1667).
         encoder = "vaapi";
         # KMS display index targeting the forced virtual DP-1 output. This is
         # NOT the index shown in sunshine's "Detected display: ... (id: N)"
