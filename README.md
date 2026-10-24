@@ -74,7 +74,6 @@ deadnix --fail .
 GitHub Actions run on every push/PR to main:
 
 - **nix-lint** (`.github/workflows/nix-lint.yml`) — alejandra, statix, deadnix, `nix flake check`
-- **opencode-update** (`.github/workflows/opencode-update.yml`) — daily check for new opencode releases, auto-PR on update
 
 ## Secrets
 
@@ -96,7 +95,7 @@ See `.sops.yaml` for key configuration.
 │   ├── features/         # Atomic configs (audio, bluetooth, steam, sops, ...)
 │   ├── services/         # System services (greetd, openssh, print, ...)
 │   ├── bundles/          # Feature groups (hypr-desktop, tailscale, yubikey, ...)
-│   ├── overlays.nix      # nixpkgs overlays (unstable, opencode)
+│   ├── overlays.nix      # nixpkgs overlays (unstable)
 │   ├── options.nix       # flake-parts option types
 │   └── devshell.nix      # nix develop shell
 ├── home/                 # Home-manager level

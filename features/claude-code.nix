@@ -1,8 +1,8 @@
-{...}: {
+{inputs, ...}: {
   flake.homeModules.claude-code = {pkgs, ...}: {
     programs.claude-code = {
       enable = true;
-      package = pkgs.unstable.claude-code;
+      package = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code;
     };
   };
 }

@@ -25,7 +25,6 @@
         "toml"
         "dockerfile"
         "json"
-        "opencode"
         "perplexity"
       ];
 

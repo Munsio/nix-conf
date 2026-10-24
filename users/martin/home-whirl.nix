@@ -16,6 +16,7 @@
       self.homeModules.sops
       self.homeModules.devenv
       self.homeModules.claude-code
+      self.homeModules.pi
       self.homeModules.obsidian
       self.homeModules.zed
     ];

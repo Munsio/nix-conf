@@ -11,11 +11,11 @@ This is a NixOS/nix-darwin configuration project with Home-Manager integration, 
   - `features/`: Small, atomic configs (audio, bluetooth, heroic, hyprland, nh, nixos, proton-vpn, sops, steam, systemd-boot)
   - `services/`: System services (greetd, openssh, print, qmk)
   - `bundles/`: Groups of features/services (automount, hypr-desktop, tailscale, yubikey)
-  - `overlays.nix`: Custom nixpkgs overlays (unstable channel, opencode) — exports both `nixosModules` and `darwinModules`
+  - `overlays.nix`: Custom nixpkgs overlays (unstable channel) — exports both `nixosModules` and `darwinModules`
   - `options.nix`: Defines `flake.homeModules` and `flake.darwinModules` option types for flake-parts
   - `devshell.nix`: `nix develop` shell definition (supports `x86_64-linux`, `aarch64-linux`, `aarch64-darwin`)
 - `home/`: Home-manager configuration, same dendritic pattern:
-  - `features/`: User-facing tools (ansible, carapace, devenv, direnv, discord, fish, fuzzel, ghostty, git, gnome-disks, hyprland, hyprlock, hyprpaper, hyprshot, icons-cursors, kitty, moonlight, noctalia, nvf, obsidian, opencode, opentofu, quickshell, signal-desktop, sops, starship, stylix, yazi, zed, zen-browser, zoxide)
+  - `features/`: User-facing tools (ansible, carapace, devenv, direnv, discord, fish, fuzzel, ghostty, git, gnome-disks, hyprland, hyprlock, hyprpaper, hyprshot, icons-cursors, kitty, moonlight, noctalia, nvf, obsidian, opentofu, pi, quickshell, signal-desktop, sops, starship, stylix, yazi, zed, zen-browser, zoxide)
   - `services/`: User background services (clipman, hypridle, wayland-idle-inhibitor)
   - `bundles/`: Groups of home features/services (hypr-desktop)
   - `hyprland.lua`: Lua config for Hyprland compositor
@@ -26,7 +26,6 @@ This is a NixOS/nix-darwin configuration project with Home-Manager integration, 
 - `users/`: Per-user base profile + host-specific overrides:
   - `martin/`: User config — `default.nix` (NixOS/nix-darwin user module), `home.nix` (Linux base home config), `home-whirl.nix`, `home-tempest.nix` (macOS base + tempest overrides)
 - `secrets/`: SOPS-encrypted secrets (e.g., `whirl.yaml`)
-- `opencode.json`: OpenCode editor configuration (MCP servers)
 - `shell.nix`: flake-compat for older Nix versions without flake support
 - `.sops.yaml`: SOPS age key configuration
 - `.envrc`: direnv configuration (auto-enters dev shell)
@@ -44,7 +43,7 @@ This is a NixOS/nix-darwin configuration project with Home-Manager integration, 
 - `noctalia` — Legacy v4
 - `zen-browser-flake` — Zen Browser (twilight)
 - `wayland-pipewire-idle-inhibit` — Idle inhibitor
-- `opencode-src` — OpenCode source (used by overlay)
+- `llm-agents` — AI coding agent packages (claude-code, pi), served from `cache.numtide.com`
 - `flake-parts` — Module system
 
 ## 2. Getting Started
@@ -155,7 +154,7 @@ The configuration follows a **dendritic pattern**: every `.nix` file in `modules
   - `default.nix`: NixOS user module (user account, groups) — optional
   - `home.nix`: Base home-manager configuration (shared across all hosts)
   - `home-<host>.nix`: Host-specific home-manager overrides
-- **Overlays**: Live in `modules/overlays.nix`. Contains the `unstable` nixpkgs overlay and the custom `opencode` overlay. Exported as both `nixosModules.unstableOverlay` and `darwinModules.unstableOverlay`.
+- **Overlays**: Live in `modules/overlays.nix`. Contains the `unstable` nixpkgs overlay. Exported as both `nixosModules.unstableOverlay` and `darwinModules.unstableOverlay`.
 
 ### Naming Conventions
 
@@ -249,33 +248,6 @@ sops.secrets."my-secret" = {
 };
 ```
 
-## 9. Updating the OpenCode Overlay
-
-The `opencode` package in nixpkgs (both stable and unstable) is frequently out of date, so a custom overlay in `modules/overlays.nix` pins a specific version from the `opencode-src` flake input.
-
-### Automated Updates
-
-A GitHub Action (`.github/workflows/opencode-update.yml`) runs daily and on manual trigger to check for new opencode releases. When one is found, it:
-1. Updates `opencodeVersion` and the `opencode-src` flake lock to the new release tag
-2. Computes the correct `node_modules` hash via a `nix build`
-3. Opens a PR on the `auto/opencode-update` branch
-
-### Checking for Pending Updates
-
-Run the Fish alias:
-```bash
-check-opencode-update
-```
-This queries the GitHub API for an open auto-update PR on `Munsio/nix-conf`. If one exists, it prints the PR URL.
-
-### Manual Update (if needed)
-
-1. Update `opencodeVersion` in `modules/overlays.nix`
-2. Update the flake lock: `nix flake lock --update-input opencode-src`
-3. Attempt a build — it will fail with a hash mismatch, showing the new expected hash
-4. Update `opencodeHash` with the new value
-5. Verify with a dry-run: `nixos-rebuild build --flake .#whirl`
-
-## 10. TODO / Known Issues
+## 9. TODO / Known Issues
 
 - **`home/features/sops.nix`** and **`modules/features/sops.nix`**: Investigate `sops.secrets.<name>.neededForUsers = true` to ensure secrets are decrypted before the user session starts, eliminating potential race conditions.

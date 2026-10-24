@@ -43,10 +43,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    opencode-src = {
-      url = "github:anomalyco/opencode";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    llm-agents.url = "github:numtide/llm-agents.nix";
 
     disko = {
       url = "github:nix-community/disko";
