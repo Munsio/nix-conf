@@ -134,6 +134,11 @@
     # martin). This is the game library disk, so martin needs write access.
     systemd.tmpfiles.rules = ["d /data 0755 martin users -"];
 
+    # Fullscreen games flip DCC-compressed buffers that Sunshine's KMS capture can't import (crashes it, Sunshine#5471)
+    services.xserver.deviceSection = ''
+      Option "PageFlip" "off"
+    '';
+
     # Virtual Sunshine display on the empty DP-1 connector: forced on from boot
     # with a generated EDID whose only mode is 3440x1440@100 (CVT-RB v2; plain
     # CVT's 728MHz clock failed to commit on the CRTC).
