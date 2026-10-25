@@ -40,7 +40,7 @@ This is a NixOS/nix-darwin configuration project with Home-Manager integration, 
 - `sops-nix` — Secrets management
 - `stylix` — System-wide theming
 - `nvf` — Neovim distribution
-- `noctalia` — Legacy v4
+- `noctalia` — v5, pinned to the `cachix` branch (always a cached commit)
 - `zen-browser-flake` — Zen Browser (twilight)
 - `wayland-pipewire-idle-inhibit` — Idle inhibitor
 - `llm-agents` — AI coding agent packages (claude-code, pi), served from `cache.numtide.com`

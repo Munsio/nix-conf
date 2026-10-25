@@ -31,10 +31,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia/legacy-v4";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # no nixpkgs follows: the noctalia.cachix.org cache only hits on upstream's own pin
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
     wayland-pipewire-idle-inhibit.url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
 
