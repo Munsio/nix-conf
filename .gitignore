@@ -17,6 +17,7 @@ result-*
 
 # Agent
 .claude
+.worktree
 
 # System files
 .DS_Store
