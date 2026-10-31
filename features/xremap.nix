@@ -7,6 +7,7 @@
       serviceMode = "user";
       userName = "martin";
       withHypr = true;
+      watch = true;
 
       config.keymap = [
         {
@@ -18,7 +19,7 @@
           # Ghostty binds super+c/v/a natively (features/ghostty.nix) and has no
           # cut/undo actions; stepping aside here lets those fire instead of
           # eating the raw Super combo before Ghostty sees it.
-          application.not = ["ghostty"];
+          application.not = ["com.mitchellh.ghostty"];
           remap = {
             "Super-c" = "C-c";
             "Super-v" = "C-v";
